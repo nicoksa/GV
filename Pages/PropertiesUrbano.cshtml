@@ -1,0 +1,404 @@
+﻿@page
+@model GV.Pages.PropertiesModel
+@{
+    ViewData["Title"] = "División Urbano";
+}
+
+
+
+
+<link rel="stylesheet" href="css/styleProperties.css" />
+
+<div class="site-section site-section-sm bg-light">
+    <div class="container">
+
+        <div class="row mb-3">
+            <div class="col-12">
+                <h4 class="division-title text-muted"
+                    style="font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: 1px;">
+                    <i class="fas fa-city me-2"></i> División Urbano
+                </h4>
+                <hr class="mt-1" style="border-top: 1px solid #eee; width: 100px;">
+            </div>
+        </div>
+
+        <!-- Filtros - Versión clásica  -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-10">
+                <div class="property-filter-container bg-white p-4 shadow-sm">
+                    <div class="filter-header text-center mb-4">
+                        <h3 class="filter-title position-relative d-inline-block mb-4"
+                            style="font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: 1px; color: #333;">
+                            BUSCAR PROPIEDADES
+                        </h3>
+                    </div>
+
+                    <form class="filter-form">
+                        <!-- Fila principal de filtros -->
+
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-3">
+                                <div class="filter-group">
+                                    <label for="property-type" class="form-label small text-muted mb-1">TIPO DE PROPIEDAD</label>
+                                    <select class="form-select border-1" id="property-type">
+                                        <option value="" selected disabled hidden>Todos</option>
+                                        <option>Casas</option>
+                                        <option>Departamentos</option>
+                                        <option>Campos</option>
+                                        <option>Locales</option>
+                                        <option>Quintas</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <div class="filter-group">
+                                    <label for="location" class="form-label small text-muted mb-1">UBICACIÓN</label>
+                                    <select class="form-select border-1" id="location">
+                                        <option value="" selected disabled hidden>Todas</option>
+                                        <option>Saladillo</option>
+                                        <option>25 de Mayo</option>
+                                        <option>Las Flores</option>
+                                        <option>Roque Pérez</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="filter-group">
+                                    <label for="price-range" class="form-label small text-muted mb-1">PRECIO</label>
+                                    <select class="form-select border-1" id="price-range">
+                                        <option value="" selected disabled hidden>Todos</option>
+                                        <option>Hasta U$S1.000</option>
+                                        <option>U$S1.000 - U$S5.000</option>
+                                        <option>U$S5.000 - U$S10.000</option>
+                                        <option>U$S10.000 - U$S20.000</option>
+                                        <option>U$S20.000 - U$S30.000</option>
+                                        <option>U$S30.000 - U$S50.000</option>
+                                        <option>U$S50.000 - U$S100.000</option>
+                                        <option>U$S100.000 - U$S500.000</option>
+                                       
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button type="submit" class="btn btn-dark w-100 py-2">
+                                    <i class="fas fa-search me-2"></i> Buscar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Filtros avanzados (ocultos inicialmente) -->
+                        <div class="advanced-filters collapse mt-3">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <div class="filter-group">
+                                        <label for="bedrooms" class="form-label small text-muted mb-1">DORMITORIOS</label>
+                                        <select class="form-select border-1" id="bedrooms">
+                                            <option value="" selected disabled hidden>Cualquiera</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4+</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="filter-group">
+                                        <label for="bathrooms" class="form-label small text-muted mb-1">BAÑOS</label>
+                                        <select class="form-select border-1" id="bathrooms">
+                                            <option value="" selected disabled hidden>Cualquiera</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4+</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="filter-group">
+                                        <label for="ambients" class="form-label small text-muted mb-1">AMBIENTES</label>
+                                        <select class="form-select border-1" id="ambients">
+                                            <option value="" selected disabled hidden>Cualquiera</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4+</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="filter-group">
+                                        <label for="features" class="form-label small text-muted mb-1">CARACTERÍSTICAS</label>
+                                        <select class="form-select border-1" id="features">
+                                            <option value="" selected disabled hidden>Seleccionar</option>
+                                            <option>Cochera</option>
+                                            <option>Pileta</option>
+                                            <option>Jardín</option>
+                                            <option>Aire Acondicionado</option>
+                                            <option>Quincho</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botón para mostrar filtros avanzados -->
+                        <div class="text-center mt-4">
+                            <a class="toggle-advanced-filters text-decoration-none text-muted" data-bs-toggle="collapse" href=".advanced-filters" role="button">
+                                <span class="filter-toggle-text">Más opciones de búsqueda</span>
+                                <i class="fas fa-chevron-down ms-2 small"></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="site-section site-section-sm bg-light">
+            <div class="container">
+                <div class="row mb-5">
+                    <!-- Propiedad 1 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="property-entry h-100">
+                            <a href="property-details.html" class="property-thumbnail">
+                                <div class="offer-type-wrap">
+                                    <span class="offer-type bg-success">Casa</span>
+                                </div>
+                                <img src="images/img_1.jpg" alt="Casa en Saladillo" class="img-fluid">
+                            </a>
+                            <div class="p-4 property-body">
+                                <h2 class="property-title"><a href="property-details.html">Excelente casa familiar en Saladillo</a></h2>
+                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Calle Mitre 850, Saladillo</span>
+                                <strong class="property-price text-primary mb-3 d-block text-success">U$S12.000</strong>
+                                <ul class="property-specs-wrap mb-3 mb-lg-0">
+                                    <li>
+                                        <span class="property-specs">Dormitorios</span>
+                                        <span class="property-specs-number">3</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">Baños</span>
+                                        <span class="property-specs-number">2</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">m²</span>
+                                        <span class="property-specs-number">180</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Propiedad 2 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="property-entry h-100">
+                            <a href="property-details.html" class="property-thumbnail">
+                                <div class="offer-type-wrap">
+                                    <span class="offer-type bg-success">Departamento</span>
+                                </div>
+                                <img src="images/img_2.jpg" alt="Departamento en Saladillo" class="img-fluid">
+                            </a>
+                            <div class="p-4 property-body">
+                                <h2 class="property-title"><a href="property-details.html">Moderno departamento céntrico</a></h2>
+                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Av. Rivadavia 1200, Saladillo</span>
+                                <strong class="property-price text-primary mb-3 d-block text-success">U$S25.000</strong>
+                                <ul class="property-specs-wrap mb-3 mb-lg-0">
+                                    <li>
+                                        <span class="property-specs">Dormitorios</span>
+                                        <span class="property-specs-number">2</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">Baños</span>
+                                        <span class="property-specs-number">1</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">m²</span>
+                                        <span class="property-specs-number">75</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Propiedad 3 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="property-entry h-100">
+                            <a href="property-details.html" class="property-thumbnail">
+                                <div class="offer-type-wrap">
+                                    <span class="offer-type bg-success">Casa quinta</span>
+                                </div>
+                                <img src="images/img_3.jpg" alt="Casa quinta en 25 de mayo" class="img-fluid">
+                            </a>
+                            <div class="p-4 property-body">
+                                <h2 class="property-title"><a href="property-details.html">Casa quinta en 25 de Mayo</a></h2>
+                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Ruta 205, Km 128, 25 de Mayo</span>
+                                <strong class="property-price text-primary mb-3 d-block text-success">U$S 45.000</strong>
+                                <ul class="property-specs-wrap mb-3 mb-lg-0">
+                                    <li>
+                                        <span class="property-specs">Dormitorios</span>
+                                        <span class="property-specs-number">3</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">Baños</span>
+                                        <span class="property-specs-number">2</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">m²</span>
+                                        <span class="property-specs-number">130</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Propiedad 4 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="property-entry h-100">
+                            <a href="property-details.html" class="property-thumbnail">
+                                <div class="offer-type-wrap">
+                                    <span class="offer-type bg-success">Casa</span>
+                                </div>
+                                <img src="images/img_4.jpg" alt="Casa en Las Flores" class="img-fluid">
+                            </a>
+                            <div class="p-4 property-body">
+                                <h2 class="property-title"><a href="property-details.html">Casa quinta en Las Flores</a></h2>
+                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Ruta 30, Las Flores</span>
+                                <strong class="property-price text-primary mb-3 d-block text-success">U$S22.000</strong>
+                                <ul class="property-specs-wrap mb-3 mb-lg-0">
+                                    <li>
+                                        <span class="property-specs">Dormitorios</span>
+                                        <span class="property-specs-number">4</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">Baños</span>
+                                        <span class="property-specs-number">3</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">m²</span>
+                                        <span class="property-specs-number">500 </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Propiedad 5 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="property-entry h-100">
+                            <a href="property-details.html" class="property-thumbnail">
+                                <div class="offer-type-wrap">
+                                    <span class="offer-type bg-success">Local</span>
+                                </div>
+                                <img src="images/img_5.jpg" alt="Local comercial en Saladillo" class="img-fluid">
+                            </a>
+                            <div class="p-4 property-body">
+                                <h2 class="property-title"><a href="property-details.html">Local comercial en centro</a></h2>
+                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Calle Belgrano 550, Saladillo</span>
+                                <strong class="property-price text-primary mb-3 d-block text-success">U$S20.000</strong>
+                                <ul class="property-specs-wrap mb-3 mb-lg-0">
+                                    <li>
+                                        <span class="property-specs">Dormitorios</span>
+                                        <span class="property-specs-number">2</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">Baños</span>
+                                        <span class="property-specs-number">1</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">m²</span>
+                                        <span class="property-specs-number">120</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Propiedad 6 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="property-entry h-100">
+                            <a href="property-details.html" class="property-thumbnail">
+                                <div class="offer-type-wrap">
+                                    <span class="offer-type bg-success">Casa</span>
+                                </div>
+                                <img src="images/img_6.jpg" alt="Casa en Roque Pérez" class="img-fluid">
+                            </a>
+                            <div class="p-4 property-body">
+                                <h2 class="property-title"><a href="property-details.html">Casa en casco urbano en Roque Pérez</a></h2>
+                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Calle Sarmiento, Roque Pérez</span>
+                                <strong class="property-price text-primary mb-3 d-block text-success">U$S8.000</strong>
+                                <ul class="property-specs-wrap mb-3 mb-lg-0">
+                                    <li>
+                                        <span class="property-specs">Baños</span>
+                                        <span class="property-specs-number">3</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">Dormitorios</span>
+                                        <span class="property-specs-number">Todos</span>
+                                    </li>
+                                    <li>
+                                        <span class="property-specs">m²</span>
+                                        <span class="property-specs-number">150</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="site-pagination">
+                            <a href="#" class="active">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <span>...</span>
+                            <a href="#">10</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.querySelector('.toggle-advanced-filters').addEventListener('click', function() {
+        const icon = this.querySelector('i');
+        icon.classList.toggle('fa-chevron-down');
+        icon.classList.toggle('fa-chevron-up');
+
+        // Cambiar el texto del enlace
+        const textSpan = this.querySelector('.filter-toggle-text');
+        if (icon.classList.contains('fa-chevron-up')) {
+            textSpan.textContent = 'Menos opciones';
+        } else {
+            textSpan.textContent = 'Más opciones de búsqueda';
+        }
+    });
+</script>
+
+<script>
+    document.querySelector('.toggle-advanced-filters').addEventListener('click', function() {
+        const icon = this.querySelector('i');
+        icon.classList.toggle('fa-chevron-down');
+        icon.classList.toggle('fa-chevron-up');
+    });
+</script>
+
+
+
+
+
+

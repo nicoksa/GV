@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GV</title>
+
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/GV.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="css/stylesLayout.css" />
+
+
+    
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500">
+
+    <!-- Librerías específicas (ver que sean necesarias) -->
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/aos.css">
+
+    <!-- Estilo personalizado -->
+    <link rel="stylesheet" href="~/css/style.css">
+
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+    </div>
+
+
+
+ 
+    <header>
+
+        
+         
+            <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        <img src="images/logos/logotexto.png" alt="Logo" class="img-fluid">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-page="/Index">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#services">Servicios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#aboutUs">Sobre nosotros</a>
+                            </li>
+                          <li class="nav-item dropdown dropdown-custom">
+                    <a class="nav-link dropdown-toggle" href="#" id="propertiesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Propiedades
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="propertiesDropdown">
+                        <li>
+                            <a class="dropdown-item dropdown-item-custom" asp-page="/Properties" asp-route-division="Campos">
+                                 División Campos
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item dropdown-item-custom" asp-page="/PropertiesUrbano" asp-route-division="Urbano">
+                                División Urbano
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+           
+                            <li class="nav-item">
+                                <a class="nav-link" href="#contactUs">Contactanos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+         
+      
+
+    </header>
+   
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h4>Contacto</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Martin Fierro 3253</li>
+                        <li><i class="fas fa-phone me-2"></i> Teléfono: +54 2345 423974</li>
+                        <li><i class="fas fa-phone me-2"></i> Teléfono 2: +54 2344 542490</li>
+                        <li><i class="fas fa-envelope me-2"></i> Email: <a href="mailto:gv.propiedades1@gmail.com">gv.propiedades1@gmail.com</a></li>
+                        <li><i class="fas fa-clock me-2"></i> Lunes a Viernes: 9:00 - 18:00</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <h4>Servicios</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-home me-2"></i> Venta de propiedades</li>
+                        <li><i class="fas fa-search-dollar me-2"></i> Tasaciones profesionales</li>
+                        <li><i class="fas fa-handshake me-2"></i> Asesoramiento legal</li>
+                        <li><i class="fas fa-chart-line me-2"></i> Inversiones inmobiliarias</li>
+                        <li><i class="fas fa-building me-2"></i> Administración de alquileres</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <h4>Seguinos</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <br />
+                    
+                    <h5>Zona de cobertura</h5>
+                    <p>Saladillo, 25 de Mayo, Las Flores y toda la región</p>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <h4>Nosotros</h4>
+                    <div class="feature-list">
+                        <p><i class="fas fa-check-circle text-success me-2"></i> Experiencia en el mercado</p>
+                        <p><i class="fas fa-check-circle text-success me-2"></i> Conocimiento local profundo</p>
+                        <p><i class="fas fa-check-circle text-success me-2"></i> Atención personalizada</p>
+                        <p><i class="fas fa-check-circle text-success me-2"></i> Transparencia en cada operación</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p class="mb-0">© 2025 GV Propiedades | Todos los derechos reservados</p>
+                        <p class="small mb-0">Matrícula CUCICBA 3761</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script para ocultar el loader cuando la página cargue -->
+    <script>
+        // Mostrar loader inmediatamente
+        document.body.classList.add('loading');
+
+        // Ocultar loader cuando todo haya cargado
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                document.body.classList.remove('loading');
+
+                // Eliminar el preloader del DOM después de la animación
+                setTimeout(function() {
+                    preloader.remove();
+                }, 500); // Tiempo igual a la duración de la transición
+            }
+        });
+    </script>
+
+    <!-- Scripts específicos para el slider -->
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/aos.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

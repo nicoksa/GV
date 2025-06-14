@@ -1,0 +1,294 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<link rel="stylesheet" href="css/styleIndex.css" />
+
+
+<div class="slide-one-item home-slider owl-carousel">
+
+    <!-- Slide 1 - Integrado con tu CSS -->
+    <div class="site-blocks-cover overlay" style="background-image: url(images/hero_bg_1.jpg);"></div>
+
+    <!-- Slide 2 - Integrado con tu CSS -->
+    <div class="site-blocks-cover overlay" style="background-image: url(images/hero_bg_2.jpg);"></div>
+    
+</div>
+
+
+<div class="site-section site-section-sm pb-0">
+    <div class="container">
+        <div class="row">
+            <form class="form-search col-md-12" style="margin-top: -200px;">
+                <div class="row align-items-center">
+                    <!-- Cambiado a align-items-center -->
+                    <div class="col-md-3">
+                        <label for="list-types">División</label>
+                        <div class="select-wrap">
+                            <span class="icon icon-arrow_drop_down"></span>
+                            <select name="list-types" id="list-types" class="form-control d-block rounded-0">
+                                <option value="">División campos</option>
+                                <option value="">División urbano</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="offer-types">Tipo de propiedad</label>
+                        <div class="select-wrap">
+                            <span class="icon icon-arrow_drop_down"></span>
+                            <select name="offer-types" id="offer-types" class="form-control d-block rounded-0">
+                                <option value="">Agricola</option>
+                                <option value="">Ganadero</option>
+                                <option value="">Mixto</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="select-city">Ciudad</label>
+                        <div class="select-wrap">
+                            <span class="icon icon-arrow_drop_down"></span>
+                            <select name="select-city" id="select-city" class="form-control d-block rounded-0">
+                                <option value="">Saladillo</option>
+                                <option value="">25 de mayo</option>
+                                <option value="">Las Flores</option>
+                                <option value="">Roque Perez</option>
+                                <option value="">General Alvear</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="submit" class="btn btn-success text-white btn-block rounded-0" value="Buscar" >
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Propiedades Destacadas -->
+<div class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12 text-center">
+                <h2 class="section-title mb-3" style="font-family: 'Oswald', sans-serif; letter-spacing: 0.1em;">Propiedades Destacadas</h2>
+                <p class="lead">Descubre nuestras selecciones exclusivas</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Propiedad 1 -->
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="property-entry h-100">
+                    <div class="property-thumbnail">
+                        <img src="images/img_1.jpg" alt="Imagen propiedad" class="img-fluid">
+                        <div class="offer-type">
+                            <span class="bg-success">Se vende</span>
+                        </div>
+                    </div>
+                    <div class="property-body p-4">
+                        <h3 class="property-title mb-3">Casa ubicada en las afueras</h3>
+                        <div class="property-location mb-3">
+                            <i class="fas fa-map-marker-alt text-success mr-2"></i>
+                            <span>Rivadavia 5021, Saladillo</span>
+                        </div>
+                        <div class="property-specs d-flex justify-content-between mb-3">
+                            <span><i class="fas fa-bed text-muted mr-1"></i> 3 Dormitorios</span>
+                            <span><i class="fas fa-bath text-muted mr-1"></i> 2 Baños</span>
+                            <span><i class="fas fa-vector-square text-muted mr-1"></i> 120 m²</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <strong class="text-success h4 mb-0">$350,000</strong>
+                            <a href="#" class="btn btn-outline-success btn-sm">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Propiedad 2 -->
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="property-entry h-100">
+                    <div class="property-thumbnail">
+                        <img src="images/img_2.jpg" alt="Imagen propiedad" class="img-fluid">
+                        <div class="offer-type">
+                            <span class="bg-danger">Se vende</span>
+                        </div>
+                    </div>
+                    <div class="property-body p-4">
+                        <h3 class="property-title mb-3">Casa quinta</h3>
+                        <div class="property-location mb-3">
+                            <i class="fas fa-map-marker-alt text-success mr-2"></i>
+                            <span>Cabral 3029, 25 de mayo</span>
+                        </div>
+                        <div class="property-specs d-flex justify-content-between mb-3">
+                            <span><i class="fas fa-bed text-muted mr-1"></i> 4 Dormitorios</span>
+                            <span><i class="fas fa-bath text-muted mr-1"></i> 3 Baños</span>
+                            <span><i class="fas fa-vector-square text-muted mr-1"></i> 250 m²</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <strong class="text-success h4 mb-0">$12,500</strong>
+                            <a href="#" class="btn btn-outline-success btn-sm">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Propiedad 3 -->
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="property-entry h-100">
+                    <div class="property-thumbnail">
+                        <img src="images/img_3.jpg" alt="Imagen propiedad" class="img-fluid">
+                        <div class="offer-type">
+                            <span class="bg-primary">Vendida</span>
+                        </div>
+                    </div>
+                    <div class="property-body p-4">
+                        <h3 class="property-title mb-3">Amplia propiedad sobre terreno</h3>
+                        <div class="property-location mb-3">
+                            <i class="fas fa-map-marker-alt text-success mr-2"></i>
+                            <span>San Martin 3902, Saladillo</span>
+                        </div>
+                        <div class="property-specs d-flex justify-content-between mb-3">
+                            <span><i class="fas fa-bed text-muted mr-1"></i> 2 dormitorios</span>
+                            <span><i class="fas fa-bath text-muted mr-1"></i> 2 Baños</span>
+                            <span><i class="fas fa-vector-square text-muted mr-1"></i> 90 m²</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <strong class="text-success h4 mb-0">$475,000</strong>
+                            <a href="#" class="btn btn-outline-success btn-sm">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-12 text-center">
+                <a href="#" class="btn btn-success px-5 py-3 rounded-0" >Ver Todas las Propiedades</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Servicios -->
+<div class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12 text-center">
+                <h2 class="section-title mb-3" style="font-family: 'Oswald', sans-serif; letter-spacing: 0.1em;">Nuestros Servicios</h2>
+                <p class="lead">Asesoramiento personalizado para encontrar el hogar ideal</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Servicio 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center p-4 h-100">
+                    <div class="icon-wrapper mb-4">
+                        <i class="fas fa-home fa-3x" style="color: #8fc843;"></i>
+                    </div>
+                    <h3 style="font-family: 'Oswald', sans-serif;">Venta de propiedades</h3>
+                    <p>Te ayudamos a vender tu propiedad con un trato cercano y estrategias adaptadas a tu necesidad.</p>
+                    <ul class="text-left pl-3">
+                        <li>Publicación en portales inmobiliarios</li>
+                        <li>Gestión de visitas y negociación</li>
+                        <li>Acompañamiento hasta la firma</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Servicio 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center p-4 h-100">
+                    <div class="icon-wrapper mb-4">
+                        <i class="fas fa-search-dollar fa-3x" style="color: #8fc843;"></i>
+                    </div>
+                    <h3 style="font-family: 'Oswald', sans-serif;">Tasaciones</h3>
+                    <p>Valoramos tu propiedad de manera realista para que tomes las mejores decisiones.</p>
+                    <ul class="text-left pl-3">
+                        <li>Análisis de mercado local</li>
+                        <li>Informe detallado de valor</li>
+                        <li>Asesoramiento sin compromiso</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Servicio 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center p-4 h-100">
+                    <div class="icon-wrapper mb-4">
+                        <i class="fas fa-gavel fa-3x" style="color: #8fc843;"></i>
+                    </div>
+                    <h3 style="font-family: 'Oswald', sans-serif;">Remates</h3>
+                    <p>Representación especializada en procesos judiciales y oportunidades únicas.</p>
+                    <ul class="text-left pl-3">
+                        <li>Asesoramiento en subastas inmobiliarias</li>
+                        <li>Gestión de documentación legal</li>
+                        <li>Estrategias de adquisición competitivas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Características -->
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-5 mb-md-0">
+                <img src="images/img_6.jpg" alt="Imagen características" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6 pl-md-5">
+                <h2 class="mb-4" style="font-family: 'Oswald', sans-serif; letter-spacing: 0.1em;">Por qué elegirnos</h2>
+
+                <div class="feature d-flex mb-4">
+                    <div class="icon mr-3"><i class="fas fa-home text-success fa-2x"></i></div>
+                    <div>
+                        <h4>Inventario exclusivo</h4>
+                        <p>Acceso a propiedades no listadas en el mercado tradicional.</p>
+                    </div>
+                </div>
+
+                <div class="feature d-flex mb-4">
+                    <div class="icon mr-3"><i class="fas fa-chart-line text-success fa-2x"></i></div>
+                    <div>
+                        <h4>Análisis de mercado</h4>
+                        <p>Te ayudamos a tomar decisiones informadas con datos actualizados del mercado.</p>
+                    </div>
+                </div>
+
+                <div class="feature d-flex mb-4">
+                    <div class="icon mr-3"><i class="fas fa-handshake text-success fa-2x"></i></div>
+                    <div>
+                        <h4>Negociación experta</h4>
+                        <p>Conseguimos los mejores términos para nuestros clientes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+
+
+
+
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/jquery-migrate-3.0.1.min.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/mediaelement-and-player.min.js"></script>
+        <script src="js/jquery.stellar.min.js"></script>
+        <script src="js/jquery.countdown.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/bootstrap-datepicker.min.js"></script>
+        <script src="js/aos.js"></script>
+
+        <script src="js/main.js"></script>
