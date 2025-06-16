@@ -1,0 +1,120 @@
+﻿.service-card {
+    border: 1px solid #e5e5e5;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    background: white;
+}
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        border-top: 3px solid #8fc843;
+    }
+
+.icon-wrapper {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-details {
+    border-top: 1px solid #f0f0f0;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+    .service-details ul {
+        padding-left: 20px;
+    }
+
+    .service-details li {
+        margin-bottom: 8px;
+        position: relative;
+        color: #555;
+    }
+
+        .service-details li:before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #8fc843;
+            border-radius: 50%;
+            position: absolute;
+            left: -15px;
+            top: 8px;
+        }
+
+.text-muted {
+    color: #666 !important;
+    min-height: 60px;
+}
+
+.section-title {
+    color: #333;
+}
+
+
+/* Estilos para el proceso */
+.process-steps {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.step {
+    width: 23%;
+    text-align: center;
+    padding: 20px 15px;
+    position: relative;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: #8fc843;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-weight: bold;
+}
+
+.step h4 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.step p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .process-steps {
+        flex-direction: column;
+    }
+
+    .step {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+        .step:not(:last-child):after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 1px;
+            background: #ddd;
+            margin: 20px auto;
+        }
+}
+
+
