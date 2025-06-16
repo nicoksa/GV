@@ -1,0 +1,162 @@
+﻿@page
+@model GV.Pages.ContactModel
+@{
+    ViewData["Title"] = "Contacto";
+}
+
+<link rel="stylesheet" href="css/styleContact.css" />
+
+
+
+<div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(images/hero_bg_2.jpg);">
+
+</div>
+
+<div class="site-section site-section-sm bg-light">
+    <div class="container">
+        <!-- Encabezado de Contacto -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="section-title mb-3" 
+                    style="font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: 1px;">
+                    CONTÁCTANOS
+                </h2>
+                <p class="mb-5" style="color: #666;">Complete el formulario y nos pondremos en contacto a la brevedad</p>
+                <hr style="border-top: 1px solid #eee; width: 100px; margin: 0 auto 2rem;">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <!-- Formulario de Contacto -->
+                <div class="contact-form bg-white p-4 shadow-sm">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-group">
+                                    <label for="name" class="form-label small text-muted mb-1">NOMBRE</label>
+                                    <input type="text" class="form-control border-0 border-bottom px-0" id="name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="form-group">
+                                    <label for="email" class="form-label small text-muted mb-1">EMAIL</label>
+                                    <input type="email" class="form-control border-0 border-bottom px-0" id="email" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="form-group">
+                                <label for="subject" class="form-label small text-muted mb-1">ASUNTO</label>
+                                <input type="text" class="form-control border-0 border-bottom px-0" id="subject" required>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="form-group">
+                                <label for="message" class="form-label small text-muted mb-1">MENSAJE</label>
+                                <textarea class="form-control border-0 border-bottom px-0" id="message" rows="5" required></textarea>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-dark px-4 py-2">
+                                <i class="fas fa-paper-plane me-2"></i> ENVIAR MENSAJE
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <!-- Información de Contacto -->
+                <div class="contact-info bg-white p-4 h-100 shadow-sm">
+                    <h4 class="mb-4" style="font-family: 'Oswald', sans-serif; font-weight: 300;">NUESTRAS OFICINAS</h4>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-3" style="color: #6c757d;">
+                            <i class="fas fa-map-marker-alt fa-lg"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-1" style="font-weight: 500;">DIRECCIÓN</h6>
+                            <p class="mb-0 text-muted">Martin Fierro 3253, Saladillo, Buenos Aires</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-3" style="color: #6c757d;">
+                            <i class="fas fa-phone fa-lg"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-1" style="font-weight: 500;">TELÉFONO</h6>
+                            <p class="mb-0 text-muted">+54 2345 423974</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div  class="me-3" style="color: #6c757d;">
+                            <i class="fas fa-envelope fa-lg"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-1" style="font-weight: 500;">EMAIL</h6>
+                            <p class="mb-0 text-muted">gv.propiedades1@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex">
+                        <div class="me-3" style="color: #6c757d;">
+                            <i class="fas fa-clock fa-lg"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-1" style="font-weight: 500;">HORARIO</h6>
+                            <p class="mb-0 text-muted">Lunes a Viernes: 9:00 - 18:00</p>
+                            <p class="mb-0 text-muted">Sábados: 9:00 - 13:00</p>
+                        </div>
+                    </div>
+
+                    <!-- Redes Sociales -->
+                    <div class="mt-5 pt-3">
+                        <h5 class="mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300;">SÍGUENOS</h5>
+                        <div class="social-links">
+                            <a href="#" class="text-decoration-none me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                            <a href="#" class="text-decoration-none me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                            <a href="#" class="text-decoration-none me-3"><i class="fab fa-youtube fa-lg"></i></a>
+                            <a href="#" class="text-decoration-none"><i class="fab fa-whatsapp fa-lg"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    /* Estilos específicos para la página de contacto */
+    .contact-form .form-control {
+        background-color: transparent;
+        border-radius: 0;
+        padding-left: 0;
+        border-color: #ddd;
+    }
+    
+    .contact-form .form-control:focus {
+        box-shadow: none;
+        border-color: #333;
+    }
+    
+    .contact-info h4 {
+        letter-spacing: 1px;
+        color: #333;
+    }
+    
+    .social-links a {
+        color: #666;
+        transition: color 0.3s;
+    }
+    
+    .social-links a:hover {
+        color: #000;
+    }
+
+    
+
+</style>

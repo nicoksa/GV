@@ -1,0 +1,142 @@
+﻿@page
+@model GV.Pages.AboutModel
+@{
+}
+
+
+<div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(images/hero_bg_2.jpg);">
+
+</div>
+
+
+<div class="site-section">
+    <div class="container">
+
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="section-title mb-3"
+                    style="font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: 1px;">
+                    SOBRE NOSOTROS
+                </h2>
+                <p class="mb-5" style="color: #666;">Adentrate a nuestra historia y conocenos</p>
+                <hr style="border-top: 1px solid #eee; width: 100px; margin: 0 auto 2rem;">
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <img src="images/about.jpg" alt="Nuestra inmobiliaria" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-md-6 pl-md-5">
+                
+                <p class="lead">Somos una inmobiliaria familiar dedicados a conectar personas con su hogar ideal.</p>
+                <p>Fundada en el año 2022, hemos crecido manteniendo nuestros valores de trato cercano y servicio personalizado. Lo que comenzó como un pequeño negocio local se ha convertido en una referencia en el sector, sin perder nunca nuestro carácter familiar.</p>
+                <p>Creemos que cada transacción inmobiliaria es única y personal. Por eso nos esforzamos por entender tus necesidades y ofrecer soluciones a medida.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 text-center">
+                <h2 class=" mb-4">Nuestro Compromiso</h2>
+                <p class="lead">Más que una transacción, una relación a largo plazo</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="feature-1 p-4 bg-white rounded shadow h-100">
+                    <h3 class="text-green mb-3"><i class="fas fa-search mr-2"></i>Asesoramiento Personalizado</h3>
+                    <p>Analizamos tus necesidades para encontrar la propiedad que mejor se adapte a tu estilo de vida y presupuesto.</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-green mr-2"></i>Estudio de necesidades</li>
+                        <li><i class="fas fa-check text-green mr-2"></i>Selección de propiedades</li>
+                        <li><i class="fas fa-check text-green mr-2"></i>Acompañamiento continuo</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="feature-1 p-4 bg-white rounded shadow h-100">
+                    <h3 class="text-green mb-3"><i class="fas fa-file-signature mr-2"></i>Proceso Transparente</h3>
+                    <p>Te guiamos en cada paso del proceso con información clara y honesta.</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-green mr-2"></i>Documentación clara</li>
+                        <li><i class="fas fa-check text-green mr-2"></i>Sin costes ocultos</li>
+                        <li><i class="fas fa-check text-green mr-2"></i>Soporte legal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 text-center">
+                <h2 class="text-black mb-4">Áreas de Especialización</h2>
+                <p class="lead">Conocemos cada rincón del mercado inmobiliario local</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="specialization text-center p-4 bg-white rounded shadow h-100">
+                    <span class="icon mb-3 d-block"><i class="fas fa-city fa-2x text-green"></i></span>
+                    <h3 class="mb-3">Viviendas Urbanas</h3>
+                    <p>Apartamentos y pisos en las mejores zonas de tu ciudad, con todas las comodidades a tu alcance.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="specialization text-center p-4 bg-white rounded shadow h-100">
+                    <span class="icon mb-3 d-block"><i class="fas fa-tree fa-2x text-green"></i></span>
+                    <h3 class="mb-3">Propiedades Rurales</h3>
+                    <p>Agricolas y ganaderos para quienes buscan expandir su negocio.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="specialization text-center p-4 bg-white rounded shadow h-100">
+                    <span class="icon mb-3 d-block"><i class="fas fa-gavel fa-2x text-green"></i></span>
+                    <h3 class="mb-3">Remates Inmobiliarios</h3>
+                    <p>Oportunidades únicas en propiedades subastadas. Te asesoramos en todo el proceso con seguridad y transparencia.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-green {
+        color: #8fc843 !important;
+    }
+
+    .feature-1, .specialization {
+        transition: all 0.3s ease;
+        border: 1px solid #e5e5e5;
+    }
+
+        .feature-1:hover, .specialization:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: #8fc843;
+        }
+
+    .lead {
+        font-size: 1.1rem;
+        color: #555;
+    }
+
+    .bg-light {
+        background-color: #f8f9fa !important;
+    }
+
+    .icon {
+        color: #8fc843;
+    }
+
+    .list-unstyled li {
+        padding: 5px 0;
+    }
+</style>
