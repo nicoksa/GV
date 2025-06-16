@@ -1,0 +1,253 @@
+﻿@page
+@model GV.Pages.PropertyModel
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <!-- Galería de Imágenes -->
+            <div class="col-lg-8">
+                <div class="property-gallery mb-5">
+                    <div class="main-image mb-3">
+                        <img src="~/images/urbano/casaEj1.jpg" alt="Imagen principal de la propiedad" class="img-fluid rounded">
+                    </div>
+                    <div class="thumbnail-gallery">
+                        <div class="row">
+                            <div class="col-4 col-md-3">
+                                <a href="images/urbano/casaEj2.jpg" data-fancybox="gallery">
+                                    <img src="images/urbano/casaEj2.jpg" alt="Imagen 1" class="img-fluid rounded">
+                                </a>
+                            </div>
+                            <div class="col-4 col-md-3">
+                                <a href="images/urbano/casaEj3.jpg" data-fancybox="gallery">
+                                    <img src="images/urbano/casaEj3.jpg" alt="Imagen 2" class="img-fluid rounded">
+                                </a>
+                            </div>
+                            <div class="col-4 col-md-3">
+                                <a href="images/urbano/casaEj4.jpg" data-fancybox="gallery">
+                                    <img src="images/urbano/casaEj4.jpg" alt="Imagen 3" class="img-fluid rounded">
+                                </a>
+                            </div>
+                            <div class="col-4 col-md-3 d-none d-md-block">
+                                <a href="images/urbano/casaEj5.jpg" data-fancybox="gallery">
+                                    <img src="images/urbano/casaEj5.jpg" alt="Imagen 4" class="img-fluid rounded">
+                                </a>
+                            </div>
+                       
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-video mb-5">
+                    <h3 class="section-title mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: 1px;">VIDEO</h3>
+                    <hr style="border-top: 1px solid #eee; width: 100px; margin: 0 0 2rem;">
+                    <div class="ratio ratio-16x9 mb-4">
+                        <iframe src="https://www.youtube.com/embed/n_jC8NvOjR0"
+                                title="Video de la propiedad"
+                                allowfullscreen
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                frameborder="0"></iframe>
+                    </div>
+                    
+                </div>
+
+                <!-- Descripción -->
+                <div class="property-description mb-5">
+                    <h2 class="section-title mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: 1px;">DESCRIPCIÓN</h2>
+                    <hr style="border-top: 1px solid #eee; width: 100px; margin: 0 0 2rem;">
+                    <p class="lead" style="color: #666;">Exclusiva propiedad en zona residencial</p>
+                    <p>Esta magnífica propiedad combina elegancia y funcionalidad en uno de los barrios más buscados de la ciudad. Con acabados de alta gama y distribución inteligente, ofrece espacios luminosos y amplios ideales para familias que buscan comodidad y estilo de vida.</p>
+                    <p>La casa fue construida en 2018 con los más altos estándares de calidad, utilizando materiales premium y atención al detalle en cada espacio. La ubicación privilegiada permite acceso rápido a centros comerciales, colegios de primer nivel y principales vías de comunicación.</p>
+                </div>
+            </div>
+
+            <!-- Sidebar con detalles y formulario -->
+            <div class="col-lg-4">
+                <div class="property-details p-4 bg-light rounded mb-4">
+                    <h3 class="mb-4" style="font-family: 'Oswald', sans-serif; font-weight: 300; color:forestgreen" >U$S450,000</h3>
+                    
+                    <!-- Detalles principales -->
+                    <div class="details-section mb-4">
+                        <h4 class="mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 1.2rem;">DETALLES</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><strong>Tipo:</strong> Casa</li>
+                            <li class="mb-2"><strong>Dormitorios:</strong> 4</li>
+                            <li class="mb-2"><strong>Baños:</strong> 3</li>
+                            <li class="mb-2"><strong>Ambientes:</strong> 6</li>
+                            <li class="mb-2"><strong>Superficie:</strong> 220 m²</li>
+                            <li class="mb-2"><strong>Terreno:</strong> 450 m²</li>
+                            <li class="mb-2"><strong>Año construcción:</strong> 2018</li>
+                        </ul>
+                    </div>
+
+                    <!-- Características -->
+                    <div class="features-section mb-4">
+                        <h4 class="mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 1.2rem;">CARACTERÍSTICAS</h4>
+                        <div class="row">
+                            <div class="col-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Terraza</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Pileta</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Cochera</li>
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Aire acond.</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Jardín</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Seguridad</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ubicación -->
+                    
+                </div>
+
+                <!-- Formulario de Contacto -->
+                <div class="contact-form p-4 bg-white rounded shadow">
+                    <h4 class="mb-4" style="font-family: 'Oswald', sans-serif; font-weight: 300;">CONTACTO</h4>
+                    
+                    <!-- WhatsApp destacado -->
+                    <div class="whatsapp-contact mb-4 p-3 rounded text-center" style="background-color: #f0f8f0; border: 1px solid #8fc843;">
+                        <i class="fab fa-whatsapp fa-2x mb-2" style="color: #25D366;"></i>
+                        <h5 style="font-family: 'Oswald', sans-serif; font-weight: 300;">¿Consultas rápidas?</h5>
+                        <a href="https://wa.me/542345423974" class="btn btn-success btn-block mt-2">
+                            <i class="fab fa-whatsapp mr-2"></i> Enviar WhatsApp
+                        </a>
+                    </div>
+                    
+                    <!-- Formulario tradicional -->
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Teléfono">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="4" placeholder="Mensaje" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Enviar Consulta</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .property-gallery .main-image {
+        margin-bottom: 10px;
+    }
+    
+    .thumbnail-gallery img {
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+    }
+    
+    .thumbnail-gallery img:hover {
+        opacity: 0.8;
+    }
+    
+    .property-description p {
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+    
+    .property-details {
+        border: 1px solid #e5e5e5;
+    }
+    
+    .details-section li, .features-section li {
+        padding: 5px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .contact-form .form-control {
+        border-radius: 0;
+        border: 1px solid #ddd;
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .contact-form .form-control:focus {
+        border-color: #8fc843;
+        box-shadow: 0 0 0 0.2rem rgba(143, 200, 67, 0.25);
+    }
+    
+    .btn-success {
+        background-color: #8fc843;
+        border-color: #7bb03a;
+        padding: 10px;
+        font-weight: 500;
+    }
+    
+    .btn-success:hover {
+        background-color: #7bb03a;
+        border-color: #6a9e2f;
+    }
+    
+    .whatsapp-contact {
+        transition: all 0.3s ease;
+    }
+    
+    .whatsapp-contact:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+
+
+    property-video {
+        margin-bottom: 40px;
+        border: 1px solid #eee;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+       
+    }
+
+    .property-video h3 {
+        color: #333;
+    }
+
+    .embed-responsive {
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+        .embed-responsive iframe {
+            transition: transform 0.3s ease;
+        }
+
+        .embed-responsive:hover iframe {
+            transform: scale(1.02);
+        }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- JS de Fancybox 3 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('[data-fancybox="gallery"]').fancybox();
+    });
+</script>
+
+
+

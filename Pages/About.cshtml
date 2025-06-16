@@ -1,10 +1,16 @@
 ﻿@page
 @model GV.Pages.AboutModel
 @{
+    ViewData["Title"] = "Nosotros";
 }
+
+<link rel="stylesheet" href="css/styleOthersViews.css" />
 
 
 <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(images/hero_bg_2.jpg);">
+
+
+
 
 </div>
 
@@ -18,7 +24,7 @@
                     style="font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: 1px;">
                     SOBRE NOSOTROS
                 </h2>
-                <p class="mb-5" style="color: #666;">Adentrate a nuestra historia y conocenos</p>
+                <p class="mb-5" style="color: #111;">Adentrate a nuestra historia y conocenos</p>
                 <hr style="border-top: 1px solid #eee; width: 100px; margin: 0 auto 2rem;">
             </div>
         </div>
@@ -26,13 +32,14 @@
 
         <div class="row">
             <div class="col-md-6">
-                <img src="images/about.jpg" alt="Nuestra inmobiliaria" class="img-fluid rounded shadow">
+                <img src="images/local/local2.jpeg" alt="Nuestra inmobiliaria" class="img-fluid rounded shadow" >
             </div>
             <div class="col-md-6 pl-md-5">
-                
-                <p class="lead">Somos una inmobiliaria familiar dedicados a conectar personas con su hogar ideal.</p>
-                <p>Fundada en el año 2022, hemos crecido manteniendo nuestros valores de trato cercano y servicio personalizado. Lo que comenzó como un pequeño negocio local se ha convertido en una referencia en el sector, sin perder nunca nuestro carácter familiar.</p>
-                <p>Creemos que cada transacción inmobiliaria es única y personal. Por eso nos esforzamos por entender tus necesidades y ofrecer soluciones a medida.</p>
+                <p>Somos una inmobiliaria familiar con raíces en Saladillo, comprometidos con ayudarte a encontrar el lugar que soñás llamar hogar o invertir con confianza.</p>
+                <p>Desde nuestros comienzos en 2022, trabajamos con responsabilidad, compromiso y un trato humano que nos caracteriza. Lo que empezó como un pequeño emprendimiento local fue creciendo gracias a la confianza de nuestros clientes y al esfuerzo diario, hasta convertirnos en una referencia dentro de la ciudad. Hoy seguimos expandiéndonos con paso firme hacia localidades vecinas, sin perder nunca nuestra esencia.</p>
+                <p>Nos especializamos en <a href="/Services">venta de propiedades, administración de alquileres, remates y tasaciones</a>. Ofrecemos un abanico amplio de opciones, desde casas y departamentos urbanos hasta campos agrícolas, ganaderos y mixtos, además de lotes para quienes sueñan con construir desde cero. Creemos que cada cliente es único y por eso brindamos un asesoramiento personalizado, acompañando cada etapa del proceso con cercanía y transparencia.</p>
+                <p>Sabemos que comprar o vender una propiedad es una decisión importante, y estamos acá para ayudarte a tomarla con tranquilidad, información y confianza.</p>
+                <p>Si querés conocernos, hacernos una consulta o simplemente contarnos qué estás buscando, no dudes en <a href="/Contact">escribirnos</a>. Estamos para acompañarte en cada paso.</p>
             </div>
         </div>
     </div>
@@ -106,37 +113,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .text-green {
-        color: #8fc843 !important;
-    }
-
-    .feature-1, .specialization {
-        transition: all 0.3s ease;
-        border: 1px solid #e5e5e5;
-    }
-
-        .feature-1:hover, .specialization:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-color: #8fc843;
-        }
-
-    .lead {
-        font-size: 1.1rem;
-        color: #555;
-    }
-
-    .bg-light {
-        background-color: #f8f9fa !important;
-    }
-
-    .icon {
-        color: #8fc843;
-    }
-
-    .list-unstyled li {
-        padding: 5px 0;
-    }
-</style>

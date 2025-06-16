@@ -118,3 +118,69 @@
 }
 
 
+
+
+
+/* Estilos específicos para la página de contacto */
+.contact-form .form-control {
+    background-color: transparent;
+    border-radius: 0;
+    padding-left: 0;
+    border-color: #ddd;
+}
+
+    .contact-form .form-control:focus {
+        box-shadow: none;
+        border-color: #333;
+    }
+
+.contact-info h4 {
+    letter-spacing: 1px;
+    color: #333;
+}
+
+.social-links a {
+    color: #666;
+    transition: color 0.3s;
+}
+
+    .social-links a:hover {
+        color: #000;
+    }
+
+
+
+/* Estilos específicos para la página de sobre nosotros */
+
+
+.text-green {
+    color: #8fc843 !important;
+}
+
+.feature-1, .specialization {
+    transition: all 0.3s ease;
+    border: 1px solid #e5e5e5;
+}
+
+    .feature-1:hover, .specialization:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        border-color: #8fc843;
+    }
+
+.lead {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.icon {
+    color: #8fc843;
+}
+
+.list-unstyled li {
+    padding: 5px 0;
+}
