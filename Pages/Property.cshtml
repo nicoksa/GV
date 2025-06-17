@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
+<link rel="stylesheet" href="css/stylePropertyDetails.css" />
+
+
 
 <div class="site-section">
     <div class="container">
@@ -15,31 +18,51 @@
             <div class="col-lg-8">
                 <div class="property-gallery mb-5">
                     <div class="main-image mb-3">
-                        <img src="~/images/urbano/casaEj1.jpg" alt="Imagen principal de la propiedad" class="img-fluid rounded">
+                        <img src="~/images/urbano/casaEj1.jpg" alt="Imagen principal" class="img-fluid rounded">
                     </div>
                     <div class="thumbnail-gallery">
-                        <div class="row">
-                            <div class="col-4 col-md-3">
-                                <a href="images/urbano/casaEj2.jpg" data-fancybox="gallery">
+                        <div class="row g-2">
+                            <!-- Mostrar solo las primeras 5 imágenes -->
+                            <div class="col-4 col-md-3 col-lg-2">
+                                <a href="images/urbano/casaEj2.jpg" data-fancybox="gallery" class="d-block">
                                     <img src="images/urbano/casaEj2.jpg" alt="Imagen 1" class="img-fluid rounded">
                                 </a>
                             </div>
-                            <div class="col-4 col-md-3">
-                                <a href="images/urbano/casaEj3.jpg" data-fancybox="gallery">
+                            <div class="col-4 col-md-3 col-lg-2">
+                                <a href="images/urbano/casaEj3.jpg" data-fancybox="gallery" class="d-block">
                                     <img src="images/urbano/casaEj3.jpg" alt="Imagen 2" class="img-fluid rounded">
                                 </a>
                             </div>
-                            <div class="col-4 col-md-3">
-                                <a href="images/urbano/casaEj4.jpg" data-fancybox="gallery">
+                            <div class="col-4 col-md-3 col-lg-2">
+                                <a href="images/urbano/casaEj4.jpg" data-fancybox="gallery" class="d-block">
                                     <img src="images/urbano/casaEj4.jpg" alt="Imagen 3" class="img-fluid rounded">
                                 </a>
                             </div>
-                            <div class="col-4 col-md-3 d-none d-md-block">
-                                <a href="images/urbano/casaEj5.jpg" data-fancybox="gallery">
+                            <div class="col-4 col-md-3 col-lg-2">
+                                <a href="images/urbano/casaEj5.jpg" data-fancybox="gallery" class="d-block">
                                     <img src="images/urbano/casaEj5.jpg" alt="Imagen 4" class="img-fluid rounded">
                                 </a>
                             </div>
-                       
+                            <div class="col-4 col-md-3 col-lg-2">
+                                <a href="images/urbano/casaEj6.jpg" data-fancybox="gallery" class="d-block position-relative">
+                                    <img src="images/urbano/casaEj6.jpg" alt="Imagen 5" class="img-fluid rounded">
+                                   
+                                </a>
+                            </div>
+                            <div class="col-4 col-md-3 col-lg-2">
+                                <a href="images/urbano/casaEj1.jpg" data-fancybox="gallery" class="d-block position-relative">
+                                    <img src="images/urbano/casaEj1.jpg" alt="Imagen 5" class="img-fluid rounded">
+                                    <!-- Contador para imágenes adicionales -->
+                                    <span class="image-counter"></span>
+                                </a>
+                            </div>
+
+                            <!-- Imágenes adicionales (ocultas pero disponibles para Fancybox) -->
+                            <div style="display: none;">
+                                <a href="images/urbano/casaEj2.jpg" data-fancybox="gallery"></a>
+                                <a href="images/urbano/casaEj3.jpg" data-fancybox="gallery"></a>
+                                <!-- Agrega más imágenes según sea necesario -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,7 +142,7 @@
                     <div class="whatsapp-contact mb-4 p-3 rounded text-center" style="background-color: #f0f8f0; border: 1px solid #8fc843;">
                         <i class="fab fa-whatsapp fa-2x mb-2" style="color: #25D366;"></i>
                         <h5 style="font-family: 'Oswald', sans-serif; font-weight: 300;">¿Consultas rápidas?</h5>
-                        <a href="https://wa.me/542345423974" class="btn btn-success btn-block mt-2">
+                        <a href="https://wa.me/542345432974" class="btn btn-success btn-block mt-2">
                             <i class="fab fa-whatsapp mr-2"></i> Enviar WhatsApp
                         </a>
                     </div>
@@ -146,97 +169,6 @@
     </div>
 </div>
 
-<style>
-    .property-gallery .main-image {
-        margin-bottom: 10px;
-    }
-    
-    .thumbnail-gallery img {
-        cursor: pointer;
-        transition: opacity 0.3s ease;
-    }
-    
-    .thumbnail-gallery img:hover {
-        opacity: 0.8;
-    }
-    
-    .property-description p {
-        color: #555;
-        line-height: 1.8;
-        margin-bottom: 1.5rem;
-    }
-    
-    .property-details {
-        border: 1px solid #e5e5e5;
-    }
-    
-    .details-section li, .features-section li {
-        padding: 5px 0;
-        border-bottom: 1px solid #eee;
-    }
-    
-    .contact-form .form-control {
-        border-radius: 0;
-        border: 1px solid #ddd;
-        padding: 12px;
-        margin-bottom: 15px;
-    }
-    
-    .contact-form .form-control:focus {
-        border-color: #8fc843;
-        box-shadow: 0 0 0 0.2rem rgba(143, 200, 67, 0.25);
-    }
-    
-    .btn-success {
-        background-color: #8fc843;
-        border-color: #7bb03a;
-        padding: 10px;
-        font-weight: 500;
-    }
-    
-    .btn-success:hover {
-        background-color: #7bb03a;
-        border-color: #6a9e2f;
-    }
-    
-    .whatsapp-contact {
-        transition: all 0.3s ease;
-    }
-    
-    .whatsapp-contact:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-
-
-    property-video {
-        margin-bottom: 40px;
-        border: 1px solid #eee;
-        padding: 20px;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-       
-    }
-
-    .property-video h3 {
-        color: #333;
-    }
-
-    .embed-responsive {
-        border-radius: 4px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-        .embed-responsive iframe {
-            transition: transform 0.3s ease;
-        }
-
-        .embed-responsive:hover iframe {
-            transform: scale(1.02);
-        }
-</style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -246,6 +178,30 @@
 <script>
     $(document).ready(function () {
         $('[data-fancybox="gallery"]').fancybox();
+    });
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const gallery = document.querySelector('.thumbnail-gallery');
+        const images = gallery.querySelectorAll('[data-fancybox]');
+        const maxVisible = 6; // Número de imágenes a mostrar
+
+        if (images.length > maxVisible) {
+            const lastVisible = images[maxVisible - 1];
+            const counter = lastVisible.querySelector('.image-counter') ||
+                           document.createElement('span');
+
+            counter.className = 'image-counter';
+            counter.setAttribute('data-count', `+${images.length - maxVisible}`);
+            lastVisible.classList.add('position-relative');
+            lastVisible.appendChild(counter);
+
+            // Ocultar imágenes adicionales pero mantenerlas en Fancybox
+            for (let i = maxVisible; i < images.length; i++) {
+                images[i].style.display = 'none';
+            }
+        }
     });
 </script>
 

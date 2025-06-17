@@ -123,3 +123,48 @@
 
 
 
+
+.feature-img {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+    .feature-img img {
+        transition: transform 0.5s ease;
+    }
+
+    .feature-img:hover img {
+        transform: scale(1.03);
+    }
+
+.feature-box {
+    transition: all 0.3s ease;
+    border-left: 4px solid #8fc843;
+}
+
+    .feature-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(143, 200, 67, 0.1);
+    border-radius: 50%;
+}
+
+.feature-list h4 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.feature-list p {
+    color: #666;
+    line-height: 1.6;
+}

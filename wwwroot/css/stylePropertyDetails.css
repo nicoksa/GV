@@ -1,0 +1,184 @@
+﻿/* Galería mejorada */
+.property-gallery {
+    position: relative;
+}
+
+.main-image {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.thumbnail-gallery .row {
+    margin-right: -5px;
+    margin-left: -5px;
+}
+
+.thumbnail-gallery [class*="col-"] {
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-bottom: 10px;
+}
+
+.thumbnail-gallery a {
+    display: block;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+    .thumbnail-gallery a::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .thumbnail-gallery a:hover::before {
+        opacity: 1;
+    }
+
+    .thumbnail-gallery a:hover img {
+        transform: scale(1.05);
+    }
+
+.thumbnail-gallery img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+/* Para pantallas más grandes */
+@media (min-width: 768px) {
+    .thumbnail-gallery img {
+        height: 120px;
+    }
+}
+
+@media (min-width: 992px) {
+    .thumbnail-gallery img {
+        height: 100px;
+    }
+}
+
+.property-description p {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.property-details {
+    border: 1px solid #e5e5e5;
+}
+
+.details-section li, .features-section li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.contact-form .form-control {
+    border-radius: 0;
+    border: 1px solid #ddd;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+    .contact-form .form-control:focus {
+        border-color: #8fc843;
+        box-shadow: 0 0 0 0.2rem rgba(143, 200, 67, 0.25);
+    }
+
+.btn-success {
+    background-color: #8fc843;
+    border-color: #7bb03a;
+    padding: 10px;
+    font-weight: 500;
+}
+
+    .btn-success:hover {
+        background-color: #7bb03a;
+        border-color: #6a9e2f;
+    }
+
+.whatsapp-contact {
+    transition: all 0.3s ease;
+}
+
+    .whatsapp-contact:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+
+
+property-video {
+    margin-bottom: 40px;
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.property-video h3 {
+    color: #333;
+}
+
+.embed-responsive {
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+    .embed-responsive iframe {
+        transition: transform 0.3s ease;
+    }
+
+    .embed-responsive:hover iframe {
+        transform: scale(1.02);
+    }
+
+
+
+
+
+/* CONTADOR GALERIA */
+
+.image-counter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.position-relative:hover .image-counter {
+    opacity: 1;
+}
+
+/* Ajusta el contador según el número de imágenes adicionales */
+.image-counter[data-count="+2"]::after {
+    content: "+2";
+}
+
+.image-counter[data-count="+3"]::after {
+    content: "+3";
+}
+/* Agregar mas segun se necesite */
