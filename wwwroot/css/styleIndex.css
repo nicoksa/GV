@@ -168,3 +168,82 @@
     color: #666;
     line-height: 1.6;
 }
+
+
+
+
+/* Buscador en el centro del slide */
+
+.home-slider {
+    position: relative;
+   
+}
+
+/* Superposición del buscador */
+.search-overlay {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%); /* Centrado vertical */
+    z-index: 1000; /* Asegura que esté sobre el slide */
+    padding: 0 15px; /* Evita desbordamiento en móviles */
+    
+}
+
+/* Ajustes para el formulario */
+.form-search {
+    background: #6c757d; /* Fondo gris */
+    padding: 2.0rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 165px !important; /* Elimina el margen negativo anterior */
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+    .form-search .btn-success {
+        background-color: #8fc843 !important;
+        border-color: #8fc843 !important;
+        width: 100%;
+        font-weight: bold;
+        letter-spacing: 3px;
+        transition: all 0.3s ease;
+        margin-top: 16px;
+    }
+
+        .form-search .btn-success:hover {
+            background-color: #7cb342 !important;
+            border-color: #7cb342 !important;
+        }
+
+    .form-search label {
+        text-transform: uppercase;
+        font-size: 16px;
+        letter-spacing: .1em;
+        color: #7cb342;
+        font-family: 'Oswald', Algerian;
+        font-weight: bold;
+    }
+
+    .form-search .form-control {
+        border: none;
+    }
+
+    .form-search .btn[type="submit"] {
+        height: 47px;
+    }
+
+
+/* Responsive: Ajusta el ancho del formulario en móviles */
+@media (max-width: 768px) {
+    .form-search {
+        padding: 1rem;
+    }
+
+    .search-overlay {
+        top: 60%; /* Opcional: baja un poco el buscador en móviles */
+    }
+}
