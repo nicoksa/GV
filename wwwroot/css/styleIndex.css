@@ -252,7 +252,6 @@
 
 
 
-
 /* Estilos para la navbar transparente solo en el index */
 .index-navbar {
     background-color: transparent !important;
@@ -279,9 +278,9 @@
         text-shadow: none;
     }
 
-        .index-navbar .nav-link:hover {
-            color: #e6e6e6 !important;
-        }
+    .index-navbar .nav-link:hover {
+        color: #e6e6e6 !important;
+    }
 
     /* Estilo cuando se hace scroll */
     .index-navbar.scrolled {
@@ -303,6 +302,7 @@
             .index-navbar.scrolled .nav-link:hover {
                 color: #6d9e28 !important;
             }
+
         .index-navbar.scrolled .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(134, 189, 46)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
@@ -310,7 +310,6 @@
     .index-navbar .navbar-toggler-icon {
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
-
 
 body.has-index-navbar {
     padding-top: 0;
@@ -320,8 +319,7 @@ body.has-index-navbar {
     padding-top: 80px; /* Ajusta según la altura de tu navbar */
 }
 
-
-
+/* Menú desplegable en estado transparente */
 .index-navbar:not(.scrolled) .dropdown-menu {
     background-color: transparent !important;
     border: none;
@@ -335,13 +333,51 @@ body.has-index-navbar {
     }
 
         .index-navbar:not(.scrolled) .dropdown-menu .dropdown-item:hover {
-            background-color: rgba(255, 255, 255, 0.1); /* un leve fondo al hacer hover */
+            background-color: rgba(255, 255, 255, 0.1);
             color: #e6e6e6 !important;
         }
 
+/* Estilos específicos para el menú hamburguesa en mobile (navbar transparente) */
+@media (max-width: 991.98px) {
+    .index-navbar:not(.scrolled) .navbar-collapse {
+        background-color: rgba(0, 0, 0, 0.7) !important; /* Fondo oscuro semitransparente */
+        border-radius: 5px;
+        margin-top: 10px;
+        padding: 15px;
+    }
 
+    .index-navbar:not(.scrolled) .navbar-nav .nav-link {
+        color: white !important;
+        padding: 10px 15px;
+        margin: 5px 0;
+    }
 
+        .index-navbar:not(.scrolled) .navbar-nav .nav-link:hover,
+        .index-navbar:not(.scrolled) .navbar-nav .nav-link:focus {
+            color: #e6e6e6 !important;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
+    .index-navbar:not(.scrolled) .navbar-nav .nav-item.active .nav-link {
+        border-left: 2px solid white;
+        border-bottom: none;
+    }
+}
+
+/* Menú hamburguesa cuando tiene fondo blanco (scrolled) */
+@media (max-width: 991.98px) {
+    .index-navbar.scrolled .navbar-collapse {
+        background-color: white !important;
+    }
+
+    .index-navbar.scrolled .navbar-nav .nav-link {
+        color: #86bd2e !important;
+    }
+
+        .index-navbar.scrolled .navbar-nav .nav-link:hover {
+            color: #6d9e28 !important;
+        }
+}
 
 
 
