@@ -448,16 +448,18 @@ a {
 
 .select-wrap {
   position: relative; }
-  .select-wrap .icon {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    line-height: 0;
-    font-size: 26px;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%); }
+    .select-wrap .icon {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        
+        line-height: 0;
+        font-size: 26px;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
   .select-wrap select {
     -webkit-appearance: none;
     -moz-appearance: none;

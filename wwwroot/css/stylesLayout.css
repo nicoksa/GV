@@ -16,12 +16,15 @@ body {
 .navbar {
     background-color: #fff !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 1rem;
+   
     margin-top: 0 !important;
+    min-height: 60px; /* Reducido desde aproximadamente 80px */
+    padding: 0.3rem 1rem;
 }
 
 .navbar-brand img {
-    height: 75px; /* Ajusta según el tamaño del logo */
+    height: 50px; /* Reducido desde 75px */
+    transition: height 0.3s ease; /* Ajusta según el tamaño del logo */
 }
 
 .navbar-nav {
@@ -65,11 +68,13 @@ body {
 @media (max-width: 991.98px) {
     .navbar-nav {
         padding: 1rem 0;
+       
     }
 
         .navbar-nav .nav-link {
             padding: 0.5rem 0;
             margin: 0.2rem 0;
+           
         }
 
     .navbar-collapse {
@@ -184,21 +189,6 @@ footer {
 
 
 
-/* ---------------------- */
-/* Ajustes Responsive para Tipografía */
-/* ---------------------- */
-@media (max-width: 991.98px) {
-    .navbar-nav .nav-link {
-        font-size: 1em; /* Tamaño ligeramente menor en móviles */
-        padding: 0.8rem 0;
-    }
-}
-
-@media (max-width: 767.98px) {
-    footer h4 {
-        font-size: 1.3rem;
-    }
-}
 
 
 
@@ -259,34 +249,51 @@ body.loading {
     align-items: center;
     color: #8fc843;
 }
- 
 
 
 
-/* ---------------------- */
-/* Barra de Navegación Normal (para todas las páginas excepto Index) */
-/* ---------------------- */
-.normal-navbar {
-    background-color: #fff !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 1rem;
-    transition: none !important; /* Elimina la transición que podría afectar el tamaño */
+/* Barra normal para todas las páginas excepto Index */
+.normal-navbar.fixed-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+    transition: all 0.3s ease;
 }
 
-.normal-navbar .navbar-brand img {
-    height: 60px !important; /* Ajusta este valor según tu diseño original */
-    filter: none !important;
+/* Asegura que el contenido no quede oculto detrás de la barra fija */
+body:not(.has-index-navbar) {
+    padding-top: 80px; /* Ajusta este valor según la altura de tu navbar */
 }
 
-.normal-navbar .nav-link {
-    font-size: 1.1em !important; /* Tamaño original */
-    padding: 0.5rem 1rem !important;
-    color: #86bd2e !important;
-    text-shadow: none !important;
-    transform: none !important;
+/* Mantén los estilos existentes para el Index */
+.index-navbar {
+    /* Tus estilos actuales para el Index */
+    background-color: transparent !important;
+    box-shadow: none !important;
+    position: absolute;
+    width: 100%;
+    z-index: 2000;
+    transition: all 0.3s ease;
 }
 
-.normal-navbar .nav-item.active .nav-link {
-    border-bottom: 2px solid #8fc843;
-    font-weight: 700;
-}
+    .index-navbar.scrolled {
+        /* Tus estilos actuales cuando se hace scroll en el Index */
+        position: fixed;
+        background-color: #fff !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
