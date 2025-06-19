@@ -14,6 +14,8 @@ namespace GV.Pages
 
         public void OnGet()
         {
+            // Propiedad para identificar que estamos en el Index
+            ViewData["IsIndexPage"] = true;
 
         }
     }

@@ -193,7 +193,7 @@
 
 /* Ajustes para el formulario */
 .form-search {
-    background: #6c757d; /* Fondo gris */
+    background: rgba(255, 255, 255, 0.95); /* Fondo gris */
     padding: 2.0rem;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -246,4 +246,118 @@
     .search-overlay {
         top: 60%; /* Opcional: baja un poco el buscador en móviles */
     }
+}
+
+
+
+
+
+
+/* Estilos para la navbar transparente solo en el index */
+.index-navbar {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    position: absolute;
+    width: 100%;
+    z-index: 2000;
+    transition: all 0.3s ease;
+}
+
+    .index-navbar .navbar-brand img {
+        filter: brightness(0) invert(1); /* Hace el logo blanco */
+    }
+
+    .index-navbar .nav-link {
+        color: white !important;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+        .index-navbar .nav-link:hover {
+            color: #e6e6e6 !important;
+        }
+
+    /* Estilo cuando se hace scroll */
+    .index-navbar.scrolled {
+        background-color: #fff !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        position: fixed;
+        top: 0;
+    }
+
+        .index-navbar.scrolled .navbar-brand img {
+            filter: none; /* Restaura el color original del logo */
+        }
+
+        .index-navbar.scrolled .nav-link {
+            color: #86bd2e !important;
+            text-shadow: none;
+        }
+
+            .index-navbar.scrolled .nav-link:hover {
+                color: #6d9e28 !important;
+            }
+
+
+body.has-index-navbar {
+    padding-top: 0;
+}
+
+.index-navbar.scrolled + * {
+    padding-top: 80px; /* Ajusta según la altura de tu navbar */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Pestañas de división minimalistas */
+.division-tabs {
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.division-tab {
+    padding: 8px 15px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #666;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    margin-right: 5px;
+}
+
+    .division-tab.active {
+        color: #8fc843;
+    }
+
+        .division-tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #8fc843;
+        }
+
+/* Ajuste para mantener el diseño original */
+.form-search {
+    padding-top: 1rem !important; /* Reducimos el padding superior */
+}
+
+/* Opcional: hover suave */
+.division-tab:not(.active):hover {
+    color: #7cb342;
 }

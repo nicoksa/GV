@@ -19,49 +19,60 @@
 <div class="search-overlay">
     <div class="container">
         <div class="row justify-content-center">
-            <form class="form-search col-md-10 col-lg-8">
-                <div class="row align-items-center">
-                    <!-- Cambiado a align-items-center -->
-                    <div class="col-md-3">
-                        <label for="list-types">División</label>
-                        <div class="select-wrap">
-                            <span class="icon icon-arrow_drop_down"></span>
-                            <select name="list-types" id="list-types" class="form-control d-block rounded-0">
-                                <option value="">División campos</option>
-                                <option value="">División urbano</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="offer-types">Tipo de propiedad</label>
-                        <div class="select-wrap">
-                            <span class="icon icon-arrow_drop_down"></span>
-                            <select name="offer-types" id="offer-types" class="form-control d-block rounded-0">
-                                <option value="">Agricola</option>
-                                <option value="">Ganadero</option>
-                                <option value="">Mixto</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="select-city">Ciudad</label>
-                        <div class="select-wrap">
-                            <span class="icon icon-arrow_drop_down"></span>
-                            <select name="select-city" id="select-city" class="form-control d-block rounded-0">
-                                <option value="">Saladillo</option>
-                                <option value="">25 de mayo</option>
-                                <option value="">Las Flores</option>
-                                <option value="">Roque Perez</option>
-                                <option value="">General Alvear</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="submit" class="btn btn-success text-white btn-block rounded-0" value="Buscar">
-                    </div>
+            <div class="form-search col-md-10 col-lg-8">
+                <!-- Pestañas de división -->
+                <div class="division-tabs">
+                    <div class="division-tab active">DIVISIÓN CAMPOS</div>
+                    <div class="division-tab">DIVISIÓN URBANO</div>
                 </div>
-                   
-             </form>
+
+                <!-- Contenido del formulario (se mantiene igual) -->
+                <form>
+                    <div class="row align-items-center">
+              
+                        <div class="col-md-3">
+                            <label for="offer-types">Aptitud</label>
+                            <div class="select-wrap">
+                                <span class="icon icon-arrow_drop_down"></span>
+                                <select name="offer-types" id="offer-types" class="form-control d-block rounded-0">
+                                    <option value="">Agricola</option>
+                                    <option value="">Ganadero</option>
+                                    <option value="">Mixto</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="list-types">Hectareas</label>
+                            <div class="select-wrap">
+                                <span class="icon icon-arrow_drop_down"></span>
+                                <select name="list-types" id="list-types" class="form-control d-block rounded-0">             
+                                    <option value="">Menos de 50 Ha</option>
+                                    <option value="">50 - 100 Ha</option>
+                                    <option value="">100 - 200 Ha</option>
+                                    <option value="">200 - 500 Ha</option>
+                                    <option value="">Más de 500 Ha</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="select-city">Ciudad</label>
+                            <div class="select-wrap">
+                                <span class="icon icon-arrow_drop_down"></span>
+                                <select name="select-city" id="select-city" class="form-control d-block rounded-0">
+                                    <option value="">Saladillo</option>
+                                    <option value="">25 de mayo</option>
+                                    <option value="">Las Flores</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="submit" class="btn btn-success text-white btn-block rounded-0" value="Buscar">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

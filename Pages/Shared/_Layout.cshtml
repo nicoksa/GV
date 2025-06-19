@@ -42,9 +42,9 @@
  
     <header>
 
-        
-         
-            <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+
+
+        <nav class="navbar navbar-expand-lg @(ViewData["IsIndexPage"] != null ? "index-navbar" : "normal-navbar")">
                 <div class="container">
                     <a class="navbar-brand" href="/Index">
                         <img src="images/logos/logotexto.png" alt="Logo" class="img-fluid">
@@ -185,11 +185,33 @@
         });
     </script>
 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.index-navbar');
+
+            if (navbar) {
+                document.body.classList.add('has-index-navbar');
+
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 100) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                });
+            }
+        });
+    </script>
+
     <!-- Scripts específicos para el slider -->
     <script src="~/js/owl.carousel.min.js"></script>
     <script src="~/js/aos.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+
+
 
 
 

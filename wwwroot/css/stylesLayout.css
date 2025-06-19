@@ -7,7 +7,7 @@ body {
     line-height: 1.7;
     color: #666666;
     -webkit-font-smoothing: antialiased;
-    padding-top: 80px;
+    padding-top: 0 !important;
 }
 
 /* ---------------------- */
@@ -17,6 +17,7 @@ body {
     background-color: #fff !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 0.5rem 1rem;
+    margin-top: 0 !important;
 }
 
 .navbar-brand img {
@@ -259,3 +260,33 @@ body.loading {
     color: #8fc843;
 }
  
+
+
+
+/* ---------------------- */
+/* Barra de Navegación Normal (para todas las páginas excepto Index) */
+/* ---------------------- */
+.normal-navbar {
+    background-color: #fff !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 1rem;
+    transition: none !important; /* Elimina la transición que podría afectar el tamaño */
+}
+
+.normal-navbar .navbar-brand img {
+    height: 60px !important; /* Ajusta este valor según tu diseño original */
+    filter: none !important;
+}
+
+.normal-navbar .nav-link {
+    font-size: 1.1em !important; /* Tamaño original */
+    padding: 0.5rem 1rem !important;
+    color: #86bd2e !important;
+    text-shadow: none !important;
+    transform: none !important;
+}
+
+.normal-navbar .nav-item.active .nav-link {
+    border-bottom: 2px solid #8fc843;
+    font-weight: 700;
+}
