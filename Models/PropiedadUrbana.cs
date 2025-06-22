@@ -1,6 +1,6 @@
 ﻿namespace GV.Models
 {
-    public class PropiedadUrbana
+    public class PropiedadUrbana : Propiedad
     {
         public string Tipo { get; set; }
         public int Ambientes { get; set; }
