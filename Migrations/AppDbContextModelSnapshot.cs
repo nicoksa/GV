@@ -61,18 +61,14 @@ namespace GV.Migrations
 
                     b.Property<string>("Division")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
 
                     b.Property<DateTime>("FechaPublicacion")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("TipoPropiedad")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
@@ -86,7 +82,7 @@ namespace GV.Migrations
 
                     b.ToTable("Propiedades");
 
-                    b.HasDiscriminator<string>("TipoPropiedad").HasValue("Propiedad");
+                    b.HasDiscriminator<string>("Division").HasValue("Propiedad");
 
                     b.UseTphMappingStrategy();
                 });
@@ -146,7 +142,7 @@ namespace GV.Migrations
                     b.Property<int>("Dormitorios")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Jardin")
+                    b.Property<bool>("Patio")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Seguridad")
@@ -157,9 +153,6 @@ namespace GV.Migrations
 
                     b.Property<int>("SuperficieTotal")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Terraza")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Tipo")
                         .IsRequired()

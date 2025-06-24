@@ -24,7 +24,7 @@ namespace GV.Data
             modelBuilder.Entity<Propiedad>()
                 .HasDiscriminator<string>("Division")
                 .HasValue<PropiedadCampo>("Campo")
-                .HasValue<PropiedadUrbana>("Urbana");
+                .HasValue<PropiedadUrbana>("Urbano");
         }
     }
 }
