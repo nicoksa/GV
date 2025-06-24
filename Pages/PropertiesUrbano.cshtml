@@ -159,7 +159,45 @@
         <div class="site-section site-section-sm bg-light">
             <div class="container">
                 <div class="row mb-5">
-                    <!-- Propiedad 1 -->
+
+                    @foreach (var p in Model.Resultados)
+                    {
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="property-entry h-100">
+                                <a asp-page="/Property" class="property-thumbnail">
+                                    <div class="offer-type-wrap">
+                                        <span class="offer-type bg-success">@p.Tipo</span>
+                                    </div>
+                                    <img src="@p.Imagenes?.FirstOrDefault()?.Url" alt="@p.Titulo" class="img-fluid">
+                                </a>
+                                <div class="p-4 property-body">
+                                    <h2 class="property-title">
+                                        <a asp-page="/Property">@p.Titulo</a>
+                                    </h2>
+                                    <div class="property-location mb-3">
+                                        <i class="fas fa-map-marker-alt text-success mr-2"></i>
+                                        <span>@p.Ubicacion</span>
+                                    </div>
+                                    <strong class="property-price text-primary mb-3 d-block text-success">U$S @p.Precio</strong>
+                                    <ul class="property-specs-wrap mb-3 mb-lg-0">
+                                        <li>
+                                            <span class="property-specs">Dormitorios</span>
+                                            <span class="property-specs-number">@p.Dormitorios</span>
+                                        </li>
+                                        <li>
+                                            <span class="property-specs">Baños</span>
+                                            <span class="property-specs-number">@p.Banios</span>
+                                        </li>
+                                        <li>
+                                            <span class="property-specs">m²</span>
+                                            <span class="property-specs-number">@p.SuperficieTotal</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <!-- Propiedad 1 
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="property-entry h-100">
                             <a asp-page="/Property" class="property-thumbnail">
@@ -192,8 +230,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Propiedad 2 -->
+                    -->
+                    <!-- Propiedad 2 
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="property-entry h-100">
                             <a asp-page="/Property" class="property-thumbnail">
@@ -226,8 +264,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Propiedad 3 -->
+                    -->
+                    <!-- Propiedad 3 
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="property-entry h-100">
                             <a asp-page="/Property" class="property-thumbnail">
@@ -260,8 +298,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Propiedad 4 -->
+                    -->
+                    <!-- Propiedad 4 
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="property-entry h-100">
                             <a asp-page="/Property" class="property-thumbnail">
@@ -294,8 +332,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Propiedad 5 -->
+                    -->
+                    <!-- Propiedad 5 
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="property-entry h-100">
                             <a asp-page="/Property" class="property-thumbnail">
@@ -328,8 +366,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Propiedad 6 -->
+                    -->
+                    <!--Propiedad 6
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="property-entry h-100">
                             <a asp-page="/Property" class="property-thumbnail">
@@ -364,6 +402,8 @@
                             </div>
                         </div>
                     </div>
+                    -->
+
                 </div>
 
                 <div class="row">

@@ -9,8 +9,7 @@
         public int SuperficieTotal { get; set; }
         public int SuperficieCubierta { get; set; }
         public bool Cochera { get; set; }
-        public bool Jardin { get; set; }
-        public bool Terraza { get; set; }
+        public bool Patio { get; set; }
         public bool Aire_acond { get; set; }
         public bool Seguridad{ get; set; }
         
