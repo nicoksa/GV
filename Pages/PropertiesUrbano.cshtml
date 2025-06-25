@@ -35,10 +35,11 @@
                                     <label for="property-type" class="form-label small text-muted mb-1">TIPO DE PROPIEDAD</label>
                                     <select class="form-select border-1" id="property-type" name="Tipo">
                                         <option value="">Todos</option>
-                                        <option value="Casas" selected="@(Model.Tipo == "Casas")">Casas</option>
-                                        <option value="Departamentos" selected="@(Model.Tipo == "Departamentos")">Departamentos</option>
-                                        <option value="Locales" selected="@(Model.Tipo == "Locales")">Locales</option>
-                                        <option value="Quintas" selected="@(Model.Tipo == "Quintas")">Quintas</option>
+                                        <option value="Casa" selected="@(Model.Tipo == "Casa")">Casa</option>
+                                        <option value="Departamento" selected="@(Model.Tipo == "Departamento")">Departamento</option>
+                                        <option value="Local" selected="@(Model.Tipo == "Local")">Local</option>
+                                        <option value="Quinta" selected="@(Model.Tipo == "Quinta")">Quinta</option>
+                                        <option value="Terreno" selected="@(Model.Tipo == "Terreno")">Terreno</option>
                                     </select>
                                 </div>
                             </div>
@@ -58,13 +59,13 @@
 
                             <div class="col-md-3">
                                 <div class="filter-group">
-                                    <label for="ambients" class="form-label small text-muted mb-1">DORMITORIOS</label>
-                                    <select class="form-select border-1" id="ambients" name="Ambientes">
+                                    <label for="dormitorios" class="form-label small text-muted mb-1">DORMITORIOS</label>
+                                    <select class="form-select border-1" id="dormitorios" name="Dormitorios">
                                         <option value="">Todos</option>
-                                        <option value="1" selected="@(Model.Ambientes == 1)">1</option>
-                                        <option value="2" selected="@(Model.Ambientes == 2)">2</option>
-                                        <option value="3" selected="@(Model.Ambientes == 3)">3</option>
-                                        <option value="4" selected="@(Model.Ambientes >= 4)">4+</option>
+                                        <option value="1" selected="@(Model.Dormitorios == 1)">1</option>
+                                        <option value="2" selected="@(Model.Dormitorios == 2)">2</option>
+                                        <option value="3" selected="@(Model.Dormitorios == 3)">3</option>
+                                        <option value="4" selected="@(Model.Dormitorios >= 4)">4+</option>
                                     </select>
                                 </div>
                             </div>
@@ -78,21 +79,51 @@
 
                         <div class="advanced-filters collapse mt-3">
                             <div class="row g-3">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <!-- Cambiado a col-md-12 para usar todo el ancho -->
                                     <div class="row g-2">
-                                        <div class="col-md-6">
+                                        <!-- Precio Mínimo (25% del ancho) -->
+                                        <div class="col-md-3">
                                             <label for="min-price" class="form-label small text-muted mb-1">PRECIO MÍNIMO</label>
                                             <div class="input-group">
                                                 <span class="input-group-text">U$S</span>
-                                                <input type="number" class="form-control" id="min-price" name="PrecioMin" placeholder="Mínimo" min="0" step="1000">
+                                                <input type="number" class="form-control" id="min-price" name="PrecioMin"
+                                                       placeholder="Mínimo" min="0" step="1000" value="@Model.PrecioMin">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+
+                                        <!-- Precio Máximo (25% del ancho) -->
+                                        <div class="col-md-3">
                                             <label for="max-price" class="form-label small text-muted mb-1">PRECIO MÁXIMO</label>
                                             <div class="input-group">
                                                 <span class="input-group-text">U$S</span>
-                                                <input type="number" class="form-control" id="max-price" name="PrecioMax" placeholder="Máximo" min="0" step="1000">
+                                                <input type="number" class="form-control" id="max-price" name="PrecioMax"
+                                                       placeholder="Máximo" min="0" step="1000" value="@Model.PrecioMax">
                                             </div>
+                                        </div>
+
+                                        <!-- Ambientes Mínimos (25% del ancho) -->
+                                        <div class="col-md-3">
+                                            <label for="ambients" class="form-label small text-muted mb-1">AMBIENTES </label>
+                                            <select class="form-select" id="ambients" name="Ambientes">
+                                                <option value="">Cualquiera</option>
+                                                <option value="1" selected="@(Model.Ambientes == 1)">1</option>
+                                                <option value="2" selected="@(Model.Ambientes == 2)">2</option>
+                                                <option value="3" selected="@(Model.Ambientes == 3)">3</option>
+                                                <option value="4" selected="@(Model.Ambientes >= 4)">4+</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Baños Mínimos (25% del ancho) -->
+                                        <div class="col-md-3">
+                                            <label for="banios" class="form-label small text-muted mb-1">BAÑOS </label>
+                                            <select class="form-select" id="banios" name="Banios">
+                                                <option value="">Cualquiera</option>
+                                                <option value="1" selected="@(Model.Banios == 1)">1</option>
+                                                <option value="2" selected="@(Model.Banios == 2)">2</option>
+                                                <option value="3" selected="@(Model.Banios == 3)">3</option>
+                                                <option value="4" selected="@(Model.Banios == 4)">4+</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
