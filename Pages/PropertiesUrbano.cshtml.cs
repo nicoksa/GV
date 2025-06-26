@@ -24,6 +24,22 @@ namespace GV.Pages
 
         [BindProperty(SupportsGet = true)] public int? Banios { get; set; }
 
+
+
+
+        // Propiedades para paginación
+        [BindProperty(SupportsGet = true)]
+      
+        public int CurrentPage { get; set; } = 1;
+        public int PageSize { get; set; } = 9; // 9 cards por página
+        public int TotalItems { get; set; }
+        public int TotalPages => (int)Math.Ceiling((double)TotalItems / PageSize);
+        public bool ShowPrevious => CurrentPage > 1;
+        public bool ShowNext => CurrentPage < TotalPages;
+
+        
+
+
         public List<PropiedadUrbana> Resultados { get; set; } = new();
 
 
@@ -43,15 +59,30 @@ namespace GV.Pages
 
             // Filtro Ambientes
             if (Ambientes.HasValue)
-                query = query.Where(p => p.Ambientes == Ambientes.Value);
+            {
+                if (Ambientes == 4) // Para "4+"
+                    query = query.Where(p => p.Ambientes >= 4);
+                else
+                    query = query.Where(p => p.Ambientes == Ambientes.Value);
+            }
 
             // Filtro Dormitorios
             if (Dormitorios.HasValue)
-                query = query.Where(p => p.Dormitorios == Dormitorios.Value);
+            {
+                if (Dormitorios == 4) // Para "4+"
+                    query = query.Where(p => p.Dormitorios >= 4);
+                else
+                    query = query.Where(p => p.Dormitorios == Dormitorios.Value);
+            }
 
             // Filtro Baños
             if (Banios.HasValue)
-                query = query.Where(p => p.Banios == Banios.Value);
+            {
+                if (Banios == 4) // Para "4+"
+                    query = query.Where(p => p.Banios >= 4);
+                else
+                    query = query.Where(p => p.Banios == Banios.Value);
+            }
 
             // Filtros Precio
             if (PrecioMin.HasValue)
@@ -60,14 +91,19 @@ namespace GV.Pages
             if (PrecioMax.HasValue)
                 query = query.Where(p => p.Precio <= PrecioMax.Value);
 
-            Resultados = query.ToList();
+            // Obtener el conteo total antes de paginar
+            TotalItems = query.Count();
+
+            // Aplicar paginación
+            Resultados = query
+                .OrderBy(p => p.Id) // Ordenar por algún campo, se puede cambiar
+                .Skip((CurrentPage - 1) * PageSize)
+                .Take(PageSize)
+                .ToList();
 
 
-            Console.WriteLine($"Resultados encontrados: {Resultados.Count}");
-            foreach (var p in Resultados)
-            {
-                Console.WriteLine($"Propiedad: {p.Titulo}, Imágenes: {p.Imagenes?.Count ?? 0}");
-            }
+            Console.WriteLine($"Resultados encontrados: {TotalItems}");
+            Console.WriteLine($"Mostrando {Resultados.Count} en página {CurrentPage} de {TotalPages}");
         }
     }
 }

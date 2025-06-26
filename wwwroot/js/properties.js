@@ -22,3 +22,11 @@ document.querySelector('form').addEventListener('submit', function (e) {
         alert('El precio mínimo no puede ser mayor al precio máximo');
     }
 });
+
+
+// Ultimo agregado
+
+document.querySelector('form').addEventListener('submit', toggleFiltersVisibility);
+document.querySelectorAll('.site-pagination a').forEach(link => {
+    link.addEventListener('click', toggleFiltersVisibility);
+});
