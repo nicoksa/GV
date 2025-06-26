@@ -292,54 +292,8 @@
     </div>
 </div>
 
-<script src="js/properties.js"></script>
 
 
-
-
-            // Ultimo agregado REVISAR, Y PROPERTIES.JS TAMBIEN
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const advancedFilters = document.querySelector('.advanced-filters');
-        const filterInputs = document.querySelectorAll('.advanced-filters input, .advanced-filters select');
-
-        // Función para verificar si hay valores seleccionados
-        function hasSelectedFilters() {
-            return Array.from(filterInputs).some(input => {
-                if (input.type === 'checkbox' || input.type === 'radio') {
-                    return input.checked;
-                }
-                return input.value && input.value !== '';
-            });
-        }
-
-        // Mostrar u ocultar según los filtros seleccionados
-        function toggleFiltersVisibility() {
-            if (hasSelectedFilters()) {
-                new bootstrap.Collapse(advancedFilters, { toggle: true }).show();
-            }
-        }
-
-        // Inicializar al cargar
-        toggleFiltersVisibility();
-
-        // También puedes agregar esto si quieres que se cierre solo cuando no hay filtros
-        // y el usuario hace clic manualmente
-        const toggleButton = document.querySelector('.toggle-advanced-filters');
-        if (toggleButton) {
-            toggleButton.addEventListener('click', function() {
-                if (!hasSelectedFilters()) {
-                    setTimeout(() => {
-                        if (!advancedFilters.classList.contains('show')) {
-                            new bootstrap.Collapse(advancedFilters, { toggle: false }).hide();
-                        }
-                    }, 10);
-                }
-            });
-        }
-    });
-</script>
 
 
 
