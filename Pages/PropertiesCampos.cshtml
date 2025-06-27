@@ -31,45 +31,44 @@
                                 <div class="row g-3 mb-3">
                                     <div class="col-md-3">
                                         <div class="filter-group">
-                                            <label for="property-type" class="form-label small text-muted mb-1">TIPO DE CAMPO</label>
-                                            <select class="form-select border-1" id="property-type">
-                                                <option value="" selected disabled hidden>Todos</option>
-                                                <option>Agrícola</option>
-                                                <option>Ganadero</option>
-                                                <option>Mixto</option>
+                                            <label for="property-type" class="form-label small text-muted mb-1">APTITUD</label>
+                                            <select class="form-select border-1" id="Aptitud" name="Aptitud">>
+                                                <option value="">Todos</option>
+                                                <option value="Agrícola" selected="@(Model.Aptitud == "Agrícola")">Agrícola</option>
+                                                <option value="Ganadero" selected="@(Model.Aptitud == "Ganadero")">Ganadero</option>
+                                                <option value="Mixto" selected="@(Model.Aptitud == "Mixto")">Mixto</option>
                                              
                                             </select>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3">
-                                        <div class="filter-group">
-                                            <label for="location" class="form-label small text-muted mb-1">UBICACIÓN</label>
-                                            <select class="form-select border-1" id="location">
-                                                <option value="" selected disabled hidden>Todas</option>
-                                                <option>Saladillo</option>
-                                                <option>25 de Mayo</option>
-                                                <option>Las Flores</option>
-                                                <option>Roque Pérez</option>
-                                                <option>General Alvear</option>
-                                                <option>Otro</option>
-                                            </select>
-                                        </div>
+                                <div class="col-md-3">
+                                    <div class="filter-group">
+                                        <label for="location" class="form-label small text-muted mb-1">CIUDAD</label>
+                                        <select class="form-select border-1" id="location" name="Ciudad">
+                                            <option value="">Todas</option>
+                                            <option value="Saladillo" selected="@(Model.Ciudad == "Saladillo")">Saladillo</option>
+                                            <option value="25 de Mayo" selected="@(Model.Ciudad == "25 de Mayo")">25 de Mayo</option>
+                                            <option value="Las Flores" selected="@(Model.Ciudad == "Las Flores")">Las Flores</option>
+                                            <option value="Roque Pérez" selected="@(Model.Ciudad == "Roque Pérez")">Roque Pérez</option>
+                                            <option value="Otra" selected="@(Model.Ciudad == "Otra")">Otra</option>
+                                        </select>
                                     </div>
+                                </div>
 
-                                    <div class="col-md-3">
-                                        <div class="filter-group">
-                                            <label for="surface" class="form-label small text-muted mb-1">SUPERFICIE (Ha)</label>
-                                            <select class="form-select border-1" id="surface">
-                                                <option value="" selected disabled hidden>Todas</option>
-                                                <option>Menos de 50 Ha</option>
-                                                <option>50 - 100 Ha</option>
-                                                <option>100 - 200 Ha</option>
-                                                <option>200 - 500 Ha</option>
-                                                <option>Más de 500 Ha</option>
-                                            </select>
-                                        </div>
+                                <div class="col-md-3">
+                                    <div class="filter-group">
+                                        <label for="surface" class="form-label small text-muted mb-1">SUPERFICIE (Ha)</label>
+                                        <select class="form-select border-1" id="surface" name="Superficie">
+                                            <option value="">Todas</option>
+                                            <option value="Menos de 50 Ha" selected="@(Model.Superficie == "Menos de 50 Ha")">Menos de 50 Ha</option>
+                                            <option value="50 - 100 Ha" selected="@(Model.Superficie == "50 - 100 Ha")">50 - 100 Ha</option>
+                                            <option value="100 - 200 Ha" selected="@(Model.Superficie == "100 - 200 Ha")">100 - 200 Ha</option>
+                                            <option value="200 - 500 Ha" selected="@(Model.Superficie == "200 - 500 Ha")">200 - 500 Ha</option>
+                                            <option value="Más de 500 Ha" selected="@(Model.Superficie == "Más de 500 Ha")">Más de 500 Ha</option>
+                                        </select>
                                     </div>
+                                </div>
 
                                     <div class="col-md-3 d-flex align-items-end">
                                         <button type="submit" class="btn btn-dark w-100 py-2">
@@ -83,33 +82,29 @@
                                     <div class="col-md-6">
                                         <div class="row g-2">
                                             <div class="col-md-6">
-                                                <div class="advanced-filters collapse" id="advancedFilters">
+                                                <div class="advanced-filters" id="advancedFilters">
                                                     <label for="min-price" class="form-label small text-muted mb-1">PRECIO MÍNIMO</label>
                                                     <div class="input-group">
                                                         <span class="input-group-text" style="font-size: 0.8rem; padding: 0.375rem 0.5rem; height: calc(2.25rem + 2px);">U$S</span>
-                                                        <input type="number" class="form-control" id="min-price" placeholder="Mínimo" min="0" step="1000" style="height: calc(2.25rem + 2px);">
+                                                        <input type="number" class="form-control" id="min-price" name="PrecioMin"
+                                                               placeholder="Mínimo" min="0" step="1000" style="height: calc(2.25rem + 2px);"
+                                                               value="@Model.PrecioMin">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="advanced-filters collapse" id="advancedFilters">
+                                                <div class="advanced-filters" id="advancedFilters">
                                                     <label for="max-price" class="form-label small text-muted mb-1">PRECIO MÁXIMO</label>
                                                     <div class="input-group">
                                                         <span class="input-group-text" style="font-size: 0.8rem; padding: 0.375rem 0.5rem; height: calc(2.25rem + 2px);">U$S</span>
-                                                        <input type="number" class="form-control" id="max-price" placeholder="Máximo" min="0" step="100" style="height: calc(2.25rem + 2px);">
+                                                        <input type="number" class="form-control" id="max-price" name="PrecioMax"
+                                                               placeholder="Máximo" min="0" step="1000" style="height: calc(2.25rem + 2px);"
+                                                               value="@Model.PrecioMax">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <!-- Botón para mostrar filtros avanzados -->
-                                <div class="text-center mt-3">
-                                    <a class="toggle-advanced-filters text-decoration-none text-muted" data-bs-toggle="collapse" href="#advancedFilters" role="button" aria-expanded="false" aria-controls="advancedFilters">
-                                        <span class="filter-toggle-text">Más opciones de búsqueda</span>
-                                        <i class="fas fa-chevron-down ms-2 small"></i>
-                                    </a>
                                 </div>
                             </form>
                         </div>
@@ -120,186 +115,126 @@
         <div class="site-section site-section-sm bg-light">
             <div class="container">
                 <div class="row mb-5">
-                    <!-- Campo 1 -->
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="property-entry h-100">
-                            <a asp-page="/Property" class="property-thumbnail">
-                                <div class="offer-type-wrap">
-                                    <span class="offer-type bg-success">Agrícola</span>
+           
+
+                    @foreach (var p in Model.Resultados)
+                    {
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="property-entry h-100">
+                                <a asp-page="/Property" class="property-thumbnail">
+                                    <div class="offer-type-wrap">
+                                        <span class="offer-type bg-success">@p.Aptitud</span>
+                                    </div>
+                                    <img src="@p.Imagenes?.FirstOrDefault()?.Url" alt="@p.Titulo" class="img-fluid">
+                                </a>
+                                <div class="p-4 property-body">
+                                    <h2 class="property-title"><a asp-page="/Property">@p.Titulo</a></h2>
+                                    <div class="property-location mb-3">
+                                        <i class="fas fa-map-marker-alt text-success mr-2"></i>
+                                        <span>@p.Ubicacion</span>
+                                    </div>
+                                    <strong class="property-price text-primary mb-3 d-block text-success">U$S @p.Precio</strong>
+                                    <ul class="property-specs-wrap mb-3 mb-lg-0">
+                                        <li>
+                                            <span class="property-specs">Hectáreas</span>
+                                            <span class="property-specs-number">@p.Hectareas</span>
+                                        </li>
+                                        <li>
+                                            <span class="property-specs">Aptitud</span>
+                                            <span class="property-specs-number">@p.Aptitud</span>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <img src="images/campos/campo7.webp" alt="Campo agrícola con excelente infraestructura" class="img-fluid">
-                            </a>
-                            <div class="p-4 property-body">
-                                <h2 class="property-title"><a asp-page="/Property">Campo agrícola con excelente infraestructura</a></h2>
-                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Ruta 205, Km 128, 25 de Mayo</span>
-                                <strong class="property-price text-primary mb-3 d-block text-success">U$S12,000</strong>
-                                <ul class="property-specs-wrap mb-3 mb-lg-0">
-                                    <li>
-                                        <span class="property-specs">Hectáreas</span>
-                                        <span class="property-specs-number">150</span>
-                                    </li>
-                                    <li>
-                                        <span class="property-specs">Ubicación</span>
-                                        <span class="property-specs-number">25 de Mayo</span>
-                                    </li>
-                               
-                                </ul>
                             </div>
                         </div>
-                    </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="site-pagination">
+                                @* Botón Anterior *@
+                                @if (Model.ShowPrevious)
+                                {
+                                    <a asp-route-currentpage="@(Model.CurrentPage - 1)"
+                                       asp-route-tipo="@Model.Aptitud"
+                                       asp-route-ubicacion="@Model.Ciudad"
+                                       asp-route-superficie="@Model.Superficie"
+                                       asp-route-preciomin="@Model.PrecioMin"
+                                       asp-route-preciomax="@Model.PrecioMax">
+                                        &laquo;
+                                    </a>
+                                }
 
-                    <!-- Campo 2 -->
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="property-entry h-100">
-                            <a asp-page="/Property" class="property-thumbnail">
-                                <div class="offer-type-wrap">
-                                    <span class="offer-type bg-success">Ganadero</span>
-                                </div>
-                                <img src="images/campos/campo8.webp" alt="Campo ganadero en Saladillo" class="img-fluid">
-                            </a>
-                            <div class="p-4 property-body">
-                                <h2 class="property-title"><a asp-page="/Property">Estancia ganadera en Paraje La Campana</a></h2>
-                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Ruta 51, Km 120, Saladillo</span>
-                                <strong class="property-price text-primary mb-3 d-block text-success">U$S10,000</strong>
-                                <ul class="property-specs-wrap mb-3 mb-lg-0">
-                                    <li>
-                                        <span class="property-specs">Hectáreas</span>
-                                        <span class="property-specs-number">300</span>
-                                    </li>
-                                    <li>
-                                        <span class="property-specs">Ubicación</span>
-                                        <span class="property-specs-number">Saladillo</span>
-                                    </li>
-                               
-                                </ul>
+                                @* Números de página *@
+                                @{
+                                    int startPage = Math.Max(1, Model.CurrentPage - 2);
+                                    int endPage = Math.Min(Model.TotalPages, Model.CurrentPage + 2);
+
+                                    if (startPage > 1)
+                                    {
+                                        <a asp-route-currentpage="1"
+                                           asp-route-tipo="@Model.Aptitud"
+                                           asp-route-ubicacion="@Model.Ciudad"
+                                           asp-route-superficie="@Model.Superficie"
+                                           asp-route-preciomin="@Model.PrecioMin"
+                                           asp-route-preciomax="@Model.PrecioMax"
+                                           class="@(1 == Model.CurrentPage ? "active" : "")">
+                                            1
+                                        </a>
+                                        if (startPage > 2)
+                                        {
+                                            <span>...</span>
+                                        }
+                                    }
+
+                                    for (int i = startPage; i <= endPage; i++)
+                                    {
+                                        <a asp-route-currentpage="@i"
+                                           asp-route-tipo="@Model.Aptitud"
+                                           asp-route-ubicacion="@Model.Ciudad"
+                                           asp-route-superficie="@Model.Superficie"
+                                           asp-route-preciomin="@Model.PrecioMin"
+                                           asp-route-preciomax="@Model.PrecioMax"
+                                           class="@(i == Model.CurrentPage ? "active" : "")">
+                                            @i
+                                        </a>
+                                    }
+
+                                    if (endPage < Model.TotalPages)
+                                    {
+                                        if (endPage < Model.TotalPages - 1)
+                                        {
+                                            <span>...</span>
+                                        }
+                                        <a asp-route-currentpage="@Model.TotalPages"
+                                           asp-route-tipo="@Model.Aptitud"
+                                           asp-route-ubicacion="@Model.Ciudad"
+                                           asp-route-superficie="@Model.Superficie"
+                                           asp-route-preciomin="@Model.PrecioMin"
+                                           asp-route-preciomax="@Model.PrecioMax"
+                                           class="@(Model.TotalPages == Model.CurrentPage ? "active" : "")">
+                                            @Model.TotalPages
+                                        </a>
+                                    }
+                                }
+
+                                @* Botón Siguiente *@
+                                @if (Model.ShowNext)
+                                {
+                                    <a asp-route-currentpage="@(Model.CurrentPage + 1)"
+                                       asp-route-tipo="@Model.Aptitud"
+                                       asp-route-ubicacion="@Model.Ciudad"
+                                       asp-route-superficie="@Model.Superficie"
+                                       asp-route-preciomin="@Model.PrecioMin"
+                                       asp-route-preciomax="@Model.PrecioMax">
+                                        &raquo;
+                                    </a>
+                                }
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- Campo 3 -->
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="property-entry h-100">
-                            <a asp-page="/Property" class="property-thumbnail">
-                                <div class="offer-type-wrap">
-                                    <span class="offer-type bg-success">Mixto</span>
-                                </div>
-                                <img src="images/campos/campo3.jpg" alt="Campo mixto 55 % agrícola" class="img-fluid">
-                            </a>
-                            <div class="p-4 property-body">
-                                <h2 class="property-title"><a asp-page="/Property">Campo mixto 55 % agrícola</a></h2>
-                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Ruta 30, Las Flores</span>
-                                <strong class="property-price text-primary mb-3 d-block text-success">U$S22,000/Ha</strong>
-                                <ul class="property-specs-wrap mb-3 mb-lg-0">
-                                    <li>
-                                        <span class="property-specs">Hectáreas</span>
-                                        <span class="property-specs-number">200</span>
-                                    </li>
-                                    <li>
-                                        <span class="property-specs">Ubicación</span>
-                                        <span class="property-specs-number">Las Flores</span>
-                                    </li>
-                             
-                                </ul>
+                            @* Texto simplificado con el conteo *@
+                            <div class="mt-2 small text-muted" style="margin-top: 15px !important;">
+                                Mostrando @Model.Resultados.Count de @Model.TotalItems propiedades
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Campo 4 -->
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="property-entry h-100">
-                            <a asp-page="/Property" class="property-thumbnail">
-                                <div class="offer-type-wrap">
-                                    <span class="offer-type bg-success">Mixto</span>
-                                </div>
-                                <img src="images/campos/campo10.webp" alt="Mixto con mejoras" class="img-fluid">
-                            </a>
-                            <div class="p-4 property-body">
-                                <h2 class="property-title"><a asp-page="/Property">Campo mixto con mejoras</a></h2>
-                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Ruta 205, Roque Pérez</span>
-                                <strong class="property-price text-primary mb-3 d-block text-success">U$S18,000</strong>
-                                <ul class="property-specs-wrap mb-3 mb-lg-0">
-                                    <li>
-                                        <span class="property-specs">Hectáreas</span>
-                                        <span class="property-specs-number">80</span>
-                                    </li>
-                                    <li>
-                                        <span class="property-specs">Ubicación</span>
-                                        <span class="property-specs-number">Roque Perez</span>
-                                    </li>
-                             
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Campo 5 -->
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="property-entry h-100">
-                            <a asp-page="/Property" class="property-thumbnail">
-                                <div class="offer-type-wrap">
-                                    <span class="offer-type bg-success">Ganadero</span>
-                                </div>
-                                <img src="images/campos/campo9.webp" alt="Campo ganadero muy amplio" class="img-fluid">
-                            </a>
-                            <div class="p-4 property-body">
-                                <h2 class="property-title"><a asp-page="/Property">Campo ganadero extenso </a></h2>
-                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Ruta 188, General Alvear</span>
-                                <strong class="property-price text-primary mb-3 d-block text-success">U$S9,000</strong>
-                                <ul class="property-specs-wrap mb-3 mb-lg-0">
-                                    <li>
-                                        <span class="property-specs">Hectáreas</span>
-                                        <span class="property-specs-number">350</span>
-                                    </li>
-                                    <li>
-                                        <span class="property-specs">Ubicación</span>
-                                        <span class="property-specs-number">General Alvear</span>
-                                    </li>
-                            
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Campo 6 -->
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="property-entry h-100">
-                            <a asp-page="/Property" class="property-thumbnail">
-                                <div class="offer-type-wrap">
-                                    <span class="offer-type bg-success">Agrícola</span>
-                                </div>
-                                <img src="images/campos/campo6.jpg" alt="Campo alto rendimiento" class="img-fluid">
-                            </a>
-                            <div class="p-4 property-body">
-                                <h2 class="property-title"><a asp-page="/Property">Campo alto rendimiento </a></h2>
-                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> Ruta 205, Km 150, 25 de Mayo</span>
-                                <strong class="property-price text-primary mb-3 d-block text-success">U$S22,000</strong>
-                                <ul class="property-specs-wrap mb-3 mb-lg-0">
-                                    <li>
-                                        <span class="property-specs">Hectáreas</span>
-                                        <span class="property-specs-number">180</span>
-                                    </li>
-                                    <li>
-                                        <span class="property-specs">Ubicación</span>
-                                        <span class="property-specs-number">25 de Mayo</span>
-                                    </li>
-                               
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Paginación -->
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <div class="site-pagination">
-                            <a href="#" class="active">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <span>...</span>
-                            <a href="#">10</a>
                         </div>
                     </div>
                 </div>

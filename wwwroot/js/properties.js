@@ -1,4 +1,6 @@
-﻿// Script para el toggle de filtros avanzados - Versión corregida
+﻿
+/*
+// Script para el toggle de filtros avanzados - Versión corregida
 document.querySelector('.toggle-advanced-filters').addEventListener('click', function () {
     const icon = this.querySelector('i');
     icon.classList.toggle('fa-chevron-down');
@@ -11,6 +13,7 @@ document.querySelector('.toggle-advanced-filters').addEventListener('click', fun
         textSpan.textContent = 'Más opciones de búsqueda';
     }
 });
+*/
 
 // Validación básica de precios
 document.querySelector('form').addEventListener('submit', function (e) {
@@ -34,6 +37,7 @@ function hasSelectedFilters() {
     });
 }
 
+/*
 // Función para mostrar/ocultar filtros y actualizar el texto del toggle
 function toggleFiltersVisibility() {
     const advancedFilters = document.querySelector('.advanced-filters');
@@ -48,7 +52,9 @@ function toggleFiltersVisibility() {
         textSpan.textContent = 'Menos opciones';
     }
 }
+*/
 
+/*
 // Configurar eventos
 document.addEventListener('DOMContentLoaded', function () {
     // Mostrar filtros si hay valores seleccionados al cargar
@@ -75,4 +81,4 @@ document.querySelector('form').addEventListener('submit', toggleFiltersVisibilit
 document.querySelectorAll('.site-pagination a').forEach(link => {
     link.addEventListener('click', toggleFiltersVisibility);
 });
-
+*/
