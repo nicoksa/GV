@@ -231,7 +231,8 @@
                             asp-route-preciomin="@Model.PrecioMin"
                             asp-route-preciomax="@Model.PrecioMax"
                             asp-route-ambientes="@Model.Ambientes"
-                            asp-route-banios="@Model.Banios">
+                            asp-route-banios="@Model.Banios"
+                            asp-route-sortOrder="@Model.SortOrder">
                             &laquo;
                         </a>
                     }
@@ -251,6 +252,7 @@
                                 asp-route-preciomax="@Model.PrecioMax"
                                 asp-route-ambientes="@Model.Ambientes"
                                 asp-route-banios="@Model.Banios"
+                               asp-route-sortOrder="@Model.SortOrder"
                                 class="@(1 == Model.CurrentPage ? "active" : "")">
                                 1
                             </a>
@@ -270,6 +272,7 @@
                                 asp-route-preciomax="@Model.PrecioMax"
                                 asp-route-ambientes="@Model.Ambientes"
                                 asp-route-banios="@Model.Banios"
+                               asp-route-sortOrder="@Model.SortOrder"
                                 class="@(i == Model.CurrentPage ? "active" : "")">
                                 @i
                             </a>
@@ -289,6 +292,7 @@
                                 asp-route-preciomax="@Model.PrecioMax"
                                 asp-route-ambientes="@Model.Ambientes"
                                 asp-route-banios="@Model.Banios"
+                               asp-route-sortOrder="@Model.SortOrder"
                                 class="@(Model.TotalPages == Model.CurrentPage ? "active" : "")">
                                 @Model.TotalPages
                             </a>
@@ -305,7 +309,8 @@
                             asp-route-preciomin="@Model.PrecioMin"
                             asp-route-preciomax="@Model.PrecioMax"
                             asp-route-ambientes="@Model.Ambientes"
-                            asp-route-banios="@Model.Banios">
+                            asp-route-banios="@Model.Banios"
+                           asp-route-sortOrder="@Model.SortOrder">
                             &raquo;
                         </a>
                     }

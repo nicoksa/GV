@@ -16,20 +16,20 @@
     <div class="site-blocks-cover overlay" style="background-image: url(images/hero_bg_1.jpg);"></div>
 </div>
 
+<!-- Dentro de tu div.search-overlay -->
 <div class="search-overlay">
     <div class="container">
         <div class="row justify-content-center">
             <div class="form-search col-md-10 col-lg-8">
-                <!-- Pestañas de división -->
-                <div class="division-tabs">
-                    <div class="division-tab active">DIVISIÓN CAMPOS</div>
-                    <div class="division-tab">DIVISIÓN URBANO</div>
+                <!-- Pestañas de división mejoradas -->
+                <div class="division-tabs mb-4">
+                    <div class="division-tab active" data-tab="campos">DIVISIÓN CAMPOS</div>
+                    <div class="division-tab" data-tab="urbano">DIVISIÓN URBANO</div>
                 </div>
 
-                <!-- Contenido del formulario (se mantiene igual) -->
-                <form>
+                <!-- Formulario Campos (visible por defecto) -->
+                <form id="form-campos" class="tab-content active">
                     <div class="row align-items-center">
-              
                         <div class="col-md-3">
                             <label for="offer-types">Aptitud</label>
                             <div class="select-wrap">
@@ -46,7 +46,7 @@
                             <label for="list-types">Hectareas</label>
                             <div class="select-wrap">
                                 <span class="icon icon-arrow_drop_down"></span>
-                                <select name="list-types" id="list-types" class="form-control d-block rounded-0">             
+                                <select name="list-types" id="list-types" class="form-control d-block rounded-0">
                                     <option value="">0 - 50 Ha</option>
                                     <option value="">50 - 100 Ha</option>
                                     <option value="">100 - 200 Ha</option>
@@ -64,6 +64,60 @@
                                     <option value="">Saladillo</option>
                                     <option value="">25 de mayo</option>
                                     <option value="">Las Flores</option>
+                                    <option value="">Roque Pérez</option>
+                                    <option value="">Otra</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="submit" class="btn btn-success text-white btn-block rounded-0" value="Buscar">
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Formulario Urbano (oculto inicialmente) -->
+                <form id="form-urbano" class="tab-content" style="display: none;">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <label for="property-type">Tipo</label>
+                            <div class="select-wrap">
+                                <span class="icon icon-arrow_drop_down"></span>
+                                <select name="property-type" id="property-type" class="form-control d-block rounded-0">
+                                  
+                                    <option value="">Casa</option>
+                                    <option value="">Departamento</option>
+                                    <option value="">Quinta</option>
+                                    <option value="">Local</option>
+                                    <option value="">Terreno</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="bedrooms">Dormitorios</label>
+                            <div class="select-wrap">
+                                <span class="icon icon-arrow_drop_down"></span>
+                                <select name="bedrooms" id="bedrooms" class="form-control d-block rounded-0">
+                                    <option value="">Cualquiera</option>
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4+</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="city-urbano">Ciudad</label>
+                            <div class="select-wrap">
+                                <span class="icon icon-arrow_drop_down"></span>
+                                <select name="city-urbano" id="city-urbano" class="form-control d-block rounded-0">
+                                    
+                                    <option value="">Saladillo</option>
+                                    <option value="">25 de mayo</option>
+                                    <option value="">Las Flores</option>
+                                    <option value="">Roque Pérez</option>
+                                   
                                 </select>
                             </div>
                         </div>
@@ -439,15 +493,14 @@
 
 
 
+<script src="js/index.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>       
+<script src="js/jquery-ui.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>     
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>        
+<script src="js/aos.js"></script>
 
-
-        <script src="js/jquery-3.3.1.min.js"></script>       
-        <script src="js/jquery-ui.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>     
-        <script src="js/jquery.stellar.min.js"></script>
-       <script src="js/jquery.magnific-popup.min.js"></script>        
-        <script src="js/aos.js"></script>
-
-        <script src="js/main.js"></script>
+<script src="js/main.js"></script>
