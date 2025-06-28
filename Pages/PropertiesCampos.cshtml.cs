@@ -4,6 +4,7 @@ using GV.Data;
 using GV.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GV.Pages
 {
@@ -16,11 +17,16 @@ namespace GV.Pages
             _context = context;
         }
 
+        // Propiedades para filtros
         [BindProperty(SupportsGet = true)] public string? Aptitud { get; set; }
         [BindProperty(SupportsGet = true)] public string? Ciudad { get; set; }
         [BindProperty(SupportsGet = true)] public string? Superficie { get; set; }
         [BindProperty(SupportsGet = true)] public decimal? PrecioMin { get; set; }
         [BindProperty(SupportsGet = true)] public decimal? PrecioMax { get; set; }
+
+        // Propiedad para ordenamiento
+        [BindProperty(SupportsGet = true)]
+        public string SortOrder { get; set; } = "";
 
         // Propiedades para paginación
         [BindProperty(SupportsGet = true)]
@@ -33,59 +39,70 @@ namespace GV.Pages
 
         public List<PropiedadCampo> Resultados { get; set; } = new();
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            var query = _context.PropiedadesCampo
-                .Include(p => p.Imagenes)
-                .AsQueryable();
-
-            // Filtro Tipo (Aptitud en PropiedadCampo)
-            if (!string.IsNullOrWhiteSpace(Aptitud))
-                query = query.Where(p => p.Aptitud == Aptitud);
-
-            // Filtro Ubicación
-            if (!string.IsNullOrWhiteSpace(Ciudad))
-                query = query.Where(p => p.Ubicacion == Ciudad);
-
-            // Filtro Superficie (Hectareas en PropiedadCampo)
-            if (!string.IsNullOrWhiteSpace(Superficie))
+            try
             {
-                switch (Superficie)
+                // Configurar consulta base con tracking desactivado para mejor performance
+                var query = _context.PropiedadesCampo
+                    .Include(p => p.Imagenes)
+                    .AsNoTracking()
+                    .AsQueryable();
+
+                // Aplicar filtros
+                if (!string.IsNullOrWhiteSpace(Aptitud))
+                    query = query.Where(p => p.Aptitud == Aptitud);
+
+                if (!string.IsNullOrWhiteSpace(Ciudad))
+                    query = query.Where(p => p.Ubicacion == Ciudad);
+
+                // Filtro por superficie
+                if (!string.IsNullOrWhiteSpace(Superficie))
                 {
-                    case "Menos de 50 Ha":
-                        query = query.Where(p => p.Hectareas < 50);
-                        break;
-                    case "50 - 100 Ha":
-                        query = query.Where(p => p.Hectareas >= 50 && p.Hectareas <= 100);
-                        break;
-                    case "100 - 200 Ha":
-                        query = query.Where(p => p.Hectareas > 100 && p.Hectareas <= 200);
-                        break;
-                    case "200 - 500 Ha":
-                        query = query.Where(p => p.Hectareas > 200 && p.Hectareas <= 500);
-                        break;
-                    case "Más de 500 Ha":
-                        query = query.Where(p => p.Hectareas > 500);
-                        break;
+                    query = Superficie switch
+                    {
+                        "Menos de 50 Ha" => query.Where(p => p.Hectareas < 50),
+                        "50 - 100 Ha" => query.Where(p => p.Hectareas >= 50 && p.Hectareas <= 100),
+                        "100 - 200 Ha" => query.Where(p => p.Hectareas > 100 && p.Hectareas <= 200),
+                        "200 - 500 Ha" => query.Where(p => p.Hectareas > 200 && p.Hectareas <= 500),
+                        "Más de 500 Ha" => query.Where(p => p.Hectareas > 500),
+                        _ => query
+                    };
                 }
+
+                // Filtros por precio
+                if (PrecioMin.HasValue)
+                    query = query.Where(p => p.Precio >= PrecioMin.Value);
+
+                if (PrecioMax.HasValue)
+                    query = query.Where(p => p.Precio <= PrecioMax.Value);
+
+                // Aplicar ordenamiento
+                query = SortOrder switch
+                {
+                    "precio_asc" => query.OrderBy(p => p.Precio),
+                    "precio_desc" => query.OrderByDescending(p => p.Precio),
+                    "hectareas_asc" => query.OrderBy(p => p.Hectareas),
+                    "hectareas_desc" => query.OrderByDescending(p => p.Hectareas),
+                    _ => query.OrderByDescending(p => p.Id) // Orden por defecto
+                };
+
+                // Obtener conteo total (optimizado)
+                TotalItems = await query.CountAsync();
+
+                // Aplicar paginación
+                Resultados = await query
+                    .Skip((CurrentPage - 1) * PageSize)
+                    .Take(PageSize)
+                    .ToListAsync();
             }
-
-            // Filtros Precio
-            if (PrecioMin.HasValue)
-                query = query.Where(p => p.Precio >= PrecioMin.Value);
-
-            if (PrecioMax.HasValue)
-                query = query.Where(p => p.Precio <= PrecioMax.Value);
-
-            // Obtener el conteo total antes de paginar
-            TotalItems = query.Count();
-
-            // Aplicar paginación
-            Resultados = query
-                .OrderBy(p => p.Id)
-                .Skip((CurrentPage - 1) * PageSize)
-                .Take(PageSize)
-                .ToList();
+            catch (Exception ex)
+            {
+                // Manejo básico de errores
+                Resultados = new List<PropiedadCampo>();
+                TotalItems = 0;
+                // Considera registrar el error (ex) en un sistema de logging
+            }
         }
     }
 }

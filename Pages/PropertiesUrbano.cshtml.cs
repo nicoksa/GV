@@ -25,7 +25,9 @@ namespace GV.Pages
         [BindProperty(SupportsGet = true)] public int? Banios { get; set; }
 
 
-
+        // Propiedad para ordenamiento
+        [BindProperty(SupportsGet = true)]
+        public string SortOrder { get; set; } = "";
 
         // Propiedades para paginación
         [BindProperty(SupportsGet = true)]
@@ -43,67 +45,61 @@ namespace GV.Pages
         public List<PropiedadUrbana> Resultados { get; set; } = new();
 
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            var query = _context.PropiedadesUrbanas
-         .Include(p => p.Imagenes)
-         .AsQueryable();
-
-            // Filtro Tipo - exact match
-            if (!string.IsNullOrWhiteSpace(Tipo))
-                query = query.Where(p => p.Tipo == Tipo);
-
-            // Filtro Ubicación - exact match (cambiar Contains por ==)
-            if (!string.IsNullOrWhiteSpace(Ubicacion))
-                query = query.Where(p => p.Ubicacion == Ubicacion);
-
-            // Filtro Ambientes
-            if (Ambientes.HasValue)
+            try
             {
-                if (Ambientes == 4) // Para "4+"
-                    query = query.Where(p => p.Ambientes >= 4);
-                else
-                    query = query.Where(p => p.Ambientes == Ambientes.Value);
-            }
+                var query = _context.PropiedadesUrbanas
+                    .Include(p => p.Imagenes)
+                    .AsQueryable();
 
-            // Filtro Dormitorios
-            if (Dormitorios.HasValue)
+                // Filtros (mantén tus filtros actuales)
+                if (!string.IsNullOrWhiteSpace(Tipo))
+                    query = query.Where(p => p.Tipo == Tipo);
+
+                if (!string.IsNullOrWhiteSpace(Ubicacion))
+                    query = query.Where(p => p.Ubicacion == Ubicacion);
+
+                if (Ambientes.HasValue)
+                    query = query.Where(p => Ambientes == 4 ? p.Ambientes >= 4 : p.Ambientes == Ambientes.Value);
+
+                if (Dormitorios.HasValue)
+                    query = query.Where(p => Dormitorios == 4 ? p.Dormitorios >= 4 : p.Dormitorios == Dormitorios.Value);
+
+                if (Banios.HasValue)
+                    query = query.Where(p => Banios == 4 ? p.Banios >= 4 : p.Banios == Banios.Value);
+
+                if (PrecioMin.HasValue)
+                    query = query.Where(p => p.Precio >= PrecioMin.Value);
+
+                if (PrecioMax.HasValue)
+                    query = query.Where(p => p.Precio <= PrecioMax.Value);
+
+                // Aplicar ordenamiento
+                query = SortOrder switch
+                {
+                    "precio_asc" => query.OrderBy(p => p.Precio),
+                    "precio_desc" => query.OrderByDescending(p => p.Precio),
+                    "dormitorios_asc" => query.OrderBy(p => p.Dormitorios),
+                    "dormitorios_desc" => query.OrderByDescending(p => p.Dormitorios),
+                    _ => query.OrderByDescending(p => p.Id) // Orden por defecto
+                };
+
+                // Obtener conteo total
+                TotalItems = await query.CountAsync();
+
+                // Aplicar paginación (sin volver a ordenar)
+                Resultados = await query
+                    .Skip((CurrentPage - 1) * PageSize)
+                    .Take(PageSize)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
             {
-                if (Dormitorios == 4) // Para "4+"
-                    query = query.Where(p => p.Dormitorios >= 4);
-                else
-                    query = query.Where(p => p.Dormitorios == Dormitorios.Value);
+                Resultados = new List<PropiedadUrbana>();
+                TotalItems = 0;
+                // Loggear el error
             }
-
-            // Filtro Baños
-            if (Banios.HasValue)
-            {
-                if (Banios == 4) // Para "4+"
-                    query = query.Where(p => p.Banios >= 4);
-                else
-                    query = query.Where(p => p.Banios == Banios.Value);
-            }
-
-            // Filtros Precio
-            if (PrecioMin.HasValue)
-                query = query.Where(p => p.Precio >= PrecioMin.Value);
-
-            if (PrecioMax.HasValue)
-                query = query.Where(p => p.Precio <= PrecioMax.Value);
-
-            // Obtener el conteo total antes de paginar
-            TotalItems = query.Count();
-
-            // Aplicar paginación
-            Resultados = query
-                .OrderBy(p => p.Id) // Ordenar por algún campo, se puede cambiar
-                .Skip((CurrentPage - 1) * PageSize)
-                .Take(PageSize)
-                .ToList();
-
-
-            Console.WriteLine($"Resultados encontrados: {TotalItems}");
-            Console.WriteLine($"Mostrando {Resultados.Count} en página {CurrentPage} de {TotalPages}");
         }
     }
 }

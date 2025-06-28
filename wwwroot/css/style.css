@@ -118,12 +118,13 @@ a {
   box-shadow: none !important; }
 
 .site-section {
-  padding: 8em 0; }
+  padding: 7em 0; }
   @media (min-width: 768px) {
     .site-section {
-      padding: 8em 0; } }
+      padding: 7em 0; } }
   .site-section.site-section-sm {
-    padding: 8em 0 !important;}
+    padding: 7em 0 !important;}
+
 
 .bg-text-line {
   display: inline;

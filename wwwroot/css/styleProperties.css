@@ -57,15 +57,47 @@
 }
 
 
-/* Titulo */
 
-.division-title {
+
+
+
+
+/* Estilos para el contador de resultados */
+.results-count {
     font-size: 1.1rem;
     color: #666;
-    margin-bottom: 0.5rem;
+    
 }
 
-    .division-title i {
-        font-size: 0.9em;
-        color: #28a745; 
+    .results-count strong {
+        font-weight: 600;
+        color: #333;
     }
+
+/* Estilos para el selector de ordenamiento */
+.sorting-options {
+    margin-bottom: 30px; /* Aumentado de 25px a 30px */
+    padding: 10px 0; /* Añadido padding vertical */
+    border-bottom: 1px solid #eee; /* Opcional: línea divisoria */
+}
+
+    .sorting-options select {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+       
+        font-size: 0.85rem;
+        background-color: #f8f9fa;
+    
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Sutil sombra para profundidad */
+        transition: all 0.3s ease; /* Transición suave para hover/focus */
+    }
+
+        .sorting-options select:hover {
+            border-color: #8fc843; /* Efecto hover */
+        }
+
+        .sorting-options select:focus {
+            outline: none;
+            border-color: #8fc843;
+           
+        }
