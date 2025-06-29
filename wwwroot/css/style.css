@@ -368,12 +368,17 @@ a {
       font-size: 9px;
       border-radius: 4px; }
     .property-entry .property-thumbnail img {
-      -webkit-transition: .3s all ease;
-      -o-transition: .3s all ease;
-      transition: .3s all ease;
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      transform: scale(1); }
+        width: 100%;
+        height: 300px; /* Altura fija que desees */
+        object-fit: cover; /* Esto recortará la imagen manteniendo proporciones */
+        object-position: center; /* Enfoca el centro de la imagen */
+        -webkit-transition: .3s all ease;
+        -o-transition: .3s all ease;
+        transition: .3s all ease;
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+    }
   .property-entry .property-title {
     font-size: 1.2rem; }
     .property-entry .property-title a {
