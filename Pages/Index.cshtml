@@ -28,44 +28,47 @@
                 </div>
 
                 <!-- Formulario Campos (visible por defecto) -->
-                <form id="form-campos" class="tab-content active">
+                <form id="form-campos" class="tab-content active" method="get" asp-page="/PropertiesCampos">
                     <div class="row align-items-center">
                         <div class="col-md-3">
-                            <label for="offer-types">Aptitud</label>
+                            <label for="Aptitud">Aptitud</label>
                             <div class="select-wrap">
                                 <span class="icon icon-arrow_drop_down"></span>
-                                <select name="offer-types" id="offer-types" class="form-control d-block rounded-0">
-                                    <option value="">Agricola</option>
-                                    <option value="">Ganadero</option>
-                                    <option value="">Mixto</option>
+                                <select name="Aptitud" id="Aptitud" class="form-control d-block rounded-0">
+                                    <option value="">Todos</option>
+                                    <option value="Agrícola">Agrícola</option>
+                                    <option value="Ganadero">Ganadero</option>
+                                    <option value="Mixto">Mixto</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-md-3">
-                            <label for="list-types">Hectareas</label>
+                            <label for="Superficie">Hectareas</label>
                             <div class="select-wrap">
                                 <span class="icon icon-arrow_drop_down"></span>
-                                <select name="list-types" id="list-types" class="form-control d-block rounded-0">
-                                    <option value="">0 - 50 Ha</option>
-                                    <option value="">50 - 100 Ha</option>
-                                    <option value="">100 - 200 Ha</option>
-                                    <option value="">200 - 500 Ha</option>
-                                    <option value="">Más de 500 Ha</option>
+                                <select name="Superficie" id="Superficie" class="form-control d-block rounded-0">
+                                    <option value="">Todas</option>
+                                    <option value="Menos de 50 Ha">0 - 50 Ha</option>
+                                    <option value="50 - 100 Ha">50 - 100 Ha</option>
+                                    <option value="100 - 200 Ha">100 - 200 Ha</option>
+                                    <option value="200 - 500 Ha">200 - 500 Ha</option>
+                                    <option value="Más de 500 Ha">Más de 500 Ha</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-md-3">
-                            <label for="select-city">Ciudad</label>
+                            <label for="Ciudad">Ciudad</label>
                             <div class="select-wrap">
                                 <span class="icon icon-arrow_drop_down"></span>
-                                <select name="select-city" id="select-city" class="form-control d-block rounded-0">
-                                    <option value="">Saladillo</option>
-                                    <option value="">25 de mayo</option>
-                                    <option value="">Las Flores</option>
-                                    <option value="">Roque Pérez</option>
-                                    <option value="">Otra</option>
+                                <select name="Ciudad" id="Ciudad" class="form-control d-block rounded-0">
+                                    <option value="">Todas</option>
+                                    <option value="Saladillo">Saladillo</option>
+                                    <option value="25 de Mayo">25 de mayo</option>
+                                    <option value="Las Flores">Las Flores</option>
+                                    <option value="Roque Pérez">Roque Pérez</option>
+                                    <option value="Otra">Otra</option>
                                 </select>
                             </div>
                         </div>
@@ -73,51 +76,54 @@
                             <input type="submit" class="btn btn-success text-white btn-block rounded-0" value="Buscar">
                         </div>
                     </div>
+
+                    <!-- Campos ocultos para otros filtros -->
+                    <input type="hidden" name="PrecioMin" value="">
+                    <input type="hidden" name="PrecioMax" value="">
                 </form>
 
-                <!-- Formulario Urbano (oculto inicialmente) -->
-                <form id="form-urbano" class="tab-content" style="display: none;">
+                <!-- Formulario Urbano -->
+                <form id="form-urbano" class="tab-content" method="get" asp-page="/PropertiesUrbano" style="display: none;">
                     <div class="row align-items-center">
                         <div class="col-md-3">
-                            <label for="property-type">Tipo</label>
+                            <label for="Tipo">Tipo</label>
                             <div class="select-wrap">
                                 <span class="icon icon-arrow_drop_down"></span>
-                                <select name="property-type" id="property-type" class="form-control d-block rounded-0">
-                                  
-                                    <option value="">Casa</option>
-                                    <option value="">Departamento</option>
-                                    <option value="">Quinta</option>
-                                    <option value="">Local</option>
-                                    <option value="">Terreno</option>
+                                <select name="Tipo" id="Tipo" class="form-control d-block rounded-0">
+                                    <option value="">Todos</option>
+                                    <option value="Casa">Casa</option>
+                                    <option value="Departamento">Departamento</option>
+                                    <option value="Quinta">Quinta</option>
+                                    <option value="Local">Local</option>
+                                    <option value="Terreno">Terreno</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-md-3">
-                            <label for="bedrooms">Dormitorios</label>
+                            <label for="Dormitorios">Dormitorios</label>
                             <div class="select-wrap">
                                 <span class="icon icon-arrow_drop_down"></span>
-                                <select name="bedrooms" id="bedrooms" class="form-control d-block rounded-0">
-                                    <option value="">Cualquiera</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                    <option value="">4+</option>
+                                <select name="Dormitorios" id="Dormitorios" class="form-control d-block rounded-0">
+                                    <option value="">Todos</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4+</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-md-3">
-                            <label for="city-urbano">Ciudad</label>
+                            <label for="Ubicacion">Ciudad</label>
                             <div class="select-wrap">
                                 <span class="icon icon-arrow_drop_down"></span>
-                                <select name="city-urbano" id="city-urbano" class="form-control d-block rounded-0">
-                                    
-                                    <option value="">Saladillo</option>
-                                    <option value="">25 de mayo</option>
-                                    <option value="">Las Flores</option>
-                                    <option value="">Roque Pérez</option>
-                                   
+                                <select name="Ubicacion" id="Ubicacion" class="form-control d-block rounded-0">
+                                    <option value="">Todas</option>
+                                    <option value="Saladillo">Saladillo</option>
+                                    <option value="25 de Mayo">25 de mayo</option>
+                                    <option value="Las Flores">Las Flores</option>
+                                    <option value="Roque Pérez">Roque Pérez</option>
                                 </select>
                             </div>
                         </div>
@@ -125,6 +131,12 @@
                             <input type="submit" class="btn btn-success text-white btn-block rounded-0" value="Buscar">
                         </div>
                     </div>
+
+                    <!-- Campos ocultos para otros filtros -->
+                    <input type="hidden" name="Ambientes" value="">
+                    <input type="hidden" name="Banios" value="">
+                    <input type="hidden" name="PrecioMin" value="">
+                    <input type="hidden" name="PrecioMax" value="">
                 </form>
             </div>
         </div>
