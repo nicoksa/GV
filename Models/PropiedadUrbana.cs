@@ -12,6 +12,7 @@
         public bool Patio { get; set; }
         public bool Aire_acond { get; set; }
         public bool Seguridad{ get; set; }
+        public string Direccion { get; set; }
         
     }
 }
