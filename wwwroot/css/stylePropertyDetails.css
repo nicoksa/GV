@@ -182,3 +182,23 @@ property-video {
     content: "+3";
 }
 /* Agregar mas segun se necesite */
+
+
+
+
+
+
+.property-header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 2rem;
+}
+
+.property-title {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.location-text {
+    font-size: 1.1rem;
+}
