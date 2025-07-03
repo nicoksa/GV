@@ -1,7 +1,7 @@
 ﻿@page
 @model GV.Pages.PropertyModel
 @{
-    ViewData["Title"] = "Detalles";
+    ViewData["Title"] = Model.Propiedad?.Titulo ?? "Detalles";
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
@@ -100,35 +100,62 @@
                     <div class="details-section mb-4">
                         <h4 class="mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 1.2rem;">DETALLES</h4>
                         <ul class="list-unstyled">
-                            <li class="mb-2"><strong>Tipo:</strong> Casa</li>
-                            <li class="mb-2"><strong>Dormitorios:</strong> 3</li>
-                            <li class="mb-2"><strong>Baños:</strong> 2</li>
-                            <li class="mb-2"><strong>Ambientes:</strong> 6</li>
-                            <li class="mb-2"><strong>Superficie:</strong> 120 m²</li>
-                            <li class="mb-2"><strong>Superficie cubierta:</strong> 80 m²</li>
-                            <li class="mb-2"><strong>Antiguedad:</strong> 10 años</li>
+                            @if (Model.IsUrban && Model.PropiedadUrbana != null)
+                            {
+                                <li class="mb-2"><strong>Tipo:</strong> @Model.PropiedadUrbana.Tipo</li>
+                                <li class="mb-2"><strong>Dormitorios:</strong> @Model.PropiedadUrbana.Dormitorios</li>
+                                <li class="mb-2"><strong>Baños:</strong> @Model.PropiedadUrbana.Banios</li>
+                                <li class="mb-2"><strong>Ambientes:</strong> @Model.PropiedadUrbana.Ambientes</li>
+                                <li class="mb-2"><strong>Superficie:</strong> @Model.PropiedadUrbana.SuperficieTotal m²</li>
+                                <li class="mb-2"><strong>Superficie cubierta:</strong> @Model.PropiedadUrbana.SuperficieCubierta m²</li>
+                            }
+                            else if (Model.PropiedadCampo != null)
+                            {
+                                <li class="mb-2"><strong>Tipo:</strong> Campo</li>
+                                <li class="mb-2"><strong>Aptitud:</strong> @Model.PropiedadCampo.Aptitud</li>
+                                <li class="mb-2"><strong>Hectáreas:</strong> @Model.PropiedadCampo.Hectareas</li>
+                            }
+                            
                         </ul>
                     </div>
 
                     <!-- Características -->
-                    <div class="features-section mb-4">
-                        <h4 class="mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 1.2rem;">CARACTERÍSTICAS</h4>
-                        <div class="row">
-                            <div class="col-6">
-                                <ul class="list-unstyled">
-                                    <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Patio</li>
-                                    <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Pileta</li>
-                                    <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Cochera</li>
-                                </ul>
-                            </div>
-                            <div class="col-6">
-                                <ul class="list-unstyled">
-                                    <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Aire acond.</li>
-                                    <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Seguridad</li>
-                                </ul>
+                    @if (Model.IsUrban && Model.PropiedadUrbana != null)
+                    {
+                        <div class="features-section mb-4">
+                            <h4 class="mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 1.2rem;">CARACTERÍSTICAS</h4>
+                            <div class="row">
+                                <div class="col-6">
+                                    <ul class="list-unstyled">
+                                        @if (Model.PropiedadUrbana.Patio)
+                                        {
+                                            <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Patio</li>
+                                        }
+                                        @if (Model.PropiedadUrbana.Pileta)
+                                        {
+                                            <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Pileta</li>
+                                        }
+                                        @if (Model.PropiedadUrbana.Cochera)
+                                        {
+                                            <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Cochera</li>
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="col-6">
+                                    <ul class="list-unstyled">
+                                        @if (Model.PropiedadUrbana.Aire_acond)
+                                        {
+                                            <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Aire acond.</li>
+                                        }
+                                        @if (Model.PropiedadUrbana.Seguridad)
+                                        {
+                                            <li class="mb-2"><i class="fas fa-check text-success mr-2"></i> Seguridad</li>
+                                        }
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
 
                     <!-- Ubicación -->
                     
