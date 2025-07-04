@@ -36,57 +36,71 @@
                 </div>
             </div>   
             <!-- Galería de Imágenes -->
-            <div class="col-lg-8">
+           <div class="col-lg-8">
                 <div class="property-gallery mb-5">
-                    <div class="main-image mb-3">
-                        <img src="~/images/urbano/casaEj1.jpg" alt="Imagen principal" class="img-fluid rounded">
-                    </div>
-                    <div class="thumbnail-gallery">
-                        <div class="row g-2">
-                            <!-- Mostrar solo las primeras 5 imágenes -->
-                            <div class="col-4 col-md-3 col-lg-2">
-                                <a href="images/urbano/casaEj2.jpg" data-fancybox="gallery" class="d-block">
-                                    <img src="images/urbano/casaEj2.jpg" alt="Imagen 1" class="img-fluid rounded">
-                                </a>
-                            </div>
-                            <div class="col-4 col-md-3 col-lg-2">
-                                <a href="images/urbano/casaEj3.jpg" data-fancybox="gallery" class="d-block">
-                                    <img src="images/urbano/casaEj3.jpg" alt="Imagen 2" class="img-fluid rounded">
-                                </a>
-                            </div>
-                            <div class="col-4 col-md-3 col-lg-2">
-                                <a href="images/urbano/casaEj4.jpg" data-fancybox="gallery" class="d-block">
-                                    <img src="images/urbano/casaEj4.jpg" alt="Imagen 3" class="img-fluid rounded">
-                                </a>
-                            </div>
-                            <div class="col-4 col-md-3 col-lg-2">
-                                <a href="images/urbano/casaEj5.jpg" data-fancybox="gallery" class="d-block">
-                                    <img src="images/urbano/casaEj5.jpg" alt="Imagen 4" class="img-fluid rounded">
-                                </a>
-                            </div>
-                            <div class="col-4 col-md-3 col-lg-2">
-                                <a href="images/urbano/casaEj6.jpg" data-fancybox="gallery" class="d-block position-relative">
-                                    <img src="images/urbano/casaEj6.jpg" alt="Imagen 5" class="img-fluid rounded">
-                                   
-                                </a>
-                            </div>
-                            <div class="col-4 col-md-3 col-lg-2">
-                                <a href="images/urbano/casaEj1.jpg" data-fancybox="gallery" class="d-block position-relative">
-                                    <img src="images/urbano/casaEj1.jpg" alt="Imagen 5" class="img-fluid rounded">
-                                    <!-- Contador para imágenes adicionales -->
-                                    <span class="image-counter"></span>
-                                </a>
-                            </div>
+                    @if (Model.Propiedad?.Imagenes != null && Model.Propiedad.Imagenes.Any())
+                    {
+                        // Obtener la imagen principal o la primera imagen si no hay principal
+                        var imagenPrincipal = Model.Propiedad.Imagenes.FirstOrDefault(i => i.EsPrincipal) ?? Model.Propiedad.Imagenes.First();
+                        var otrasImagenes = Model.Propiedad.Imagenes.Where(i => i != imagenPrincipal).ToList();
+                        var maxVisible = 5; // Máximo de miniaturas visibles
 
-                            <!-- Imágenes adicionales (ocultas pero disponibles para Fancybox) -->
-                            <div style="display: none;">
-                                <a href="images/urbano/casaEj2.jpg" data-fancybox="gallery"></a>
-                                <a href="images/urbano/casaEj3.jpg" data-fancybox="gallery"></a>
-                                <!-- Agrega más imágenes según sea necesario -->
+                     <div class="main-image mb-3" style="height: 500px; overflow: hidden;">
+                        <img src="@imagenPrincipal.Url" alt="Imagen principal" class="img-fluid rounded w-100 h-100" style="object-fit: cover;">
+                    </div>
+            
+                        <div class="thumbnail-gallery">
+                            <div class="row g-2">
+                                 @for (int i = 0; i < Math.Min(otrasImagenes.Count, maxVisible); i++)
+                                {
+                                    <div class="col-4 col-md-3 col-lg-2">
+                                        <a href="@otrasImagenes[i].Url" data-fancybox="gallery" data-src="@otrasImagenes[i].Url" class="gallery-thumb">
+                                            <img src="@otrasImagenes[i].Url" alt="Imagen @(i+1)" class="img-fluid rounded">
+                                        </a>
+                                    </div>
+                                }
+
+                                @if (otrasImagenes.Count > maxVisible)
+                                {
+                                    <div class="col-4 col-md-3 col-lg-2">
+                                        <a href="@otrasImagenes[maxVisible].Url" 
+                                           data-fancybox="gallery" 
+                                           data-src="@otrasImagenes[maxVisible].Url" 
+                                           class="gallery-thumb position-relative"
+                                           data-index="@maxVisible">
+                                            <img src="@otrasImagenes[maxVisible].Url" alt="Imagen @(maxVisible+1)" class="img-fluid rounded">
+                                            <span class="image-counter" data-count="+@(otrasImagenes.Count - maxVisible)"></span>
+                                        </a>
+                                    </div>
+                                }
                             </div>
                         </div>
+
+                        <!-- Imágenes adicionales ocultas para Fancybox -->
+                        <div style="display: none;">
+                            @for (int i = maxVisible + 1; i < otrasImagenes.Count; i++)
+                            {
+                                <a href="@otrasImagenes[i].Url" 
+                                   data-fancybox="gallery" 
+                                   data-src="@otrasImagenes[i].Url"
+                                   data-index="@i"></a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- Imágenes por defecto si no hay imágenes en la base de datos -->
+                        <div class="main-image mb-3">
+                            <img src="~/images/default-property.jpg" alt="Imagen principal" class="img-fluid rounded">
+                        </div>
+                        <div class="alert alert-info">No hay imágenes disponibles para esta propiedad</div>
+                    }
                     </div>
-                </div>
+         
+
+
+
+
 
                 <div class="property-video mb-5">
                     <h3 class="section-title mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: 1px;">VIDEO</h3>
@@ -247,27 +261,28 @@
                     <div class="whatsapp-contact mb-4 p-3 rounded text-center" style="background-color: #f0f8f0; border: 1px solid #8fc843;">
                         <i class="fab fa-whatsapp fa-2x mb-2" style="color: #25D366;"></i>
                         <h5 style="font-family: 'Oswald', sans-serif; font-weight: 300;">¿Consultas rápidas?</h5>
-                        <a href="" class="btn btn-success btn-block mt-2">
+                        <a href="https://wa.me/542344542490" class="btn btn-success btn-block mt-2">
                             <i class="fab fa-whatsapp mr-2"></i> Enviar WhatsApp
                         </a>
                     </div>
                     
                     <!-- Formulario tradicional -->
-                    <form>
+                     <form action="https://formspree.io/f/mzzgwoal" method="POST">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Nombre" required>
+                            <input type="text" name="nombre" class="form-control" placeholder="Nombre" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email" required>
+                            <input type="email" name="email" class="form-control" placeholder="Email" required>
                         </div>
                         <div class="form-group">
-                            <input type="tel" class="form-control" placeholder="Teléfono">
+                            <input type="tel" name="telefono" class="form-control" placeholder="Teléfono">
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" rows="4" placeholder="Mensaje" required></textarea>
+                            <textarea name="mensaje" class="form-control" rows="4" placeholder="Mensaje" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-success btn-block">Enviar Consulta</button>
                     </form>
+           
                 </div>
             </div>
         </div>
@@ -309,6 +324,9 @@
         }
     });
 </script>
+
+
+
 
 
 
