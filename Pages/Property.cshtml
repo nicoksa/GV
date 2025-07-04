@@ -102,18 +102,49 @@
 
 
 
-                <div class="property-video mb-5">
-                    <h3 class="section-title mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: 1px;">VIDEO</h3>
-                    <hr style="border-top: 1px solid #eee; width: 100px; margin: 0 0 2rem;">
+             <div class="property-video mb-5">
+                <h3 class="section-title mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: 1px;">VIDEO</h3>
+                <hr style="border-top: 1px solid #eee; width: 100px; margin: 0 0 2rem;">
+    
+                @if (Model.Propiedad?.Videos != null && Model.Propiedad.Videos.Any())
+                {
+                    var video = Model.Propiedad.Videos.First();
+        
                     <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/n_jC8NvOjR0"
-                                title="Video de la propiedad"
-                                allowfullscreen
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                frameborder="0"></iframe>
+                        @if (video.Url.Contains("youtube.com") || video.Url.Contains("youtu.be"))
+                        {
+                            // Extraer el ID del video de YouTube
+                            var youtubeId = video.Url.Split(new[] { "v=", "youtu.be/", "/embed/" }, StringSplitOptions.RemoveEmptyEntries).Last();
+                            youtubeId = youtubeId.Split('?')[0].Split('&')[0];
+                
+                            <iframe src="https://www.youtube.com/embed/@youtubeId"
+                                    title="Video de la propiedad"
+                                    allowfullscreen
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    frameborder="0"></iframe>
+                        }
+                        else if (video.Url.EndsWith(".mp4"))
+                        {
+                            <video controls class="w-100">
+                                <source src="@video.Url" type="video/mp4">
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning">Formato de video no soportado</div>
+                        }
                     </div>
-                    
-                </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">No hay video disponible para esta propiedad</div>
+                }
+            </div>
+
+
+
+
 
                 <!-- Descripción -->
                 <div class="property-description mb-5">
@@ -140,7 +171,47 @@
                         <p>La propiedad ofrece espacios luminosos y amplios ideales para familias que buscan comodidad y estilo de vida.</p>
                     }
                 </div>
+
+
+
+
+                <!-- Ubicación con Mapa -->
+               <div class="property-location-map mb-5">
+                    <h2 class="section-title mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: 1px;">UBICACIÓN</h2>
+                    <hr style="border-top: 1px solid #eee; width: 100px; margin: 0 0 2rem;">
+
+                    <div class="location-details mb-4">
+                        <p>
+                            <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                            @if (Model.IsUrban && !string.IsNullOrEmpty(Model.PropiedadUrbana?.Direccion))
+                            {
+                                @Model.PropiedadUrbana.Direccion
+                            }
+                            else
+                            {
+                                <span>Martin Fierro 3253, Saladillo</span>
+                            }
+                        </p>
+                    </div>
+
+                    <div class="ratio ratio-16x9">
+                        @{
+                            var direccionMapa = Model.IsUrban && !string.IsNullOrEmpty(Model.PropiedadUrbana?.Direccion) 
+                                ? Model.PropiedadUrbana.Direccion 
+                                : "Martin Fierro 3253, Saladillo";
+                        }
+                        <iframe src="https://maps.google.com/maps?q=@Uri.EscapeDataString(direccionMapa)&z=15&output=embed" 
+                                frameborder="0" 
+                                style="border:0" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
             </div>
+
+
+
+
 
             <!-- Sidebar con detalles y formulario -->
             <div class="col-lg-4">
@@ -247,14 +318,12 @@
                                 }
                             </div>
                         </div>
-                    }
-
-                    <!-- Ubicación -->
+                    }          
                     
                 </div>
 
                 <!-- Formulario de Contacto -->
-                <div class="contact-form p-4 bg-white rounded shadow">
+                <div class="contact-form p-4 bg-white rounded shadow sticky-lg-top" style="top: 90px;">
                     <h4 class="mb-4" style="font-family: 'Oswald', sans-serif; font-weight: 300;">CONTACTO</h4>
                     
                     <!-- WhatsApp destacado -->
@@ -340,9 +409,5 @@
     // Genera URL absoluta para el redirect
     document.getElementById('web3redirect').value = window.location.origin + '@Url.Page("/Thanks")';
 </script>
-
-
-
-
 
 

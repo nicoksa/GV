@@ -1,4 +1,6 @@
-﻿/* Galería mejorada */
+﻿
+
+/* Galería mejorada */
 .property-gallery {
     position: relative;
 }
@@ -202,3 +204,6 @@ property-video {
 .location-text {
     font-size: 1.1rem;
 }
+
+
+
