@@ -1,0 +1,80 @@
+﻿@page
+@model GV.Pages.ThanksModel
+@{
+    ViewData["Title"] = "Gracias por tu consulta";
+}
+
+
+<link rel="stylesheet" href="css/styleOthersViews.css" />
+
+
+
+<!-- Hero Section -->
+<div class="container-fluid py-5 mb-4 hero-section" style="background: url('/images/hero-bg.jpg') center/cover no-repeat;">
+    <div class="hero-overlay">
+        <div class="container py-5 text-center text-white">
+            <h1 class="display-4 mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300;">
+                <i class="fas fa-check-circle mr-2 icon-custom"></i> ¡Mensaje enviado con éxito!
+            </h1>
+           
+        </div>
+    </div>
+</div>
+
+<!-- Contenido Principal -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <div class="p-5 bg-light rounded shadow">
+                <i class="fas fa-envelope-open-text fa-4x mb-4 icon-custom"></i>
+                <h2 class="mb-4" style="font-family: 'Oswald', sans-serif; font-weight: 300;">Gracias por contactarnos</h2>
+                <p class="lead mb-4">Tu mensaje ha sido enviado correctamente. Nuestro equipo te responderá dentro de las próximas 24 horas.</p>
+
+                <div class="my-4 p-4 bg-white rounded">
+                    <h3 class="mb-3" style="font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 1.3rem;">¿Necesitas una respuesta inmediata?</h3>
+                    <a href="https://wa.me/542344542490" class="btn btn-success-custom btn-lg mt-2">
+                        <i class="fab fa-whatsapp mr-2"></i> Contactar por WhatsApp
+                    </a>
+                </div>
+
+                <hr class="my-4">
+
+                <div class="d-flex justify-content-center">
+                    <a href="/" class="btn btn-outline-secondary mr-3">
+                        <i class="fas fa-home mr-2"></i> Volver al Inicio
+                    </a>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sección de Confianza -->
+<div class="container-fluid py-4 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <i class="fas fa-shield-alt fa-2x mb-2 icon-custom"></i>
+                <h4 style="font-family: 'Oswald', sans-serif; font-weight: 300;">Datos protegidos</h4>
+                <p class="mb-0">Tu información está segura con nosotros</p>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
+                <i class="fas fa-clock fa-2x mb-2 icon-custom"></i>
+                <h4 style="font-family: 'Oswald', sans-serif; font-weight: 300;">Respuesta rápida</h4>
+                <p class="mb-0">Te responderemos en menos de 24 horas</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-headset fa-2x mb-2 icon-custom"></i>
+                <h4 style="font-family: 'Oswald', sans-serif; font-weight: 300;">Atención personalizada</h4>
+                <p class="mb-0">Asesoramiento profesional y humano</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+
+<!-- Incluir Font Awesome para los íconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

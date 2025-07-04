@@ -32,35 +32,46 @@
             <div class="col-lg-6 mb-5 mb-lg-0">
                 <!-- Formulario de Contacto -->
                 <div class="contact-form bg-white p-4 shadow-sm">
-                    <form>
+                    <form action="https://api.web3forms.com/submit" method="POST" >
+                        <!-- Campos requeridos por Web3Forms -->
+                        <input type="hidden" name="access_key" value="699111ca-9630-49cf-95ce-f7c3dbf707c8">
+                        <input type="hidden" name="redirect" id="web3redirect">
+                        <input type="hidden" name="subject" value="Nuevo mensaje desde el formulario de contacto">
+                        <input type="hidden" name="from_name" value="Sitio Web GV">
+
+                     
+
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <div class="form-group">
                                     <label for="name" class="form-label small text-muted mb-1">NOMBRE</label>
-                                    <input type="text" class="form-control border-0 border-bottom px-0" id="name" required>
+                                    <input type="text" name="nombre" class="form-control border-0 border-bottom px-0" id="name" required>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <div class="form-group">
                                     <label for="email" class="form-label small text-muted mb-1">EMAIL</label>
-                                    <input type="email" class="form-control border-0 border-bottom px-0" id="email" required>
+                                    <input type="email" name="email" class="form-control border-0 border-bottom px-0" id="email" required>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-4">
                             <div class="form-group">
                                 <label for="subject" class="form-label small text-muted mb-1">ASUNTO</label>
-                                <input type="text" class="form-control border-0 border-bottom px-0" id="subject" required>
+                                <input type="text" name="asunto" class="form-control border-0 border-bottom px-0" id="subject" required>
                             </div>
                         </div>
                         <div class="mb-4">
                             <div class="form-group">
                                 <label for="message" class="form-label small text-muted mb-1">MENSAJE</label>
-                                <textarea class="form-control border-0 border-bottom px-0" id="message" rows="5" required></textarea>
+                                <textarea name="mensaje" class="form-control border-0 border-bottom px-0" id="message" rows="5" required></textarea>
                             </div>
                         </div>
+
+                 
+
                         <div class="text-center">
-                            <button type="submit" class="btn btn-dark px-4 py-2">
+                            <button type="submit" class="btn btn-custom px-4 py-2">
                                 <i class="fas fa-paper-plane me-2"></i> ENVIAR MENSAJE
                             </button>
                         </div>
@@ -138,5 +149,10 @@
 
     </div>
 </div>
+
+<script>
+    // Genera URL absoluta para el redirect
+    document.getElementById('web3redirect').value = window.location.origin + '@Url.Page("/Thanks")';
+</script>
 
 
