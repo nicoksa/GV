@@ -189,16 +189,16 @@
                             }
                             else
                             {
-                                <span>Martin Fierro 3253, Saladillo</span>
+                                <span>Martin Fierro 3253</span>
                             }
                         </p>
                     </div>
 
                     <div class="ratio ratio-16x9">
                         @{
-                            var direccionMapa = Model.IsUrban && !string.IsNullOrEmpty(Model.PropiedadUrbana?.Direccion) 
-                                ? Model.PropiedadUrbana.Direccion 
-                                : "Martin Fierro 3253, Saladillo";
+                             var direccionMapa = Model.IsUrban && !string.IsNullOrEmpty(Model.PropiedadUrbana?.Direccion) 
+                            ? $"{Model.PropiedadUrbana.Direccion}, {Model.Propiedad?.Ubicacion}"  
+                            : "Martin Fierro 3253, Saladillo";
                         }
                         <iframe src="https://maps.google.com/maps?q=@Uri.EscapeDataString(direccionMapa)&z=15&output=embed" 
                                 frameborder="0" 
