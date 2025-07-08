@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="nul" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\fonts\bigmug-line\.DS_Store" />
     <None Include="wwwroot\fonts\flaticon-2\.DS_Store" />
     <None Include="wwwroot\images\.DS_Store" />
