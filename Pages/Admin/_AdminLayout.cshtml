@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GV Administración</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   
+    <link rel="stylesheet" href="~/css/stylesAdmin.css" />
+    @RenderSection("Styles", required: false) <!-- Aquí se renderizarán los estilos específicos -->
+</head>
+<body>
+    <div class="admin-sidebar">
+        <div class="logo">
+            <img src="/images/logos/banner.jpg" alt="GV Inmobiliaria" style="max-height: 60px;">
+        </div>
+        <nav>
+            <ul>
+                <li><a asp-page="/Admin/Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a asp-page="/Admin/GestionPropiedades"><i class="fas fa-home"></i> Propiedades</a></li>          
+                <li><a asp-page="/Admin/GestionCampos"><i class="fas fa-seedling"></i> Campos</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Configuración</a></li>
+                <li><a asp-page="/Admin/Logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="admin-main">
+        <div class="admin-header">
+            @if (ViewData["HideTitle"] as bool? != true)
+            {
+                <h2>@ViewData["Title"]</h2>
+            }
+            
+        </div>
+
+        @RenderBody()
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    @RenderSection("Scripts", required: false) <!-- Aquí se renderizarán los scripts específicos -->
+</body>
+</html>

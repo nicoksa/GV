@@ -36,7 +36,7 @@ namespace GV.Pages.Admin
 
             // Aquí iría tu lógica de autenticación
             // Por ahora solo redireccionamos si es válido
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Admin/Dashboard");
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿@page
+@model GV.Pages.Admin.DashboardModel
+@{
+    ViewData["Title"] = "Panel de Administración";
+    Layout = "_AdminLayout"; // layout específico para admin
+}
+
+<div class="admin-container">
+  
+
+    <div class="admin-cards">
+        <a asp-page="/Admin/GestionPropiedades" class="admin-card">
+            <i class="fas fa-home"></i>
+            <h3>Propiedades</h3>
+            <p>Gestión de propiedades</p>
+        </a>
+
+        <a asp-page="/Admin/GestionCampos" class="admin-card">
+            <i class="fas fa-seedling fa-2x"></i>
+            <h3>Campos</h3>
+            <p>Gestión de campos</p>
+        </a>
+    </div>
+</div>
