@@ -1,0 +1,122 @@
+﻿@page
+@{
+    ViewData["Title"] = "Editar Campo";
+    ViewData["HideTitle"] = true;
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-container">
+    <div class="admin-header mb-4">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+
+    <form>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Información Básica</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Título *</label>
+                            <input class="form-control" value="Campo Agrícola en Pergamino" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" rows="4">Excelente campo con aptitud agrícola...</textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Aptitud *</label>
+                                    <select class="form-select" required>
+                                        <option value="Agrícola" selected>Agrícola</option>
+                                        <option value="Ganadera">Ganadera</option>
+                                        <option value="Mixta">Mixta</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Precio *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input class="form-control" value="1200000" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Características</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Hectáreas *</label>
+                                    <div class="input-group">
+                                        <input class="form-control" value="150.5" required>
+                                        <span class="input-group-text">ha</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Ubicación</label>
+                                    <input class="form-control" value="Pergamino, Buenos Aires">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Configuración</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3 form-check form-switch">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <label class="form-check-label">Destacado</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Imágenes</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Subir imágenes</label>
+                            <input type="file" class="form-control" multiple accept="image/*">
+                        </div>
+                        <div class="image-preview">
+                            <img src="/images/campo1.jpg" class="img-thumbnail m-1" width="80">
+                            <img src="/images/campo2.jpg" class="img-thumbnail m-1" width="80">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a href="/Admin/GestionCampos" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+            <button type="button" class="btn btn-primary">
+                <i class="fas fa-save"></i> Guardar Cambios
+            </button>
+        </div>
+    </form>
+</div>
+
