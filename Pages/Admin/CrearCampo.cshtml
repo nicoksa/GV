@@ -1,0 +1,150 @@
+﻿@page
+@{
+    ViewData["Title"] = "Nuevo Campo";
+    ViewData["HideTitle"] = true;
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-container">
+    <div class="admin-header mb-4">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+
+    <form>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Información Básica</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Título *</label>
+                            <input class="form-control" placeholder="Ej: Campo agrícola 150 ha" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" rows="4" placeholder="Describa las características del campo..."></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Aptitud *</label>
+                                    <select class="form-select" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Agrícola">Agrícola</option>
+                                        <option value="Ganadera">Ganadera</option>
+                                        <option value="Mixta">Mixta</option>
+                                        <option value="Forestal">Forestal</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Precio *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input class="form-control" placeholder="Ej: 1200000" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Características</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Hectáreas *</label>
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="Ej: 150.5" required>
+                                        <span class="input-group-text">ha</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Ubicación (Provincia/Partido)</label>
+                                    <input class="form-control" placeholder="Ej: Pergamino, Buenos Aires">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Configuración</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3 form-check form-switch">
+                            <input class="form-check-input" type="checkbox">
+                            <label class="form-check-label">Destacado</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Imágenes</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Subir imágenes *</label>
+                            <input type="file" class="form-control" multiple accept="image/*" required>
+                            <small class="text-muted">Mínimo 3 imágenes (máx. 10)</small>
+                        </div>
+                        <div class="image-preview"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a href="/Admin/GestionCampos" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+            <button type="button" class="btn btn-success">
+                <i class="fas fa-plus-circle"></i> Crear Campo
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Styles {
+    <style>
+        .form-switch .form-check-input {
+            width: 2.5em;
+            height: 1.5em;
+        }
+
+        .card {
+            margin-bottom: 1.5rem;
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 50px;
+            border: 1px dashed #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+}
