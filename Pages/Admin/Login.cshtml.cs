@@ -63,6 +63,7 @@ namespace GV.Pages.Admin
             // Verificación con manejo de errores
             bool isValid;
            
+            
             try
             {
                 isValid = BCrypt.Net.BCrypt.Verify(Input.Password, usuario.PasswordHash);
@@ -79,7 +80,7 @@ namespace GV.Pages.Admin
                 ModelState.AddModelError(string.Empty, "Contraseña incorrecta");
                 return Page();
             }
-
+            
 
 
             var claims = new List<Claim>
@@ -103,7 +104,7 @@ namespace GV.Pages.Admin
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
 
-          
+  
 
             return RedirectToPage("/Admin/Dashboard");
         }
