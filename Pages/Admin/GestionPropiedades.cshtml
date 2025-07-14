@@ -1,11 +1,10 @@
 ﻿@page
+@model GV.Pages.Admin.GestionPropiedadesModel
 @{
     ViewData["Title"] = "Gestión de Propiedades";
     ViewData["HideTitle"] = true;
     Layout = "_AdminLayout";
 }
-
-
 
 <div class="admin-header mb-4">
     <h2>@ViewData["Title"]</h2>
@@ -34,41 +33,40 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Ejemplo de datos estáticos -->
-            <tr>
-                <td><img src="/images/img_7.jpg" alt="Miniatura" class="img-thumbnail"></td>
-                <td>101</td>
-                <td>Casa en Barrio Privado</td>
-                <td>Casa</td>
-                <td>Nordelta, Buenos Aires</td>
-                <td>$250,000</td>
-                <td><i class="fas fa-star text-warning"></i></td>
-                <td class="action-buttons">
-                    <a href="/Admin/EditarPropiedad" class="btn btn-sm btn-edit">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <button class="btn btn-sm btn-danger" onclick="confirmDelete(101)">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td><img src="/images/hero_bg_1.jpg" alt="Miniatura" class="img-thumbnail"></td>
-                <td>102</td>
-                <td>Departamento Centro</td>
-                <td>Departamento</td>
-                <td>Recoleta, CABA</td>
-                <td>$150,000</td>
-                <td><i class="far fa-star text-muted"></i></td>
-                <td class="action-buttons">
-                    <a href="/Admin/EditarPropiedad" class="btn btn-sm btn-edit">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <button class="btn btn-sm btn-danger" onclick="confirmDelete(102)">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </td>
-            </tr>
+            @foreach (var propiedad in Model.PropiedadesUrbanas)
+            {
+                <tr>
+                    <td>
+                        @{
+                            var imagenPrincipal = propiedad.Imagenes?.FirstOrDefault(i => i.EsPrincipal)?.Url ?? "/images/img_1.jpg";
+                        }
+                        <img src="@imagenPrincipal" alt="Miniatura" class="img-thumbnail" style="max-width: 80px;">
+                    </td>
+                    <td>@propiedad.Id</td>
+                    <td>@propiedad.Titulo</td>
+                    <td>@propiedad.Tipo</td>
+                    <td>@propiedad.Ubicacion</td>
+                    <td>@propiedad.Precio.ToString("")</td>
+                    <td>
+                        @if (propiedad.EsDestacada)
+                        {
+                            <i class="fas fa-star text-warning"></i>
+                        }
+                        else
+                        {
+                            <i class="far fa-star text-muted"></i>
+                        }
+                    </td>
+                    <td class="action-buttons">
+                        <a href="/Admin/EditarPropiedad/@propiedad.Id" class="btn btn-sm btn-edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button class="btn btn-sm btn-danger" onclick="confirmDelete(@propiedad.Id)">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
@@ -94,6 +92,8 @@
 
 
 
+
+
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -101,7 +101,8 @@
         document.getElementById('searchInput').addEventListener('keyup', function() {
             const value = this.value.toLowerCase();
             document.querySelectorAll('table tbody tr').forEach(row => {
-                row.style.display = row.textContent.toLowerCase().includes(value) ? '' : 'none';
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(value) ? '' : 'none';
             });
         });
 
@@ -115,7 +116,25 @@
         }
 
         document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-            alert(`Propiedad ${currentIdToDelete} eliminada (simulado)`);
+            // Enviar solicitud de eliminación al servidor
+            fetch(`?handler=Delete&id=${currentIdToDelete}`, {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Error al eliminar la propiedad');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al eliminar la propiedad');
+            });
+
             const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
             modal.hide();
         });
