@@ -1,4 +1,77 @@
 ﻿
+/* ESTILOS PARA LAS TABLAS DE LOS LISTADOS*/
+
+
+
+.admin-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Espacio vertical entre filas */
+    margin-top: -10px; /* Compensa el espacio adicional */
+}
+
+    .admin-table th,
+    .admin-table td {
+        padding: 12px 15px; /* Más espacio interno en celdas */
+        vertical-align: middle; /* Alinear contenido verticalmente */
+    }
+
+    .admin-table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .admin-table tbody tr {
+        background-color: white;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Sombra sutil para cada fila */
+        border-radius: 4px; /* Bordes redondeados para las filas */
+        transition: all 0.2s ease;
+    }
+
+        .admin-table tbody tr:hover {
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+/* Espacio adicional para botones de acción */
+.action-buttons .btn {
+    margin: 0 3px;
+    padding: 5px 10px;
+}
+
+/* barra de búsqueda */
+.search-bar {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+    .search-bar input {
+        max-width: 300px;
+        margin-right: 10px;
+    }
+
+/* Estilo para el icono de destacado */
+.fa-star {
+    font-size: 1.2em;
+}
+
+
+
+.admin-table {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+    .admin-table th,
+    .admin-table td {
+        border: 1px solid #dee2e6;
+    }
+
+
+
+
 /* LOGIN */
 
 .login-container {
