@@ -1,9 +1,14 @@
 ﻿@page
+@model GV.Pages.Admin.GestionCamposModel
 @{
     ViewData["Title"] = "Gestión de Campos";
     ViewData["HideTitle"] = true;
     Layout = "_AdminLayout";
 }
+
+
+
+
 
 <div class="admin-header mb-4">
     <h2>@ViewData["Title"]</h2>
@@ -13,7 +18,7 @@
 </div>
 
 <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Buscar propiedades..." class="form-control">
+    <input type="text" id="searchInput" placeholder="Buscar campos..." class="form-control">
     <button class="btn btn-search"><i class="fas fa-search"></i></button>
 </div>
 
@@ -21,56 +26,49 @@
     <table class="admin-table">
         <thead>
             <tr>
-                <th><i class="fas fa-image"></i></th>
                 <th>ID</th>
-                <th>Nombre</th>
-                <th>Hectáreas</th>
-                <th>Ubicación</th>
-                <th>Precio</th>
-                <th>Destacado</th>
-                <th>Acciones</th>
+                <th >Nombre</th>
+                <th >Aptitud</th>
+                <th> Hectáreas</th>
+                <th> Ubicación</th>
+                <th> Precio</th>
+                <th> Destacado</th>
+                <th> Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Ejemplo de datos estáticos -->
-            <tr>
-                <td><img src="/images/campos/agricolaEj1.jpg" alt="Miniatura" class="img-thumbnail"></td>
-                <td>201</td>
-                <td>Campo Agrícola</td>
-                <td>150.50 ha</td>
-                <td>Pergamino, Buenos Aires</td>
-                <td>$1,200,000</td>
-                <td><i class="fas fa-star text-warning"></i></td>
-                <td class="action-buttons">
-                    <a href="/Admin/EditarCampo" class="btn btn-sm btn-edit">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <button class="btn btn-sm btn-danger" onclick="confirmDelete(201)">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td><img src="/images/campos/ganaderoEj1.jpg" alt="Miniatura" class="img-thumbnail"></td>
-                <td>202</td>
-                <td>Estancia Ganadera</td>
-                <td>250.75 ha</td>
-                <td>General Acha, La Pampa</td>
-                <td>$1,800,000</td>
-                <td><i class="far fa-star text-muted"></i></td>
-                <td class="action-buttons">
-                    <a href="/Admin/EditarCampo" class="btn btn-sm btn-edit">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <button class="btn btn-sm btn-danger" onclick="confirmDelete(202)">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </td>
-            </tr>
+            @foreach (var campo in Model.PropiedadesCampo)
+            {
+                <tr>
+                    <td>@campo.Id</td>
+                    <td>@campo.Titulo</td>
+                    <td>@campo.Aptitud</td>
+                    <td>@campo.Hectareas.ToString("N1") ha</td>
+                    <td>@campo.Ubicacion</td>
+                    <td>@campo.Precio.ToString("")</td>
+                    <td class="text-center">
+                        @if (campo.EsDestacada)
+                        {
+                            <i class="fas fa-star text-warning"></i>
+                        }
+                        else
+                        {
+                            <i class="far fa-star text-muted"></i>
+                        }
+                    </td>
+                    <td class="action-buttons text-center">
+                        <a href="/Admin/EditarCampo/@campo.Id" class="btn btn-sm btn-edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button class="btn btn-sm btn-danger" onclick="confirmDelete(@campo.Id)">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
-
 
 <!-- Modal de confirmación -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
@@ -81,7 +79,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ¿Estás seguro que deseas eliminar esta propiedad?
+                ¿Estás seguro que deseas eliminar este campo?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -91,19 +89,19 @@
     </div>
 </div>
 
-
-
 @section Scripts {
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Mismo script de búsqueda y eliminación que en propiedades
+        // Búsqueda en tiempo real
         document.getElementById('searchInput').addEventListener('keyup', function() {
             const value = this.value.toLowerCase();
             document.querySelectorAll('table tbody tr').forEach(row => {
-                row.style.display = row.textContent.toLowerCase().includes(value) ? '' : 'none';
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(value) ? '' : 'none';
             });
         });
 
+        // Manejo del modal de eliminación
         let currentIdToDelete = 0;
 
         function confirmDelete(id) {
@@ -113,9 +111,112 @@
         }
 
         document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-            alert(`Campo ${currentIdToDelete} eliminado (simulado)`);
+            // Enviar solicitud de eliminación al servidor
+            fetch(`?handler=Delete&id=${currentIdToDelete}`, {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Error al eliminar el campo');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al eliminar el campo');
+            });
+
             const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
             modal.hide();
         });
     </script>
 }
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    /* Estilos mejorados para la tabla */
+    .admin-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px; /* Espacio vertical entre filas */
+        margin-top: -10px; /* Compensa el espacio adicional */
+    }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 12px 15px; /* Más espacio interno en celdas */
+            vertical-align: middle; /* Alinear contenido verticalmente */
+        }
+
+        .admin-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .admin-table tbody tr {
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Sombra sutil para cada fila */
+            border-radius: 4px; /* Bordes redondeados para las filas */
+            transition: all 0.2s ease;
+        }
+
+            .admin-table tbody tr:hover {
+                background-color: #f8f9fa;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            }
+
+    /* Espacio adicional para botones de acción */
+    .action-buttons .btn {
+        margin: 0 3px;
+        padding: 5px 10px;
+    }
+
+    /* Mejorar la barra de búsqueda */
+    .search-bar {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+        .search-bar input {
+            max-width: 300px;
+            margin-right: 10px;
+        }
+
+    /* Estilo para el icono de destacado */
+    .fa-star {
+        font-size: 1.2em;
+    }
+
+
+
+    .admin-table {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .admin-table th,
+        .admin-table td {
+            border: 1px solid #dee2e6;
+        }
+</style>
+
+
+
+
+
