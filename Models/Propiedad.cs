@@ -1,4 +1,5 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿using System.ComponentModel;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GV.Models
 {
@@ -11,7 +12,9 @@ namespace GV.Models
         public string Ubicacion { get; set; }
         public decimal Precio { get; set; } 
         public DateTime FechaPublicacion { get; set; } = DateTime.Now;
-        public bool EsDestacada { get; set;}
+
+        [DisplayName("Destacada")]
+        public bool EsDestacada { get; set; }
 
         // Relación
         public List<Imagen> Imagenes { get; set; }

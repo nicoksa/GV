@@ -1,4 +1,5 @@
-﻿@page
+﻿@page "{id:int}"
+@model GV.Pages.Admin.EditarPropiedadModel
 @{
     ViewData["Title"] = "Editar Propiedad Urbana";
     ViewData["HideTitle"] = true;
@@ -10,7 +11,9 @@
         <h1>@ViewData["Title"]</h1>
     </div>
 
-    <form>
+    <form method="post">
+        <input type="hidden" asp-for="Propiedad.Id" />
+
         <div class="row">
             <div class="col-md-8">
                 <div class="card mb-4">
@@ -19,33 +22,39 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">Título *</label>
-                            <input class="form-control" value="Casa en Barrio Privado" required>
+                            <label class="form-label" asp-for="Propiedad.Titulo"></label>
+                            <input class="form-control" asp-for="Propiedad.Titulo" required>
+                            <span asp-validation-for="Propiedad.Titulo" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Descripción</label>
-                            <textarea class="form-control" rows="4">Hermosa casa con amplios jardines...</textarea>
+                            <label class="form-label" asp-for="Propiedad.Descripcion"></label>
+                            <textarea class="form-control" asp-for="Propiedad.Descripcion" rows="4"></textarea>
+                            <span asp-validation-for="Propiedad.Descripcion" class="text-danger"></span>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Tipo *</label>
-                                    <select class="form-select" required>
-                                        <option value="Casa" selected>Casa</option>
+                                    <label class="form-label" asp-for="Propiedad.Tipo"></label>
+                                    <select class="form-select" asp-for="Propiedad.Tipo" required>
+                                        <option value="Casa">Casa</option>
                                         <option value="Departamento">Departamento</option>
-                                        <option value="PH">PH</option>
+                                        <option value="Quinta">Quinta</option>
+                                        <option value="Local">Local</option>
+                                        <option value="Terreno">Terreno</option>
                                     </select>
+                                    <span asp-validation-for="Propiedad.Tipo" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Precio *</label>
+                                    <label class="form-label" asp-for="Propiedad.Precio"></label>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input class="form-control" value="250000" required>
+                                        <input class="form-control" asp-for="Propiedad.Precio" required>
                                     </div>
+                                    <span asp-validation-for="Propiedad.Precio" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -60,20 +69,23 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label">Ambientes</label>
-                                    <input class="form-control" type="number" value="5" min="1">
+                                    <label class="form-label" asp-for="Propiedad.Ambientes"></label>
+                                    <input class="form-control" asp-for="Propiedad.Ambientes" type="number" min="1">
+                                    <span asp-validation-for="Propiedad.Ambientes" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label">Dormitorios</label>
-                                    <input class="form-control" type="number" value="3" min="0">
+                                    <label class="form-label" asp-for="Propiedad.Dormitorios"></label>
+                                    <input class="form-control" asp-for="Propiedad.Dormitorios" type="number" min="0">
+                                    <span asp-validation-for="Propiedad.Dormitorios" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label">Baños</label>
-                                    <input class="form-control" type="number" value="2" min="1">
+                                    <label class="form-label" asp-for="Propiedad.Banios"></label>
+                                    <input class="form-control" asp-for="Propiedad.Banios" type="number" min="1">
+                                    <span asp-validation-for="Propiedad.Banios" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -81,14 +93,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Superficie Total (m²)</label>
-                                    <input class="form-control" type="number" value="300">
+                                    <label class="form-label" asp-for="Propiedad.SuperficieTotal"></label>
+                                    <input class="form-control" asp-for="Propiedad.SuperficieTotal" type="number">
+                                    <span asp-validation-for="Propiedad.SuperficieTotal" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Superficie Cubierta (m²)</label>
-                                    <input class="form-control" type="number" value="180">
+                                    <label class="form-label" asp-for="Propiedad.SuperficieCubierta"></label>
+                                    <input class="form-control" asp-for="Propiedad.SuperficieCubierta" type="number">
+                                    <span asp-validation-for="Propiedad.SuperficieCubierta" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -96,14 +110,22 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Dirección</label>
-                                    <input class="form-control" value="Calle Falsa 123">
+                                    <label class="form-label" asp-for="Propiedad.Direccion"></label>
+                                    <input class="form-control" asp-for="Propiedad.Direccion">
+                                    <span asp-validation-for="Propiedad.Direccion" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Ubicación</label>
-                                    <input class="form-control" value="Nordelta, Buenos Aires">
+                                    <label class="form-label" asp-for="Propiedad.Ubicacion"></label>
+                                    <select class="form-select" asp-for="Propiedad.Ubicacion">
+                                       
+                                        <option value="Saladillo">Saladillo</option>
+                                        <option value="Las Flores">Las Flores</option>
+                                        <option value="Roque Pérez">Roque Pérez</option>
+                                        <option value="25 de mayo">25 de mayo</option>
+                                    </select>
+                                    <span asp-validation-for="Propiedad.Ubicacion" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -118,8 +140,8 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3 form-check form-switch">
-                            <input class="form-check-input" type="checkbox" checked>
-                            <label class="form-check-label">Destacada</label>
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.EsDestacada">
+                            <label class="form-check-label" asp-for="Propiedad.EsDestacada"></label>
                         </div>
                     </div>
                 </div>
@@ -130,24 +152,24 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" checked>
-                            <label class="form-check-label">Cochera</label>
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Cochera">
+                            <label class="form-check-label" asp-for="Propiedad.Cochera"></label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" checked>
-                            <label class="form-check-label">Patio</label>
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Patio">
+                            <label class="form-check-label" asp-for="Propiedad.Patio"></label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox">
-                            <label class="form-check-label">Aire Acondicionado</label>
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Aire_acond">
+                            <label class="form-check-label" asp-for="Propiedad.Aire_acond"></label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" checked>
-                            <label class="form-check-label">Seguridad</label>
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Seguridad">
+                            <label class="form-check-label" asp-for="Propiedad.Seguridad"></label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox">
-                            <label class="form-check-label">Pileta</label>
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Pileta">
+                            <label class="form-check-label" asp-for="Propiedad.Pileta"></label>
                         </div>
                     </div>
                 </div>
@@ -162,8 +184,17 @@
                             <input type="file" class="form-control" multiple accept="image/*">
                         </div>
                         <div class="image-preview">
-                            <img src="/images/img_7.jpg" class="img-thumbnail m-1" width="80">
-                            <img src="/images/hero_bg_1.jpg" class="img-thumbnail m-1" width="80">
+                            @if (Model.Propiedad.Imagenes != null && Model.Propiedad.Imagenes.Any())
+                            {
+                                foreach (var imagen in Model.Propiedad.Imagenes)
+                                {
+                                    <img src="@imagen.Url" class="img-thumbnail m-1" width="80">
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted">No hay imágenes cargadas</p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -174,10 +205,43 @@
             <a href="/Admin/GestionPropiedades" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Volver
             </a>
-            <button type="button" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save"></i> Guardar Cambios
             </button>
         </div>
     </form>
 </div>
 
+
+
+
+@section Scripts {
+    <!-- <partial name="_ValidationScriptsPartial" /> -->
+    <script>
+
+        // Deshabilitar campos cuando se selecciona Terreno
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const tipoSelect = document.querySelector('select[name="Propiedad.Tipo"]');
+            const camposTerreno = [
+                document.querySelector('input[name="Propiedad.Ambientes"]'),
+                document.querySelector('input[name="Propiedad.Dormitorios"]'),
+                document.querySelector('input[name="Propiedad.Banios"]'),
+                document.querySelector('input[name="Propiedad.SuperficieCubierta"]')
+            ];
+
+            function actualizarCampos() {
+                const esTerreno = tipoSelect.value === 'Terreno';
+                camposTerreno.forEach(campo => {
+                    campo.disabled = esTerreno;
+                    if (esTerreno) {
+                        campo.value = '';
+                    }
+                });
+            }
+
+            tipoSelect.addEventListener('change', actualizarCampos);
+            actualizarCampos(); // Ejecutar al cargar la página
+        });
+    </script>
+}
