@@ -198,6 +198,34 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Videos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">URL de YouTube</label>
+                            <input type="text" class="form-control" name="VideoUrl" placeholder="Ej: https://www.youtube.com/watch?v=CODIGO_VIDEO">
+                        </div>
+                        <div class="video-preview">
+                            @if (Model.Propiedad.Videos != null && Model.Propiedad.Videos.Any())
+                            {
+                                foreach (var video in Model.Propiedad.Videos)
+                                {
+                                    <div class="ratio ratio-16x9 mb-3">
+                                        <iframe src="@video.Url" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted">No hay videos cargados</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
