@@ -23,12 +23,16 @@ namespace GV.Pages.Admin
         {
             Propiedad = await _context.PropiedadesUrbanas
                 .Include(p => p.Imagenes)
+                .Include(p => p.Videos)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (Propiedad == null)
             {
                 return NotFound();
             }
+
+            Console.WriteLine($"Imágenes cargadas: {Propiedad.Imagenes?.Count ?? 0}");
+            Console.WriteLine($"Videos cargados: {Propiedad.Videos?.Count ?? 0}");
 
             return Page();
         }

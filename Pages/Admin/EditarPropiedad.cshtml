@@ -174,6 +174,7 @@
                     </div>
                 </div>
 
+              <!-- Sección de Imágenes -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5>Imágenes</h5>
@@ -188,7 +189,17 @@
                             {
                                 foreach (var imagen in Model.Propiedad.Imagenes)
                                 {
-                                    <img src="@imagen.Url" class="img-thumbnail m-1" width="80">
+                                    <div class="d-inline-block position-relative me-2 mb-2">
+                                        <!-- Añade ~/ para asegurar rutas relativas a la raíz -->
+                                        <img src="@Url.Content("~/" + imagen.Url)" class="img-thumbnail" width="120"
+                                             onerror="this.src='/images/default-property.jpg';this.onerror=null;">
+                                        @if (imagen.EsPrincipal)
+                                        {
+                                            <span class="position-absolute top-0 start-100 translate-middle badge bg-primary">
+                                                Principal
+                                            </span>
+                                        }
+                                    </div>
                                 }
                             }
                             else
@@ -199,6 +210,7 @@
                     </div>
                 </div>
 
+                <!-- Sección de Videos -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5>Videos</h5>
@@ -206,15 +218,33 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="form-label">URL de YouTube</label>
-                            <input type="text" class="form-control" name="VideoUrl" placeholder="Ej: https://www.youtube.com/watch?v=CODIGO_VIDEO">
+                            <input type="text" class="form-control" name="VideoUrl" >
                         </div>
                         <div class="video-preview">
                             @if (Model.Propiedad.Videos != null && Model.Propiedad.Videos.Any())
                             {
                                 foreach (var video in Model.Propiedad.Videos)
                                 {
-                                    <div class="ratio ratio-16x9 mb-3">
-                                        <iframe src="@video.Url" frameborder="0" allowfullscreen></iframe>
+                                    <div class="mb-3">
+                                        <div class="ratio ratio-16x9">
+                                            @if (video.Url.Contains("youtube.com"))
+                                            {
+                                                <iframe src="@ConvertToEmbedUrl(video.Url)" 
+                                                        frameborder="0" 
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                        allowfullscreen></iframe>
+                                            }
+                                            else
+                                            {
+                                                <video controls>
+                                                    <source src="@video.Url" type="video/mp4">
+                                                    Tu navegador no soporta el elemento de video.
+                                                </video>
+                                            }
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="@video.Url" target="_blank">@video.Url</a>
+                                        </div>
                                     </div>
                                 }
                             }
@@ -270,6 +300,55 @@
 
             tipoSelect.addEventListener('change', actualizarCampos);
             actualizarCampos(); // Ejecutar al cargar la página
+        });
+
+
+            @functions {
+            // Método para convertir URLs de YouTube a formato embed
+            public string ConvertToEmbedUrl(string url)
+            {
+                    if (url.Contains("youtube.com/watch?v="))
+                    {
+                            var videoId = url.Split(new[] { "v=" }, StringSplitOptions.None)[1];
+                            var ampersandIndex = videoId.IndexOf('&');
+                            if (ampersandIndex > 0)
+                            {
+                                    videoId = videoId.Substring(0, ampersandIndex);
+                            }
+                            return $"https://www.youtube.com/embed/{videoId}";
+                    }
+                    return url;
+            }
+    }
+
+                document.addEventListener('DOMContentLoaded', function() {
+            // Validación de URL de YouTube
+            const videoInput = document.querySelector('input[name="VideoUrl"]');
+            if (videoInput) {
+                videoInput.addEventListener('change', function() {
+                    const url = this.value;
+                    if (url && !url.includes('youtube.com') && !url.includes('youtu.be')) {
+                        alert('Por favor, ingrese una URL válida de YouTube');
+                        this.value = '';
+                    }
+                });
+            }
+        });
+
+
+
+                document.addEventListener('DOMContentLoaded', function() {
+            // Depuración: Verifica todas las URLs de imágenes
+            const images = document.querySelectorAll('.image-preview img');
+            images.forEach(img => {
+                console.log('URL de imagen:', img.src);
+
+                // Verifica si la imagen se carga correctamente
+                img.onerror = function() {
+                    console.error('Error al cargar imagen:', this.src);
+                    this.src = '/images/default-property.jpg';
+                };
+            });
         });
     </script>
 }

@@ -30,6 +30,12 @@ namespace GV.Models
         public bool Seguridad{ get; set; }
         public bool Pileta { get; set; }
         public string Direccion { get; set; }
-        
+
+
+        public PropiedadUrbana()
+        {
+            Imagenes = new List<Imagen>();
+            Videos = new List<Video>();
+        }
     }
 }
