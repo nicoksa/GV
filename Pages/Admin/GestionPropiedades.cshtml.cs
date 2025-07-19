@@ -27,12 +27,17 @@ namespace GV.Pages.Admin
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            var propiedad = await _context.Propiedades.FindAsync(id);
+            var propiedad = await _context.PropiedadesUrbanas.FindAsync(id);
 
             if (propiedad != null)
             {
-                _context.Propiedades.Remove(propiedad);
+                _context.PropiedadesUrbanas.Remove(propiedad);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Propiedad eliminada correctamente";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "No se encontró la propiedad a eliminar";
             }
 
             return RedirectToPage();

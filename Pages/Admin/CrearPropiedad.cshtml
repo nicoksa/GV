@@ -1,16 +1,19 @@
 ﻿@page
+@model GV.Pages.Admin.CrearPropiedadModel
 @{
-    ViewData["Title"] = "Nueva Propiedad Urbana";
+    ViewData["Title"] = "Nueva Propiedad ";
     ViewData["HideTitle"] = true;
     Layout = "_AdminLayout";
 }
+
+<link rel="stylesheet" href="~/css/styleAdminEditar.css" />
 
 <div class="admin-container">
     <div class="admin-header mb-4">
         <h1>@ViewData["Title"]</h1>
     </div>
 
-    <form>
+    <form method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-8">
                 <div class="card mb-4">
@@ -19,36 +22,39 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">Título *</label>
-                            <input class="form-control" required>
+                            <label class="form-label" asp-for="Propiedad.Titulo">Título *</label>
+                            <input class="form-control" asp-for="Propiedad.Titulo" required>
+                            <span asp-validation-for="Propiedad.Titulo" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Descripción</label>
-                            <textarea class="form-control" rows="4" placeholder="Describa las características principales de la propiedad..."></textarea>
+                            <label class="form-label" asp-for="Propiedad.Descripcion">Descripción</label>
+                            <textarea class="form-control" asp-for="Propiedad.Descripcion" rows="4" placeholder="Describa las características principales de la propiedad..."></textarea>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Tipo *</label>
-                                    <select class="form-select" required>
+                                    <label class="form-label" asp-for="Propiedad.Tipo">Tipo *</label>
+                                    <select class="form-select" asp-for="Propiedad.Tipo" required>
                                         <option value="">Seleccione...</option>
                                         <option value="Casa">Casa</option>
                                         <option value="Departamento">Departamento</option>
                                         <option value="Quinta">Quinta</option>
-                                        <option value="Local">Local </option>
-                                        <option value="Terreno">Terreno </option>
+                                        <option value="Local">Local</option>
+                                        <option value="Terreno">Terreno</option>
                                     </select>
+                                    <span asp-validation-for="Propiedad.Tipo" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Precio *</label>
+                                    <label class="form-label" asp-for="Propiedad.Precio">Precio *</label>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input class="form-control"  required>
+                                        <input class="form-control" asp-for="Propiedad.Precio" required>
                                     </div>
+                                    <span asp-validation-for="Propiedad.Precio" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -63,20 +69,20 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label">Ambientes</label>
-                                    <input class="form-control" type="number" min="0" >
+                                    <label class="form-label" asp-for="Propiedad.Ambientes">Ambientes</label>
+                                    <input class="form-control" asp-for="Propiedad.Ambientes" type="number" min="0">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label">Dormitorios</label>
-                                    <input class="form-control" type="number" min="0">
+                                    <label class="form-label" asp-for="Propiedad.Dormitorios">Dormitorios</label>
+                                    <input class="form-control" asp-for="Propiedad.Dormitorios" type="number" min="0">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label">Baños</label>
-                                    <input class="form-control" type="number" min="0" >
+                                    <label class="form-label" asp-for="Propiedad.Banios">Baños</label>
+                                    <input class="form-control" asp-for="Propiedad.Banios" type="number" min="0">
                                 </div>
                             </div>
                         </div>
@@ -84,14 +90,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Superficie Total (m²)</label>
-                                    <input class="form-control" type="number" min="1" >
+                                    <label class="form-label" asp-for="Propiedad.SuperficieTotal">Superficie Total (m²)</label>
+                                    <input class="form-control" asp-for="Propiedad.SuperficieTotal" type="number" min="1">
+                                    <span asp-validation-for="Propiedad.SuperficieTotal" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Superficie Cubierta (m²)</label>
-                                    <input class="form-control" type="number" min="0" >
+                                    <label class="form-label" asp-for="Propiedad.SuperficieCubierta">Superficie Cubierta (m²)</label>
+                                    <input class="form-control" asp-for="Propiedad.SuperficieCubierta" type="number" min="0">
                                 </div>
                             </div>
                         </div>
@@ -99,20 +106,20 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Dirección</label>
-                                    <input class="form-control" >
+                                    <label class="form-label" asp-for="Propiedad.Direccion">Dirección</label>
+                                    <input class="form-control" asp-for="Propiedad.Direccion">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Ubicacion</label>
-                                    <select class="form-select">
-
+                                    <label class="form-label" asp-for="Propiedad.Ubicacion">Ubicacion</label>
+                                    <select class="form-select" asp-for="Propiedad.Ubicacion">
                                         <option value="Saladillo">Saladillo</option>
                                         <option value="Las Flores">Las Flores</option>
                                         <option value="Roque Pérez">Roque Pérez</option>
                                         <option value="25 de mayo">25 de mayo</option>
                                     </select>
+                                    <span asp-validation-for="Propiedad.Ubicacion" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -127,8 +134,8 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3 form-check form-switch">
-                            <input class="form-check-input" type="checkbox">
-                            <label class="form-check-label"> Destacada</label>
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.EsDestacada">
+                            <label class="form-check-label">Destacada</label>
                         </div>
                     </div>
                 </div>
@@ -139,23 +146,23 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Cochera">
                             <label class="form-check-label">Cochera</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Patio">
                             <label class="form-check-label">Patio</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.AireAcondicionado">
                             <label class="form-check-label">Aire Acondicionado</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Seguridad">
                             <label class="form-check-label">Seguridad</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Pileta">
                             <label class="form-check-label">Pileta</label>
                         </div>
                     </div>
@@ -168,8 +175,8 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="form-label">Subir imágenes *</label>
-                            <input type="file" class="form-control" multiple accept="image/*" required>
-                           
+                            <input type="file" class="form-control" multiple accept="image/*" disabled>
+                            <small class="text-muted">Funcionalidad de imágenes será implementada posteriormente</small>
                         </div>
                         <div class="image-preview"></div>
                     </div>
@@ -181,12 +188,16 @@
             <a href="/Admin/GestionPropiedades" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Volver
             </a>
-            <button type="button" class="btn btn-success">
+            <button type="submit" class="btn btn-success">
                 <i class="fas fa-plus-circle"></i> Crear Propiedad
             </button>
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
 
 @section Styles {
     <style>
@@ -194,15 +205,18 @@
             width: 2.5em;
             height: 1.5em;
         }
+
         .card {
             margin-bottom: 1.5rem;
             border: none;
             box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
         }
+
         .card-header {
             background-color: #f8f9fa;
             border-bottom: 1px solid #eee;
         }
+
         .image-preview {
             display: flex;
             flex-wrap: wrap;

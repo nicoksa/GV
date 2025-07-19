@@ -25,17 +25,30 @@ namespace GV.Pages.Admin
                 .ToListAsync();
         }
 
+
+        
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            var propiedad = await _context.PropiedadesCampo.FindAsync(id);
-
-            if (propiedad != null)
+            try
             {
-                _context.PropiedadesCampo.Remove(propiedad);
-                await _context.SaveChangesAsync();
-            }
+                var campo = await _context.PropiedadesCampo.FindAsync(id);
+                if (campo == null)
+                {
+                    TempData["ErrorMessage"] = "No se encontró el campo a eliminar";
+                    return RedirectToPage();
+                }
 
-            return RedirectToPage();
+                _context.PropiedadesCampo.Remove(campo);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Campo eliminado correctamente";
+                return RedirectToPage();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Error al eliminar el campo: {ex.Message}";
+                return RedirectToPage();
+            }
         }
     }
 }
