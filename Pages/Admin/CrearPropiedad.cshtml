@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="form-label">Título *</label>
-                            <input class="form-control" placeholder="Ej: Casa quinta con pileta" required>
+                            <input class="form-control" required>
                         </div>
 
                         <div class="mb-3">
@@ -36,8 +36,9 @@
                                         <option value="">Seleccione...</option>
                                         <option value="Casa">Casa</option>
                                         <option value="Departamento">Departamento</option>
-                                        <option value="PH">PH</option>
-                                        <option value="Local">Local Comercial</option>
+                                        <option value="Quinta">Quinta</option>
+                                        <option value="Local">Local </option>
+                                        <option value="Terreno">Terreno </option>
                                     </select>
                                 </div>
                             </div>
@@ -46,7 +47,7 @@
                                     <label class="form-label">Precio *</label>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input class="form-control" placeholder="Ej: 250000" required>
+                                        <input class="form-control"  required>
                                     </div>
                                 </div>
                             </div>
@@ -63,19 +64,19 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label">Ambientes</label>
-                                    <input class="form-control" type="number" min="1" placeholder="Ej: 3">
+                                    <input class="form-control" type="number" min="0" >
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label">Dormitorios</label>
-                                    <input class="form-control" type="number" min="0" placeholder="Ej: 2">
+                                    <input class="form-control" type="number" min="0">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label">Baños</label>
-                                    <input class="form-control" type="number" min="1" placeholder="Ej: 1">
+                                    <input class="form-control" type="number" min="0" >
                                 </div>
                             </div>
                         </div>
@@ -84,13 +85,13 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Superficie Total (m²)</label>
-                                    <input class="form-control" type="number" min="1" placeholder="Ej: 200">
+                                    <input class="form-control" type="number" min="1" >
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Superficie Cubierta (m²)</label>
-                                    <input class="form-control" type="number" min="0" placeholder="Ej: 150">
+                                    <input class="form-control" type="number" min="0" >
                                 </div>
                             </div>
                         </div>
@@ -99,13 +100,19 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Dirección</label>
-                                    <input class="form-control" placeholder="Calle y número">
+                                    <input class="form-control" >
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Ubicación (Ciudad/Barrio)</label>
-                                    <input class="form-control" placeholder="Ej: Palermo, CABA">
+                                    <label class="form-label">Ubicacion</label>
+                                    <select class="form-select">
+
+                                        <option value="Saladillo">Saladillo</option>
+                                        <option value="Las Flores">Las Flores</option>
+                                        <option value="Roque Pérez">Roque Pérez</option>
+                                        <option value="25 de mayo">25 de mayo</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +128,7 @@
                     <div class="card-body">
                         <div class="mb-3 form-check form-switch">
                             <input class="form-check-input" type="checkbox">
-                            <label class="form-check-label">Destacada</label>
+                            <label class="form-check-label"> Destacada</label>
                         </div>
                     </div>
                 </div>
@@ -162,7 +169,7 @@
                         <div class="mb-3">
                             <label class="form-label">Subir imágenes *</label>
                             <input type="file" class="form-control" multiple accept="image/*" required>
-                            <small class="text-muted">Mínimo 3 imágenes (máx. 10)</small>
+                           
                         </div>
                         <div class="image-preview"></div>
                     </div>
