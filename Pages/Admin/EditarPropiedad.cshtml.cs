@@ -41,17 +41,26 @@ namespace GV.Pages.Admin
         {
             if (!ModelState.IsValid)
             {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
                 return Page();
             }
 
             var propiedadExistente = await _context.PropiedadesUrbanas
                 .Include(p => p.Imagenes)
+                 .Include(p => p.Videos)
                 .FirstOrDefaultAsync(p => p.Id == Propiedad.Id);
 
             if (propiedadExistente == null)
             {
                 return NotFound();
             }
+
+
+            
 
             // Actualizar propiedades básicas
             propiedadExistente.Titulo = Propiedad.Titulo;
@@ -96,7 +105,7 @@ namespace GV.Pages.Admin
 
         private bool PropiedadExists(int id)
         {
-            return _context.Propiedades.Any(e => e.Id == id);
+            return _context.PropiedadesUrbanas.Any(e => e.Id == id);
         }
     }
 }

@@ -34,6 +34,7 @@ namespace GV.Models
 
         public PropiedadUrbana()
         {
+            Division = "Urbano";
             Imagenes = new List<Imagen>();
             Videos = new List<Video>();
         }
