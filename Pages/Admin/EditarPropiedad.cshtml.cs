@@ -31,8 +31,6 @@ namespace GV.Pages.Admin
                 return NotFound();
             }
 
-            Console.WriteLine($"Imágenes cargadas: {Propiedad.Imagenes?.Count ?? 0}");
-            Console.WriteLine($"Videos cargados: {Propiedad.Videos?.Count ?? 0}");
 
             return Page();
         }
