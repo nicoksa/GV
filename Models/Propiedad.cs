@@ -17,7 +17,7 @@ namespace GV.Models
         public bool EsDestacada { get; set; }
 
         // Relación
-        public List<Imagen> Imagenes { get; set; }
-        public List<Video> Videos { get; set; } // opcional
+        public List<Imagen> Imagenes { get; set; } = new List<Imagen>();
+        public List<Video> Videos { get; set; } = new List<Video>();
     }
 }

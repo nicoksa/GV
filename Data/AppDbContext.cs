@@ -23,9 +23,11 @@ namespace GV.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Propiedad>()
+                
                 .HasDiscriminator<string>("Division")
                 .HasValue<PropiedadCampo>("Campo")
                 .HasValue<PropiedadUrbana>("Urbano");
+       
 
             modelBuilder.Entity<Usuario>(entity =>
             {

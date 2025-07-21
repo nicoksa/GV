@@ -1,10 +1,10 @@
-﻿@page
+﻿@page "{id:int}"
+@model GV.Pages.Admin.EditarCampoModel
 @{
     ViewData["Title"] = "Editar Campo";
     ViewData["HideTitle"] = true;
     Layout = "_AdminLayout";
 }
-
 
 <link rel="stylesheet" href="~/css/styleAdminEditar.css" />
 
@@ -13,7 +13,9 @@
         <h1>@ViewData["Title"]</h1>
     </div>
 
-    <form>
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Propiedad.Id" />
+
         <div class="row">
             <div class="col-md-8">
                 <div class="card mb-4">
@@ -22,33 +24,37 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">Título *</label>
-                            <input class="form-control" value="Campo Agrícola en Pergamino" required>
+                            <label class="form-label" asp-for="Propiedad.Titulo"></label>
+                            <input class="form-control" asp-for="Propiedad.Titulo" required>
+                            <span asp-validation-for="Propiedad.Titulo" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Descripción</label>
-                            <textarea class="form-control" rows="4">Excelente campo con aptitud agrícola...</textarea>
+                            <label class="form-label" asp-for="Propiedad.Descripcion"></label>
+                            <textarea class="form-control" asp-for="Propiedad.Descripcion" rows="4"></textarea>
+                            <span asp-validation-for="Propiedad.Descripcion" class="text-danger"></span>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Aptitud *</label>
-                                    <select class="form-select" required>
-                                        <option value="Agrícola" selected>Agrícola</option>
+                                    <label class="form-label" asp-for="Propiedad.Aptitud"></label>
+                                    <select class="form-select" asp-for="Propiedad.Aptitud" required>
+                                        <option value="Agrícola">Agrícola</option>
                                         <option value="Ganadera">Ganadera</option>
                                         <option value="Mixta">Mixta</option>
                                     </select>
+                                    <span asp-validation-for="Propiedad.Aptitud" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Precio *</label>
+                                    <label class="form-label" asp-for="Propiedad.Precio"></label>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input class="form-control" value="1200000" required>
+                                        <input class="form-control" asp-for="Propiedad.Precio" required>
                                     </div>
+                                    <span asp-validation-for="Propiedad.Precio" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -63,17 +69,26 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Hectáreas *</label>
+                                    <label class="form-label" asp-for="Propiedad.Hectareas"></label>
                                     <div class="input-group">
-                                        <input class="form-control" value="150.5" required>
+                                        <input class="form-control" asp-for="Propiedad.Hectareas" required>
                                         <span class="input-group-text">ha</span>
                                     </div>
+                                    <span asp-validation-for="Propiedad.Hectareas" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Ubicación</label>
-                                    <input class="form-control" value="Pergamino, Buenos Aires">
+                                    <label class="form-label" asp-for="Propiedad.Ubicacion"></label>
+                                    <select class="form-select" asp-for="Propiedad.Ubicacion">
+
+                                        <option value="Saladillo">Saladillo</option>
+                                        <option value="Las Flores">Las Flores</option>
+                                        <option value="Roque Pérez">Roque Pérez</option>
+                                        <option value="25 de mayo">25 de mayo</option>
+                                        <option value="Otra">Otra</option>
+                                    </select>
+                                    <span asp-validation-for="Propiedad.Ubicacion" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -88,24 +103,81 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3 form-check form-switch">
-                            <input class="form-check-input" type="checkbox" checked>
-                            <label class="form-check-label">Destacado</label>
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.EsDestacada">
+                            <label class="form-check-label" asp-for="Propiedad.EsDestacada"></label>
                         </div>
                     </div>
                 </div>
 
+                <!-- Sección de Imágenes (solo visualización) -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5>Imágenes</h5>
                     </div>
                     <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label">Subir imágenes</label>
-                            <input type="file" class="form-control" multiple accept="image/*">
-                        </div>
                         <div class="image-preview">
-                            <img src="/images/campo1.jpg" class="img-thumbnail m-1" width="80">
-                            <img src="/images/campo2.jpg" class="img-thumbnail m-1" width="80">
+                            @if (Model.Propiedad.Imagenes != null && Model.Propiedad.Imagenes.Any())
+                            {
+                                foreach (var imagen in Model.Propiedad.Imagenes)
+                                {
+                                    <div class="d-inline-block position-relative me-2 mb-2">
+                                        <img src="@Url.Content("~/" + imagen.Url)" class="img-thumbnail" width="120"
+                                             onerror="this.src='/images/default-property.jpg';this.onerror=null;">
+                                        @if (imagen.EsPrincipal)
+                                        {
+                                            <span class="position-absolute top-0 start-100 translate-middle badge bg-primary">
+                                                Principal
+                                            </span>
+                                        }
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted">No hay imágenes cargadas</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de Videos (solo visualización) -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Videos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="video-preview">
+                            @if (Model.Propiedad.Videos != null && Model.Propiedad.Videos.Any())
+                            {
+                                foreach (var video in Model.Propiedad.Videos)
+                                {
+                                    <div class="mb-3">
+                                        <div class="ratio ratio-16x9">
+                                            @if (video.Url.Contains("youtube.com"))
+                                            {
+                                                <iframe src="@ConvertToEmbedUrl(video.Url)"
+                                                        frameborder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowfullscreen></iframe>
+                                            }
+                                            else
+                                            {
+                                                <video controls>
+                                                    <source src="@video.Url" type="video/mp4">
+                                                    Tu navegador no soporta el elemento de video.
+                                                </video>
+                                            }
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="@video.Url" target="_blank">@video.Url</a>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted">No hay videos cargados</p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -116,10 +188,28 @@
             <a href="/Admin/GestionCampos" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Volver
             </a>
-            <button type="button" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save"></i> Guardar Cambios
             </button>
         </div>
     </form>
 </div>
 
+@section Scripts {
+@functions {
+    public string ConvertToEmbedUrl(string url)
+    {
+        if (url.Contains("youtube.com/watch?v="))
+        {
+            var videoId = url.Split(new[] { "v=" }, StringSplitOptions.None)[1];
+            var ampersandIndex = videoId.IndexOf('&');
+            if (ampersandIndex > 0)
+            {
+                videoId = videoId.Substring(0, ampersandIndex);
+            }
+            return $"https://www.youtube.com/embed/{videoId}";
+        }
+        return url;
+    }
+}
+}
