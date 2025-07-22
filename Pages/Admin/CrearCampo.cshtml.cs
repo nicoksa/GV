@@ -22,6 +22,9 @@ namespace GV.Pages.Admin
         {
         }
 
+
+
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -44,9 +47,59 @@ namespace GV.Pages.Admin
             };
 
             _context.PropiedadesCampo.Add(propiedad);
+            await _context.SaveChangesAsync(); // Guardamos primero para obtener el ID
+
+            // Procesar imágenes
+            if (Propiedad.Imagenes != null && Propiedad.Imagenes.Count > 0)
+            {
+                foreach (var imagenFile in Propiedad.Imagenes)
+                {
+                    if (imagenFile.Length > 0)
+                    {
+                        var imagenPath = await GuardarArchivo(imagenFile, "imagenes");
+                        propiedad.Imagenes.Add(new Imagen
+                        {
+                            Url = imagenPath,
+                            EsPrincipal = false, // Puedes implementar lógica para marcar una como principal
+                            PropiedadId = propiedad.Id
+                        });
+                    }
+                }
+            }
+
+            // Procesar video de YouTube
+            if (!string.IsNullOrEmpty(Propiedad.YoutubeUrl))
+            {
+                propiedad.Videos.Add(new Video
+                {
+                    Url = Propiedad.YoutubeUrl,
+                    PropiedadId = propiedad.Id
+                });
+            }
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/Admin/GestionCampos");
+        }
+
+        // Método auxiliar para guardar archivos
+        private async Task<string> GuardarArchivo(IFormFile archivo, string subdirectorio)
+        {
+            var uploadsFolder = Path.Combine("wwwroot", "uploads", subdirectorio);
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(archivo.FileName);
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await archivo.CopyToAsync(fileStream);
+            }
+
+            return $"/uploads/{subdirectorio}/{uniqueFileName}";
         }
 
         public class PropiedadCampoInputModel
@@ -71,6 +124,19 @@ namespace GV.Pages.Admin
             [Required(ErrorMessage = "Las hectáreas son obligatorias")]
             [Range(1, int.MaxValue, ErrorMessage = "Las hectáreas deben ser mayor a 0")]
             public int Hectareas { get; set; }
+
+            // Nuevas propiedades para archivos
+            [Display(Name = "Imágenes")]
+            public List<IFormFile> Imagenes { get; set; } = new List<IFormFile>();
+
+            [Display(Name = "Video")]
+            public IFormFile Video { get; set; }
+
+            [Display(Name = "Video (YouTube)")]
+            [Url(ErrorMessage = "Por favor ingrese una URL válida")]
+            [RegularExpression(@"^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$",
+       ErrorMessage = "Debe ser un enlace de YouTube válido")]
+            public string YoutubeUrl { get; set; }
         }
     }
 }
