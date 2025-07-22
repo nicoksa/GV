@@ -109,12 +109,16 @@
                     </div>
                 </div>
 
-                <!-- Sección de Imágenes (solo visualización) -->
+                <!-- Sección de Imágenes  -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5>Imágenes</h5>
                     </div>
                     <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Subir imágenes</label>
+                            <input type="file" class="form-control" name="imagenes" multiple accept="image/*">
+                        </div>
                         <div class="image-preview">
                             @if (Model.Propiedad.Imagenes != null && Model.Propiedad.Imagenes.Any())
                             {
@@ -129,6 +133,23 @@
                                                 Principal
                                             </span>
                                         }
+                                        <div class="position-absolute bottom-0 start-0 w-100 d-flex justify-content-center p-1">
+                                            <form method="post" asp-page-handler="SetMainImage">
+                                                <input type="hidden" name="id" value="@Model.Propiedad.Id" />
+                                                <input type="hidden" name="imageId" value="@imagen.Id" />
+                                                <button type="submit" class="btn btn-sm @(imagen.EsPrincipal ? "btn-success" : "btn-outline-secondary")"
+                                                        @(imagen.EsPrincipal ? "disabled" : "")>
+                                                    <i class="fas @(imagen.EsPrincipal ? "fa-check" : "fa-star")"></i>
+                                                </button>
+                                            </form>
+                                            <form method="post" asp-page-handler="DeleteImage" class="ms-1">
+                                                <input type="hidden" name="id" value="@Model.Propiedad.Id" />
+                                                <input type="hidden" name="imageId" value="@imagen.Id" />
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 }
                             }
@@ -140,12 +161,19 @@
                     </div>
                 </div>
 
-                <!-- Sección de Videos (solo visualización) -->
+
+                <!-- Sección de Videos  -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5>Videos</h5>
                     </div>
                     <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">URL de YouTube</label>
+                            <input type="text" class="form-control" name="videoUrl"
+                                   value="@(Model.Propiedad.Videos.FirstOrDefault()?.Url)"
+                                   placeholder="https://www.youtube.com/watch?v=...">
+                        </div>
                         <div class="video-preview">
                             @if (Model.Propiedad.Videos != null && Model.Propiedad.Videos.Any())
                             {
@@ -212,4 +240,54 @@
         return url;
     }
 }
+
+<script>
+        // Validación de imágenes
+    document.addEventListener('DOMContentLoaded', function() {
+        // Validar tamaño y tipo de imágenes
+        const imageInput = document.querySelector('input[name="imagenes"]');
+        if (imageInput) {
+            imageInput.addEventListener('change', function() {
+                const maxSize = 5 * 1024 * 1024; // 5MB
+                for (let i = 0; i < this.files.length; i++) {
+                    const file = this.files[i];
+                    if (file.size > maxSize) {
+                        alert(`La imagen ${file.name} es demasiado grande (máximo 5MB)`);
+                        this.value = '';
+                        break;
+                    }
+                    if (!file.type.match('image.*')) {
+                        alert(`El archivo ${file.name} no es una imagen válida`);
+                        this.value = '';
+                        break;
+                    }
+                }
+            });
+        }
+
+        // Validación de URL de YouTube
+        const videoInput = document.querySelector('input[name="videoUrl"]');
+        if (videoInput) {
+            videoInput.addEventListener('change', function() {
+                const url = this.value;
+                if (url && !url.includes('youtube.com') && !url.includes('youtu.be')) {
+                    alert('Por favor, ingrese una URL válida de YouTube');
+                    this.value = '';
+                }
+            });
+        }
+
+        // Confirmación antes de eliminar imagen
+        const deleteForms = document.querySelectorAll('form[asp-page-handler="DeleteImage"]');
+        deleteForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                if (!confirm('¿Está seguro que desea eliminar esta imagen?')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    });
+</script>
+
+
 }
