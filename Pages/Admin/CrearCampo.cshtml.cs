@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using GV.Data;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace GV.Pages.Admin
 {
@@ -21,9 +25,6 @@ namespace GV.Pages.Admin
         public void OnGet()
         {
         }
-
-
-
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -47,20 +48,21 @@ namespace GV.Pages.Admin
             };
 
             _context.PropiedadesCampo.Add(propiedad);
-            await _context.SaveChangesAsync(); // Guardamos primero para obtener el ID
+            await _context.SaveChangesAsync();
 
             // Procesar imágenes
             if (Propiedad.Imagenes != null && Propiedad.Imagenes.Count > 0)
             {
-                foreach (var imagenFile in Propiedad.Imagenes)
+                for (int i = 0; i < Propiedad.Imagenes.Count; i++)
                 {
+                    var imagenFile = Propiedad.Imagenes[i];
                     if (imagenFile.Length > 0)
                     {
                         var imagenPath = await GuardarArchivo(imagenFile, "imagenes");
                         propiedad.Imagenes.Add(new Imagen
                         {
                             Url = imagenPath,
-                            EsPrincipal = false, // Puedes implementar lógica para marcar una como principal
+                            EsPrincipal = (i == Propiedad.ImagenPrincipalIndex),
                             PropiedadId = propiedad.Id
                         });
                     }
@@ -82,7 +84,6 @@ namespace GV.Pages.Admin
             return RedirectToPage("/Admin/GestionCampos");
         }
 
-        // Método auxiliar para guardar archivos
         private async Task<string> GuardarArchivo(IFormFile archivo, string subdirectorio)
         {
             var uploadsFolder = Path.Combine("wwwroot", "uploads", subdirectorio);
@@ -125,16 +126,16 @@ namespace GV.Pages.Admin
             [Range(1, int.MaxValue, ErrorMessage = "Las hectáreas deben ser mayor a 0")]
             public int Hectareas { get; set; }
 
-            // Nuevas propiedades para archivos
             [Display(Name = "Imágenes")]
             public List<IFormFile> Imagenes { get; set; } = new List<IFormFile>();
 
-         
-          
+            [Display(Name = "Índice de imagen principal")]
+            public int? ImagenPrincipalIndex { get; set; } = 0;
+
             [Display(Name = "Video (YouTube)")]
             [Url(ErrorMessage = "Por favor ingrese una URL válida")]
             [RegularExpression(@"^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$",
-       ErrorMessage = "Debe ser un enlace de YouTube válido")]
+                ErrorMessage = "Debe ser un enlace de YouTube válido")]
             public string YoutubeUrl { get; set; }
         }
     }
