@@ -13,7 +13,7 @@
         <h1>@ViewData["Title"]</h1>
     </div>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" id="campoForm">
         <div class="row">
             <div class="col-md-8">
                 <div class="card mb-4">
@@ -152,7 +152,7 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+  
 
     <script>
         // Vista previa de imágenes (se mantiene igual)

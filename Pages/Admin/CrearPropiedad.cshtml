@@ -13,7 +13,7 @@
         <h1>@ViewData["Title"]</h1>
     </div>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" id="propiedadForm">
         <div class="row">
             <div class="col-md-8">
                 <div class="card mb-4">
@@ -174,15 +174,34 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">Subir imágenes *</label>
-                            <input type="file" class="form-control" multiple accept="image/*" disabled>
-                            <small class="text-muted">Funcionalidad de imágenes será implementada posteriormente</small>
+                            <label class="form-label">Subir imágenes</label>
+                            <input type="file" class="form-control" multiple accept="image/*" asp-for="Propiedad.Imagenes">
+                            <small class="text-muted">Formatos aceptados: .jpg, .jpeg, .png. Máx. 5MB por imagen.</small>
+                            <span asp-validation-for="Propiedad.Imagenes" class="text-danger"></span>
                         </div>
-                        <div class="image-preview"></div>
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+                </div>
+
+                <!-- Nueva sección de video -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Video (YouTube)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Propiedad.YoutubeUrl">URL de YouTube</label>
+                            <input type="url" class="form-control" asp-for="Propiedad.YoutubeUrl" placeholder="https://www.youtube.com/watch?v=...">
+                            <small class="text-muted">Ejemplo: https://www.youtube.com/watch?v=CODIGO_DEL_VIDEO</small>
+                            <span asp-validation-for="Propiedad.YoutubeUrl" class="text-danger"></span>
+                        </div>
+                        <div class="video-preview" id="videoPreview"></div>
                     </div>
                 </div>
             </div>
         </div>
+
+         
 
         <div class="d-flex justify-content-between">
             <a href="/Admin/GestionPropiedades" class="btn btn-secondary">
@@ -196,7 +215,60 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    
+
+    <script>
+        // Vista previa de imágenes
+        document.getElementById('Propiedad_Imagenes').addEventListener('change', function(event) {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+
+            if (this.files.length > 0) {
+                for (let i = 0; i < this.files.length; i++) {
+                    const file = this.files[i];
+                    if (file.type.match('image.*')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.maxHeight = '100px';
+                            img.style.margin = '5px';
+                            preview.appendChild(img);
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
+            }
+        });
+
+        // Vista previa de YouTube
+        document.getElementById('Propiedad_YoutubeUrl').addEventListener('input', function(event) {
+            const preview = document.getElementById('videoPreview');
+            preview.innerHTML = '';
+
+            const url = this.value.trim();
+            if (url) {
+                const videoId = extractYouTubeId(url);
+                if (videoId) {
+                    const iframe = document.createElement('iframe');
+                    iframe.width = '100%';
+                    iframe.height = '200';
+                    iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                    iframe.frameBorder = '0';
+                    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                    iframe.allowFullscreen = true;
+                    preview.appendChild(iframe);
+                }
+            }
+        });
+
+        // Función para extraer el ID de YouTube
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+    </script>
 }
 
 @section Styles {
@@ -224,6 +296,31 @@
             border: 1px dashed #ccc;
             padding: 10px;
             margin-top: 10px;
+        }
+
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 50px;
+            border: 1px dashed #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+            .image-preview img {
+                max-height: 100px;
+                margin: 5px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 5px;
+            }
+
+        .video-preview iframe {
+            width: 100%;
+            height: 200px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
     </style>
 }

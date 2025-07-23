@@ -129,9 +129,8 @@ namespace GV.Pages.Admin
             [Display(Name = "Imágenes")]
             public List<IFormFile> Imagenes { get; set; } = new List<IFormFile>();
 
-            [Display(Name = "Video")]
-            public IFormFile Video { get; set; }
-
+         
+          
             [Display(Name = "Video (YouTube)")]
             [Url(ErrorMessage = "Por favor ingrese una URL válida")]
             [RegularExpression(@"^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$",

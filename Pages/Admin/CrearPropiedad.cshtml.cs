@@ -1,9 +1,12 @@
 using GV.Data;
 using GV.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace GV.Pages.Admin
 {
@@ -55,9 +58,59 @@ namespace GV.Pages.Admin
             };
 
             _context.PropiedadesUrbanas.Add(propiedad);
+            await _context.SaveChangesAsync(); // Guardar para obtener ID
+
+            // Procesar imágenes
+            if (Propiedad.Imagenes != null && Propiedad.Imagenes.Count > 0)
+            {
+                foreach (var imagenFile in Propiedad.Imagenes)
+                {
+                    if (imagenFile.Length > 0)
+                    {
+                        var imagenPath = await GuardarArchivo(imagenFile, "imagenes");
+                        propiedad.Imagenes.Add(new Imagen
+                        {
+                            Url = imagenPath,
+                            EsPrincipal = false,
+                            PropiedadId = propiedad.Id
+                        });
+                    }
+                }
+            }
+
+            // Procesar video de YouTube
+            if (!string.IsNullOrEmpty(Propiedad.YoutubeUrl))
+            {
+                propiedad.Videos.Add(new Video
+                {
+                    Url = Propiedad.YoutubeUrl,
+                    PropiedadId = propiedad.Id
+                });
+            }
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/Admin/GestionPropiedades");
+        }
+
+        // Método auxiliar para guardar archivos
+        private async Task<string> GuardarArchivo(IFormFile archivo, string subdirectorio)
+        {
+            var uploadsFolder = Path.Combine("wwwroot", "uploads", subdirectorio);
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(archivo.FileName);
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await archivo.CopyToAsync(fileStream);
+            }
+
+            return $"/uploads/{subdirectorio}/{uniqueFileName}";
         }
 
         public class PropiedadUrbanaInputModel
@@ -93,6 +146,16 @@ namespace GV.Pages.Admin
             public bool Seguridad { get; set; }
             public bool Pileta { get; set; }
             public string Direccion { get; set; }
+
+            // Nuevas propiedades para archivos
+            [Display(Name = "Imágenes")]
+            public List<IFormFile> Imagenes { get; set; } = new List<IFormFile>();
+
+            [Display(Name = "Video (YouTube)")]
+            [Url(ErrorMessage = "Por favor ingrese una URL válida")]
+            [RegularExpression(@"^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$",
+                ErrorMessage = "Debe ser un enlace de YouTube válido")]
+            public string YoutubeUrl { get; set; }
         }
     }
 }
