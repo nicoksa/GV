@@ -133,10 +133,10 @@ namespace GV.Pages.Admin
             public int? ImagenPrincipalIndex { get; set; } = 0;
 
             [Display(Name = "Video (YouTube)")]
-            [Url(ErrorMessage = "Por favor ingrese una URL válida")]
-            [RegularExpression(@"^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$",
+            [DataType(DataType.Url)]
+            [RegularExpression(@"^$|^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$",
                 ErrorMessage = "Debe ser un enlace de YouTube válido")]
-            public string YoutubeUrl { get; set; }
+            public string? YoutubeUrl { get; set; }
         }
     }
 }
