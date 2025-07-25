@@ -6,8 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GV.Pages.Admin
 {
@@ -25,34 +29,52 @@ namespace GV.Pages.Admin
         }
 
         [BindProperty]
-        public PropiedadCampo Propiedad { get; set; }
+        public PropiedadCampoInputModel Propiedad { get; set; }
+
+        public List<ImagenViewModel> ImagenesExistentes { get; set; } = new List<ImagenViewModel>();
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            Propiedad = await _context.PropiedadesCampo
+            var propiedad = await _context.PropiedadesCampo
                 .Include(p => p.Imagenes)
                 .Include(p => p.Videos)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-            if (Propiedad == null)
+            if (propiedad == null)
             {
                 return NotFound();
             }
 
+            // Mapear a InputModel
+            Propiedad = new PropiedadCampoInputModel
+            {
+                Id = propiedad.Id,
+                Titulo = propiedad.Titulo,
+                Descripcion = propiedad.Descripcion,
+                Ubicacion = propiedad.Ubicacion,
+                Precio = propiedad.Precio,
+                EsDestacada = propiedad.EsDestacada,
+                Aptitud = propiedad.Aptitud,
+                Hectareas = propiedad.Hectareas,
+                YoutubeUrl = propiedad.Videos.FirstOrDefault()?.Url
+            };
+
+            // Preparar imágenes existentes para la vista
+            ImagenesExistentes = propiedad.Imagenes
+                .Select((img, index) => new ImagenViewModel
+                {
+                    Id = img.Id,
+                    Url = img.Url,
+                    EsPrincipal = img.EsPrincipal,
+                    Index = index
+                }).ToList();
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(IFormFileCollection imagenes, string videoUrl)
+        public async Task<IActionResult> OnPostAsync()
         {
-
-            _logger.LogInformation($"Intentando guardar {imagenes?.Count ?? 0} imágenes");
-            foreach (var imagen in imagenes)
-            {
-                _logger.LogInformation($"Procesando imagen: {imagen.FileName}, tamaño: {imagen.Length}");
-            }
-
-
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -78,58 +100,62 @@ namespace GV.Pages.Admin
             propiedadExistente.Hectareas = Propiedad.Hectareas;
 
             // Manejar imágenes nuevas
-            if (imagenes != null && imagenes.Count > 0)
+            if (Propiedad.Imagenes != null && Propiedad.Imagenes.Count > 0)
             {
-                // Verificar si hay imágenes existentes para determinar si la nueva será principal
-                bool esPrimeraImagen = !propiedadExistente.Imagenes.Any();
-
-                foreach (var imagen in imagenes)
+                foreach (var imagen in Propiedad.Imagenes)
                 {
                     if (imagen.Length > 0)
                     {
-                        var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images/campos");
-                        if (!Directory.Exists(uploadsFolder))
+                        var imagenPath = await GuardarArchivo(imagen, "imagenes");
+                        propiedadExistente.Imagenes.Add(new Imagen
                         {
-                            Directory.CreateDirectory(uploadsFolder);
-                        }
-
-                        var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(imagen.FileName);
-                        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await imagen.CopyToAsync(fileStream);
-                        }
-
-                        var nuevaImagen = new Imagen
-                        {
-                            Url = Path.Combine("images/campos", uniqueFileName).Replace("\\", "/"),
-                            EsPrincipal = esPrimeraImagen, // Solo será principal si es la primera imagen
+                            Url = imagenPath,
+                            EsPrincipal = false, // Se establecerá después
                             PropiedadId = propiedadExistente.Id
-                        };
+                        });
+                    }
+                }
+            }
 
-                        propiedadExistente.Imagenes.Add(nuevaImagen);
-                        esPrimeraImagen = false; // Las siguientes imágenes no serán principales
+            // Establecer imagen principal
+            if (Propiedad.ImagenPrincipalIndex.HasValue)
+            {
+                // Si es una imagen nueva
+                if (Propiedad.ImagenPrincipalIndex >= propiedadExistente.Imagenes.Count - (Propiedad.Imagenes?.Count ?? 0))
+                {
+                    var index = Propiedad.ImagenPrincipalIndex.Value - (propiedadExistente.Imagenes.Count - (Propiedad.Imagenes?.Count ?? 0));
+                    if (index >= 0 && index < (Propiedad.Imagenes?.Count ?? 0))
+                    {
+                        var nuevaImagen = propiedadExistente.Imagenes.Last();
+                        propiedadExistente.Imagenes.ForEach(img => img.EsPrincipal = false);
+                        nuevaImagen.EsPrincipal = true;
+                    }
+                }
+                else // Es una imagen existente
+                {
+                    if (Propiedad.ImagenPrincipalIndex.Value < propiedadExistente.Imagenes.Count)
+                    {
+                        propiedadExistente.Imagenes.ForEach(img => img.EsPrincipal = false);
+                        propiedadExistente.Imagenes[Propiedad.ImagenPrincipalIndex.Value].EsPrincipal = true;
                     }
                 }
             }
 
             // Manejar video
-            if (!string.IsNullOrEmpty(videoUrl))
+            if (!string.IsNullOrEmpty(Propiedad.YoutubeUrl))
             {
-                videoUrl = videoUrl.Trim();
-                // Eliminar video existente si hay uno
+                // Eliminar videos existentes
                 if (propiedadExistente.Videos.Any())
                 {
                     _context.Videos.RemoveRange(propiedadExistente.Videos);
                 }
 
                 // Agregar nuevo video solo si es de YouTube
-                if (videoUrl.Contains("youtube.com") || videoUrl.Contains("youtu.be"))
+                if (Propiedad.YoutubeUrl.Contains("youtube.com") || Propiedad.YoutubeUrl.Contains("youtu.be"))
                 {
                     propiedadExistente.Videos.Add(new Video
                     {
-                        Url = videoUrl,
+                        Url = Propiedad.YoutubeUrl,
                         PropiedadId = propiedadExistente.Id
                     });
                 }
@@ -165,7 +191,7 @@ namespace GV.Pages.Admin
             if (imagen != null)
             {
                 // Eliminar archivo físico
-                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, imagen.Url);
+                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, imagen.Url.TrimStart('/'));
                 if (System.IO.File.Exists(filePath))
                 {
                     System.IO.File.Delete(filePath);
@@ -183,32 +209,77 @@ namespace GV.Pages.Admin
                 }
             }
 
-            return RedirectToPage(new { id });
+            return new OkResult();
         }
 
-        public async Task<IActionResult> OnPostSetMainImageAsync(int id, int imageId)
+        private async Task<string> GuardarArchivo(IFormFile archivo, string subdirectorio)
         {
-            var propiedad = await _context.PropiedadesCampo
-                .Include(p => p.Imagenes)
-                .FirstOrDefaultAsync(p => p.Id == id);
-
-            if (propiedad == null)
+            var uploadsFolder = Path.Combine("wwwroot", "uploads", subdirectorio);
+            if (!Directory.Exists(uploadsFolder))
             {
-                return NotFound();
+                Directory.CreateDirectory(uploadsFolder);
             }
 
-            foreach (var img in propiedad.Imagenes)
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(archivo.FileName);
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
-                img.EsPrincipal = (img.Id == imageId);
+                await archivo.CopyToAsync(fileStream);
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToPage(new { id });
+            return $"/uploads/{subdirectorio}/{uniqueFileName}";
         }
 
         private bool PropiedadExists(int id)
         {
             return _context.PropiedadesCampo.Any(e => e.Id == id);
+        }
+
+        public class PropiedadCampoInputModel
+        {
+            public int Id { get; set; }
+
+            [Required(ErrorMessage = "El título es obligatorio")]
+            public string Titulo { get; set; }
+
+            public string Descripcion { get; set; }
+
+            [Required(ErrorMessage = "La ubicación es obligatoria")]
+            public string Ubicacion { get; set; }
+
+            [Required(ErrorMessage = "El precio es obligatorio")]
+            [Range(1, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0")]
+            public decimal Precio { get; set; }
+
+            public bool EsDestacada { get; set; }
+
+            [Required(ErrorMessage = "La aptitud es obligatoria")]
+            public string Aptitud { get; set; }
+
+            [Required(ErrorMessage = "Las hectáreas son obligatorias")]
+            [Range(1, int.MaxValue, ErrorMessage = "Las hectáreas deben ser mayor a 0")]
+            public int Hectareas { get; set; }
+
+            [Display(Name = "Imágenes")]
+            public List<IFormFile> Imagenes { get; set; } = new List<IFormFile>();
+
+            [Display(Name = "Índice de imagen principal")]
+            public int? ImagenPrincipalIndex { get; set; }
+
+            [Display(Name = "Video (YouTube)")]
+            [DataType(DataType.Url)]
+            [RegularExpression(@"^$|^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$",
+                ErrorMessage = "Debe ser un enlace de YouTube válido")]
+            public string? YoutubeUrl { get; set; }
+        }
+
+        public class ImagenViewModel
+        {
+            public int Id { get; set; }
+            public string Url { get; set; }
+            public bool EsPrincipal { get; set; }
+            public int Index { get; set; }
         }
     }
 }
