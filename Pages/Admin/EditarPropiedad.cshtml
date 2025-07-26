@@ -1,20 +1,21 @@
 ﻿@page "{id:int}"
 @model GV.Pages.Admin.EditarPropiedadModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
 @{
-    ViewData["Title"] = "Editar Propiedad ";
+    ViewData["Title"] = "Editar Propiedad";
     ViewData["HideTitle"] = true;
     Layout = "_AdminLayout";
+    var token = Antiforgery.GetAndStoreTokens(HttpContext).RequestToken;
 }
 
 <link rel="stylesheet" href="~/css/styleAdminEditar.css" />
-
 
 <div class="admin-container">
     <div class="admin-header mb-4">
         <h1>@ViewData["Title"]</h1>
     </div>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" id="propiedadForm">
         <input type="hidden" asp-for="Propiedad.Id" />
 
         <div class="row">
@@ -122,7 +123,6 @@
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.Ubicacion"></label>
                                     <select class="form-select" asp-for="Propiedad.Ubicacion">
-                                       
                                         <option value="Saladillo">Saladillo</option>
                                         <option value="Las Flores">Las Flores</option>
                                         <option value="Roque Pérez">Roque Pérez</option>
@@ -177,7 +177,6 @@
                     </div>
                 </div>
 
-              <!-- Sección de Imágenes -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5>Imágenes</h5>
@@ -185,29 +184,28 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="form-label">Subir imágenes</label>
-                            <input type="file" class="form-control" multiple accept="image/*">
+                            <input type="file" class="form-control" multiple accept="image/*" asp-for="Propiedad.Imagenes" id="imagenesInput">
+                            <small class="text-muted">Formatos aceptados: .jpg, .jpeg, .png. Máx. 5MB por imagen.</small>
+                            <span asp-validation-for="Propiedad.Imagenes" class="text-danger"></span>
                         </div>
-                        <div class="image-preview">
-                            @if (Model.Propiedad.Imagenes != null && Model.Propiedad.Imagenes.Any())
+
+                        <input type="hidden" asp-for="Propiedad.ImagenPrincipalIndex" id="imagenPrincipalIndex">
+
+                        <!-- Vista previa de imágenes existentes + nuevas -->
+                        <div class="image-preview" id="imagePreview">
+                            @foreach (var img in Model.ImagenesExistentes)
                             {
-                                foreach (var imagen in Model.Propiedad.Imagenes)
-                                {
-                                    <div class="d-inline-block position-relative me-2 mb-2">
-                                        <!-- Añade ~/ para asegurar rutas relativas a la raíz -->
-                                        <img src="@Url.Content("~/" + imagen.Url)" class="img-thumbnail" width="120"
-                                             onerror="this.src='/images/default-property.jpg';this.onerror=null;">
-                                        @if (imagen.EsPrincipal)
-                                        {
-                                            <span class="position-absolute top-0 start-100 translate-middle badge bg-primary">
-                                                Principal
-                                            </span>
-                                        }
+                                <div class="image-container @(img.EsPrincipal ? "principal-selected" : "")" data-image-id="@img.Id" data-index="@img.Index">
+                                    <img src="@Url.Content(img.Url)" onerror="this.src='/images/default-property.jpg';this.onerror=null;">
+                                    <div class="radio-container">
+                                        <input type="radio" name="imagenPrincipalRadio" id="imagenPrincipal_@img.Index"
+                                               value="@img.Index" @(img.EsPrincipal ? "checked" : "")>
+                                        <label for="imagenPrincipal_@img.Index">Principal</label>
                                     </div>
-                                }
-                            }
-                            else
-                            {
-                                <p class="text-muted">No hay imágenes cargadas</p>
+                                    <button type="button" class="btn-delete-image" data-image-id="@img.Id">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
                             }
                         </div>
                     </div>
@@ -216,49 +214,28 @@
                 <!-- Sección de Videos -->
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h5>Videos</h5>
+                        <h5>Video (YouTube)</h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">URL de YouTube</label>
-                            <input type="text" class="form-control" name="VideoUrl" >
+                            <label class="form-label" asp-for="Propiedad.YoutubeUrl">URL de YouTube</label>
+                            <input type="text" class="form-control" asp-for="Propiedad.YoutubeUrl"
+                                   placeholder="https://www.youtube.com/watch?v=..." id="youtubeUrlInput">
+                            <small class="text-muted">Ejemplo: https://www.youtube.com/watch?v=CODIGO_DEL_VIDEO</small>
+                            <span asp-validation-for="Propiedad.YoutubeUrl" class="text-danger"></span>
                         </div>
-                        <div class="video-preview">
-                            @if (Model.Propiedad.Videos != null && Model.Propiedad.Videos.Any())
+                        <div class="video-preview" id="videoPreview">
+                            @if (!string.IsNullOrEmpty(Model.Propiedad.YoutubeUrl))
                             {
-                                foreach (var video in Model.Propiedad.Videos)
-                                {
-                                    <div class="mb-3">
-                                        <div class="ratio ratio-16x9">
-                                            @if (video.Url.Contains("youtube.com"))
-                                            {
-                                                <iframe src="@ConvertToEmbedUrl(video.Url)" 
-                                                        frameborder="0" 
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                                        allowfullscreen></iframe>
-                                            }
-                                            else
-                                            {
-                                                <video controls>
-                                                    <source src="@video.Url" type="video/mp4">
-                                                    Tu navegador no soporta el elemento de video.
-                                                </video>
-                                            }
-                                        </div>
-                                        <div class="mt-2">
-                                            <a href="@video.Url" target="_blank">@video.Url</a>
-                                        </div>
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                <p class="text-muted">No hay videos cargados</p>
+                                <iframe width="100%" height="200"
+                                        src="@($"https://www.youtube.com/embed/{ExtractYouTubeId(Model.Propiedad.YoutubeUrl)}")"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
                             }
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -273,86 +250,346 @@
     </form>
 </div>
 
-
-
-
 @section Scripts {
-    <!-- <partial name="_ValidationScriptsPartial" /> -->
-    <script>
-
-        // Deshabilitar campos cuando se selecciona Terreno
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const tipoSelect = document.querySelector('select[name="Propiedad.Tipo"]');
-            const camposTerreno = [
-                document.querySelector('input[name="Propiedad.Ambientes"]'),
-                document.querySelector('input[name="Propiedad.Dormitorios"]'),
-                document.querySelector('input[name="Propiedad.Banios"]'),
-                document.querySelector('input[name="Propiedad.SuperficieCubierta"]')
-            ];
-
-            function actualizarCampos() {
-                const esTerreno = tipoSelect.value === 'Terreno';
-                camposTerreno.forEach(campo => {
-                    campo.disabled = esTerreno;
-                    if (esTerreno) {
-                        campo.value = '';
-                    }
-                });
-            }
-
-            tipoSelect.addEventListener('change', actualizarCampos);
-            actualizarCampos(); // Ejecutar al cargar la página
-        });
-
-
-            @functions {
-            // Método para convertir URLs de YouTube a formato embed
-            public string ConvertToEmbedUrl(string url)
-            {
-                    if (url.Contains("youtube.com/watch?v="))
-                    {
-                            var videoId = url.Split(new[] { "v=" }, StringSplitOptions.None)[1];
-                            var ampersandIndex = videoId.IndexOf('&');
-                            if (ampersandIndex > 0)
-                            {
-                                    videoId = videoId.Substring(0, ampersandIndex);
-                            }
-                            return $"https://www.youtube.com/embed/{videoId}";
-                    }
-                    return url;
-            }
+@functions {
+    public string ExtractYouTubeId(string url)
+    {
+        var regExp = new System.Text.RegularExpressions.Regex(@"^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*");
+        var match = regExp.Match(url);
+        return (match.Success && match.Groups[2].Length == 11) ? match.Groups[2].Value : null;
     }
-
-                document.addEventListener('DOMContentLoaded', function() {
-            // Validación de URL de YouTube
-            const videoInput = document.querySelector('input[name="VideoUrl"]');
-            if (videoInput) {
-                videoInput.addEventListener('change', function() {
-                    const url = this.value;
-                    if (url && !url.includes('youtube.com') && !url.includes('youtu.be')) {
-                        alert('Por favor, ingrese una URL válida de YouTube');
-                        this.value = '';
-                    }
-                });
-            }
-        });
-
-
-
-                document.addEventListener('DOMContentLoaded', function() {
-            // Depuración: Verifica todas las URLs de imágenes
-            const images = document.querySelectorAll('.image-preview img');
-            images.forEach(img => {
-                console.log('URL de imagen:', img.src);
-
-                // Verifica si la imagen se carga correctamente
-                img.onerror = function() {
-                    console.error('Error al cargar imagen:', this.src);
-                    this.src = '/images/default-property.jpg';
-                };
-            });
-        });
-    </script>
 }
 
+<script>
+    // Constante para imágenes existentes
+    const existingImagesCount = @Model.ImagenesExistentes.Count;
+
+    // Función para actualizar todos los índices y la imagen principal
+    function updateImageIndices() {
+        const containers = document.querySelectorAll('.image-container');
+        let principalIndex = -1;
+
+        containers.forEach((container, index) => {
+            // Actualizar el índice en el elemento
+            container.dataset.index = index;
+
+            // Actualizar el radio button
+            const radio = container.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.value = index;
+                radio.id = `imagenPrincipal_${index}`;
+
+                // Actualizar label asociado
+                const label = container.querySelector('label');
+                if (label) {
+                    label.htmlFor = `imagenPrincipal_${index}`;
+                }
+
+                // Verificar si es la imagen principal
+                if (radio.checked) {
+                    principalIndex = index;
+                }
+            }
+        });
+
+        // Actualizar el valor del campo oculto
+        if (principalIndex >= 0) {
+            document.getElementById('imagenPrincipalIndex').value = principalIndex;
+        } else if (containers.length > 0) {
+            // Si no hay principal seleccionada pero hay imágenes, seleccionar la primera
+            const firstRadio = containers[0].querySelector('input[type="radio"]');
+            if (firstRadio) {
+                firstRadio.checked = true;
+                containers[0].classList.add('principal-selected');
+                document.getElementById('imagenPrincipalIndex').value = 0;
+            }
+        }
+    }
+
+    document.getElementById('imagenesInput').addEventListener('change', function(event) {
+        const preview = document.getElementById('imagePreview');
+        const files = this.files;
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (!file.type.match('image.*')) continue;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const index = existingImagesCount + i;
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'image-container';
+                imgContainer.dataset.index = index.toString();
+                imgContainer.dataset.isNew = "true";
+
+                const img = document.createElement('img');
+                img.src = e.target.result;
+
+                const radioContainer = document.createElement('div');
+                radioContainer.className = 'radio-container';
+
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'imagenPrincipalRadio';
+                radio.id = `imagenPrincipal_${index}`;
+                radio.value = index.toString();
+
+                const label = document.createElement('label');
+                label.htmlFor = `imagenPrincipal_${index}`;
+                label.textContent = 'Principal';
+
+                // Botón de eliminar para nuevas imágenes
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'btn-delete-image';
+                deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                deleteBtn.onclick = function() {
+                    if (confirm('¿Eliminar esta imagen?')) {
+                        imgContainer.remove();
+                        updateImageIndices();
+                    }
+                };
+
+                radioContainer.appendChild(radio);
+                radioContainer.appendChild(label);
+                imgContainer.appendChild(img);
+                imgContainer.appendChild(radioContainer);
+                imgContainer.appendChild(deleteBtn);
+                preview.appendChild(imgContainer);
+
+                // Si es la primera imagen, marcarla como principal
+                if (existingImagesCount === 0 && i === 0) {
+                    radio.checked = true;
+                    imgContainer.classList.add('principal-selected');
+                    document.getElementById('imagenPrincipalIndex').value = 0;
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+
+        updateImageIndices();
+    });
+
+    // Manejar eliminación de imágenes existentes
+    document.querySelectorAll('.btn-delete-image').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const imageId = this.dataset.imageId;
+            const container = this.closest('.image-container');
+            const wasPrincipal = container.querySelector('input[type="radio"]')?.checked;
+
+            if (confirm('¿Eliminar esta imagen?')) {
+                fetch(`/Admin/EditarPropiedad/${@Model.Propiedad.Id}?handler=DeleteImage&imageId=${imageId}`, {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': '@token',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        container.remove();
+                        // Si era la principal, seleccionar la primera imagen restante
+                        if (wasPrincipal) {
+                            const firstRadio = document.querySelector('input[type="radio"]');
+                            if (firstRadio) {
+                                firstRadio.checked = true;
+                                firstRadio.closest('.image-container').classList.add('principal-selected');
+                            }
+                        }
+                        updateImageIndices();
+                    } else {
+                        alert('Error al eliminar la imagen');
+                    }
+                });
+            }
+        });
+    });
+
+    // Manejar cambio de imagen principal
+    document.addEventListener('change', function(e) {
+        if (e.target && e.target.name === 'imagenPrincipalRadio') {
+            document.querySelectorAll('.image-container').forEach(el => {
+                el.classList.remove('principal-selected');
+            });
+            e.target.closest('.image-container').classList.add('principal-selected');
+            document.getElementById('imagenPrincipalIndex').value = e.target.value;
+        }
+    });
+
+    // Vista previa de YouTube
+    document.getElementById('youtubeUrlInput').addEventListener('input', function(event) {
+        const preview = document.getElementById('videoPreview');
+        preview.innerHTML = '';
+
+        const url = this.value.trim();
+        if (url) {
+            const videoId = extractYouTubeId(url);
+            if (videoId) {
+                const iframe = document.createElement('iframe');
+                iframe.width = '100%';
+                iframe.height = '200';
+                iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                iframe.frameBorder = '0';
+                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                iframe.allowFullscreen = true;
+                preview.appendChild(iframe);
+            }
+        }
+    });
+
+    // Función para extraer el ID de YouTube
+    function extractYouTubeId(url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    }
+
+    // Inicializar al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        updateImageIndices();
+    });
+</script>
+}
+
+
+
+
+
+
+
+<style>
+    .form-switch .form-check-input {
+        width: 2.5em;
+        height: 1.5em;
+    }
+
+    .card {
+        margin-bottom: 1.5rem;
+        border: none;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #eee;
+    }
+
+    .image-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 15px;
+        border: 1px dashed #ccc;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    .image-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+    .radio-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.6);
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+        .radio-container input[type="radio"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+            .radio-container input[type="radio"]:checked {
+                background: #28a745;
+                border-color: #28a745;
+            }
+
+        .radio-container label {
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+    .principal-selected {
+        border: 2px solid #28a745;
+        box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
+    }
+
+        .principal-selected img {
+            opacity: 0.9;
+        }
+
+    /* Estilo para hover */
+    .image-container:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .image-preview img {
+        max-height: 100px;
+        margin: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+    }
+
+    .video-preview iframe {
+        width: 100%;
+        height: 200px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .btn-delete-image {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: rgba(255, 0, 0, 0.7);
+        color: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+        .btn-delete-image:hover {
+            background-color: rgba(255, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+
+        .btn-delete-image i {
+            font-size: 12px;
+        }
+
+</style>

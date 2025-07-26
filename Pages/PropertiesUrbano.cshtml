@@ -129,15 +129,6 @@
                             </div>
                         </div>
 
-                        <!--  
-                        <div class="text-center mt-4">
-                            <a class="toggle-advanced-filters text-decoration-none text-muted" data-bs-toggle="collapse" href=".advanced-filters" role="button">
-                                <span class="filter-toggle-text">Más opciones de búsqueda</span>
-                                <i class="fas fa-chevron-down ms-2 small"></i>
-                            </a>
-                        </div>
-                        -->
-
                     </form>
                 </div>
             </div>
@@ -185,7 +176,7 @@
                             <div class="offer-type-wrap">
                                 <span class="offer-type bg-success">@p.Tipo</span>
                             </div>
-                            <img src="@p.Imagenes?.FirstOrDefault()?.Url" alt="@p.Titulo" class="img-fluid">
+                            <img src="@(p.Imagenes?.FirstOrDefault(i => i.EsPrincipal)?.Url ?? p.Imagenes?.FirstOrDefault()?.Url)" alt="@p.Titulo" class="img-fluid">
                         </a>
                         <div class="p-4 property-body">
                             <h2 class="property-title">
