@@ -176,39 +176,37 @@ namespace GV.Pages.Admin
             }
         }
 
+
         public async Task<IActionResult> OnPostDeleteImageAsync(int id, int imageId)
         {
             var propiedad = await _context.PropiedadesCampo
                 .Include(p => p.Imagenes)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-            if (propiedad == null)
-            {
-                return NotFound();
-            }
+            if (propiedad == null) return NotFound();
 
             var imagen = propiedad.Imagenes.FirstOrDefault(i => i.Id == imageId);
-            if (imagen != null)
+            if (imagen == null) return NotFound();
+
+            // Eliminar archivo físico
+            var filePath = Path.Combine(_hostingEnvironment.WebRootPath, imagen.Url.TrimStart('/'));
+            if (System.IO.File.Exists(filePath))
             {
-                // Eliminar archivo físico
-                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, imagen.Url.TrimStart('/'));
-                if (System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-                }
-
-                // Eliminar de la base de datos
-                _context.Imagenes.Remove(imagen);
-                await _context.SaveChangesAsync();
-
-                // Si era la imagen principal y quedan imágenes, establecer la primera como principal
-                if (imagen.EsPrincipal && propiedad.Imagenes.Any())
-                {
-                    propiedad.Imagenes.First().EsPrincipal = true;
-                    await _context.SaveChangesAsync();
-                }
+                System.IO.File.Delete(filePath);
             }
 
+            // Eliminar de la base de datos
+            _context.Imagenes.Remove(imagen);
+            await _context.SaveChangesAsync();
+
+            // Actualizar imagen principal si era la principal
+            if (imagen.EsPrincipal && propiedad.Imagenes.Any())
+            {
+                propiedad.Imagenes.First().EsPrincipal = true;
+                await _context.SaveChangesAsync();
+            }
+
+            // Devolver éxito sin recargar
             return new OkResult();
         }
 
