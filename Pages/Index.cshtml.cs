@@ -32,7 +32,7 @@ namespace GV.Pages
                 .Include(p => p.Imagenes)
                 .Where(p => p.EsDestacada)
                 .OrderByDescending(p => p.FechaPublicacion)
-                .Take(3)
+                
                 .ToList();
 
             // Obtener campos destacados (máximo 3) con sus imágenes
@@ -40,7 +40,7 @@ namespace GV.Pages
                 .Include(p => p.Imagenes)
                 .Where(p => p.EsDestacada)
                 .OrderByDescending(p => p.FechaPublicacion)
-                .Take(3)
+               
                 .ToList();
         }
     }

@@ -91,6 +91,23 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5>Imágenes</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Subir imágenes *</label>
+                                <input type="file" class="form-control" multiple accept="image/*" asp-for="Propiedad.Imagenes" id="imagenesInput">
+                                <small class="text-muted">Formatos aceptados: .jpg, .jpeg, .png. Máx. 5MB por imagen.</small>
+                                <span asp-validation-for="Propiedad.Imagenes" class="text-danger"></span>
+                            </div>
+
+                            <input type="hidden" asp-for="Propiedad.ImagenPrincipalIndex" id="imagenPrincipalIndex">
+                            <div class="image-preview" id="imagePreview"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -107,22 +124,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5>Imágenes</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label">Subir imágenes *</label>
-                            <input type="file" class="form-control" multiple accept="image/*" asp-for="Propiedad.Imagenes" id="imagenesInput">
-                            <small class="text-muted">Formatos aceptados: .jpg, .jpeg, .png. Máx. 5MB por imagen.</small>
-                            <span asp-validation-for="Propiedad.Imagenes" class="text-danger"></span>
-                        </div>
-
-                        <input type="hidden" asp-for="Propiedad.ImagenPrincipalIndex" id="imagenPrincipalIndex">
-                        <div class="image-preview" id="imagePreview"></div>
-                    </div>
-                </div>
+           
 
                 <!-- Agregar sección de video -->
                 <div class="card mb-4">
