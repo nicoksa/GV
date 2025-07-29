@@ -87,7 +87,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label" asp-for="Propiedad.Banios"></label>
+                                    <label class="form-label" asp-for="Propiedad.Banios">Baños</label>
                                     <input class="form-control" asp-for="Propiedad.Banios" type="number" min="1">
                                     <span asp-validation-for="Propiedad.Banios" class="text-danger"></span>
                                 </div>
@@ -97,14 +97,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" asp-for="Propiedad.SuperficieTotal"></label>
+                                    <label class="form-label" asp-for="Propiedad.SuperficieTotal">Superficie Total</label>
                                     <input class="form-control" asp-for="Propiedad.SuperficieTotal" type="number">
                                     <span asp-validation-for="Propiedad.SuperficieTotal" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" asp-for="Propiedad.SuperficieCubierta"></label>
+                                    <label class="form-label" asp-for="Propiedad.SuperficieCubierta">Superficie Cubierta</label>
                                     <input class="form-control" asp-for="Propiedad.SuperficieCubierta" type="number">
                                     <span asp-validation-for="Propiedad.SuperficieCubierta" class="text-danger"></span>
                                 </div>
@@ -114,14 +114,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" asp-for="Propiedad.Direccion"></label>
+                                    <label class="form-label" asp-for="Propiedad.Direccion">Dirección</label>
                                     <input class="form-control" asp-for="Propiedad.Direccion">
                                     <span asp-validation-for="Propiedad.Direccion" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" asp-for="Propiedad.Ubicacion"></label>
+                                    <label class="form-label" asp-for="Propiedad.Ubicacion">Ubicación</label>
                                     <select class="form-select" asp-for="Propiedad.Ubicacion">
                                         <option value="Saladillo">Saladillo</option>
                                         <option value="Las Flores">Las Flores</option>
@@ -129,6 +129,39 @@
                                         <option value="25 de mayo">25 de mayo</option>
                                     </select>
                                     <span asp-validation-for="Propiedad.Ubicacion" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>Imágenes</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Subir imágenes</label>
+                                    <input type="file" class="form-control" multiple accept="image/*" asp-for="Propiedad.Imagenes" id="imagenesInput">
+                                    <small class="text-muted">Formatos aceptados: .jpg, .jpeg, .png. Máx. 5MB por imagen.</small>
+                                    <span asp-validation-for="Propiedad.Imagenes" class="text-danger"></span>
+                                </div>
+
+                                <input type="hidden" asp-for="Propiedad.ImagenPrincipalIndex" id="imagenPrincipalIndex">
+
+                                <!-- Vista previa de imágenes existentes + nuevas -->
+                                <div class="image-preview" id="imagePreview">
+                                    @foreach (var img in Model.ImagenesExistentes)
+                                    {
+                                        <div class="image-container @(img.EsPrincipal ? "principal-selected" : "")" data-image-id="@img.Id" data-index="@img.Index">
+                                            <img src="@Url.Content(img.Url)" onerror="this.src='/images/default-property.jpg';this.onerror=null;">
+                                            <div class="radio-container">
+                                                <input type="radio" name="imagenPrincipalRadio" id="imagenPrincipal_@img.Index"
+                                                       value="@img.Index" @(img.EsPrincipal ? "checked" : "")>
+                                                <label for="imagenPrincipal_@img.Index">Principal</label>
+                                            </div>
+                                            <button type="button" class="btn-delete-image" data-image-id="@img.Id">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -144,7 +177,7 @@
                     <div class="card-body">
                         <div class="mb-3 form-check form-switch">
                             <input class="form-check-input" type="checkbox" asp-for="Propiedad.EsDestacada">
-                            <label class="form-check-label" asp-for="Propiedad.EsDestacada"></label>
+                            <label class="form-check-label" asp-for="Propiedad.EsDestacada">Es Destacada</label>
                         </div>
                     </div>
                 </div>
@@ -164,7 +197,7 @@
                         </div>
                         <div class="mb-3 form-check">
                             <input class="form-check-input" type="checkbox" asp-for="Propiedad.Aire_acond">
-                            <label class="form-check-label" asp-for="Propiedad.Aire_acond"></label>
+                            <label class="form-check-label" asp-for="Propiedad.Aire_acond">Aire Acondicionado</label>
                         </div>
                         <div class="mb-3 form-check">
                             <input class="form-check-input" type="checkbox" asp-for="Propiedad.Seguridad">
@@ -177,39 +210,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5>Imágenes</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label">Subir imágenes</label>
-                            <input type="file" class="form-control" multiple accept="image/*" asp-for="Propiedad.Imagenes" id="imagenesInput">
-                            <small class="text-muted">Formatos aceptados: .jpg, .jpeg, .png. Máx. 5MB por imagen.</small>
-                            <span asp-validation-for="Propiedad.Imagenes" class="text-danger"></span>
-                        </div>
-
-                        <input type="hidden" asp-for="Propiedad.ImagenPrincipalIndex" id="imagenPrincipalIndex">
-
-                        <!-- Vista previa de imágenes existentes + nuevas -->
-                        <div class="image-preview" id="imagePreview">
-                            @foreach (var img in Model.ImagenesExistentes)
-                            {
-                                <div class="image-container @(img.EsPrincipal ? "principal-selected" : "")" data-image-id="@img.Id" data-index="@img.Index">
-                                    <img src="@Url.Content(img.Url)" onerror="this.src='/images/default-property.jpg';this.onerror=null;">
-                                    <div class="radio-container">
-                                        <input type="radio" name="imagenPrincipalRadio" id="imagenPrincipal_@img.Index"
-                                               value="@img.Index" @(img.EsPrincipal ? "checked" : "")>
-                                        <label for="imagenPrincipal_@img.Index">Principal</label>
-                                    </div>
-                                    <button type="button" class="btn-delete-image" data-image-id="@img.Id">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
+           
 
                 <!-- Sección de Videos -->
                 <div class="card mb-4">
