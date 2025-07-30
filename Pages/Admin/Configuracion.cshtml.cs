@@ -85,10 +85,7 @@ namespace GV.Pages.Admin
 
         public async Task<IActionResult> OnPostCambiarPasswordAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+       
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out int id))
