@@ -35,8 +35,7 @@ namespace GV.Pages.Admin
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Recordarme")]
-            public bool RememberMe { get; set; }
+         
         }
 
         public void OnGet()
@@ -94,15 +93,11 @@ namespace GV.Pages.Admin
             var claimsIdentity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = Input.RememberMe
-            };
+         
 
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
+                new ClaimsPrincipal(claimsIdentity));
 
   
 
