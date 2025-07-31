@@ -28,7 +28,16 @@
                 <li><a asp-page="/Admin/GestionPropiedades"><i class="fas fa-home"></i> Propiedades</a></li>          
                 <li><a asp-page="/Admin/GestionCampos"><i class="fas fa-seedling"></i> Campos</a></li>
                 <li><a asp-page="/Admin/Configuracion"><i class="fas fa-cog"></i> Configuración</a></li>
-                <li><a asp-page="/Admin/Login"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                <li>
+                    <a href="#" class="logout-link">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                    </a>
+                    <form asp-page="/Admin/Logout" method="post" id="logoutForm" style="display: none;">
+                        @Html.AntiForgeryToken()
+                    </form>
+                </li>
+
+
             </ul>
         </nav>
     </div>
@@ -50,5 +59,14 @@
     @RenderSection("Scripts", required: false) <!-- Aquí se renderizarán los scripts específicos -->
 </body>
 </html>
+
+
+
+<script>
+    document.querySelector('.logout-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('logoutForm').submit();
+    });
+</script>
 
 

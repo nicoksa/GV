@@ -108,37 +108,7 @@
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/admin.js"></script>
-    <script>
-        function confirmDelete(id) {
-            const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
-            modal.show();
-
-            document.getElementById('confirmDeleteBtn').onclick = function() {
-                // Crear formulario con token antiforgery
-                const form = document.createElement('form');
-                form.method = 'post';
-                form.action = 'GestionPropiedades?handler=Delete';
-
-                // Agregar token antiforgery
-                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-                const tokenInput = document.createElement('input');
-                tokenInput.type = 'hidden';
-                tokenInput.name = '__RequestVerificationToken';
-                tokenInput.value = token;
-
-                // Agregar ID
-                const idInput = document.createElement('input');
-                idInput.type = 'hidden';
-                idInput.name = 'id';
-                idInput.value = id;
-
-                form.appendChild(tokenInput);
-                form.appendChild(idInput);
-                document.body.appendChild(form);
-                form.submit();
-            };
-        }
-    </script>
+   
 }
 
 

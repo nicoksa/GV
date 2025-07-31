@@ -1,0 +1,38 @@
+﻿@page
+@model GV.Pages.Admin.LogoutModel
+@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cerrando sesión - GV Administración</title>
+    <link rel="stylesheet" href="~/css/stylesAdmin.css" />
+</head>
+<body>
+    <div class="logout-container">
+        <div class="logout-box">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cerrando sesión...</span>
+            </div>
+            <h3>Cerrando sesión...</h3>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Enviar el formulario automáticamente después de cargar
+            setTimeout(function() {
+                $('form').submit();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+

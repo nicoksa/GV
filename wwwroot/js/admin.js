@@ -16,26 +16,34 @@ function confirmDelete(id) {
     modal.show();
 }
 
-document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
-    // Enviar solicitud de eliminación al servidor
-    fetch(`?handler=Delete&id=${currentIdToDelete}`, {
-        method: 'POST',
-        headers: {
-            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-        }
-    })
-        .then(response => {
-            if (response.ok) {
-                window.location.reload();
-            } else {
-                alert('Error al eliminar el campo');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al eliminar el campo');
-        });
+// Configuración del botón de confirmación de eliminación
+document.getElementById('confirmDeleteBtn')?.addEventListener('click', function () {
+    const form = document.createElement('form');
+    form.method = 'post';
+
+    // Determinar la ruta basada en la página actual
+    const isGestionCampos = window.location.pathname.includes('GestionCampos');
+    form.action = isGestionCampos ? 'GestionCampos?handler=Delete' : 'GestionPropiedades?handler=Delete';
+
+    // Agregar token antiforgery
+    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+    const tokenInput = document.createElement('input');
+    tokenInput.type = 'hidden';
+    tokenInput.name = '__RequestVerificationToken';
+    tokenInput.value = token;
+
+    // Agregar ID
+    const idInput = document.createElement('input');
+    idInput.type = 'hidden';
+    idInput.name = 'id';
+    idInput.value = currentIdToDelete;
+
+    form.appendChild(tokenInput);
+    form.appendChild(idInput);
+    document.body.appendChild(form);
+    form.submit();
 
     const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
     modal.hide();
 });
+
