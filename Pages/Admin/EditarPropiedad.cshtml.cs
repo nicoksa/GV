@@ -265,7 +265,9 @@ namespace GV.Pages.Admin
             [Required(ErrorMessage = "El título es obligatorio")]
             public string Titulo { get; set; }
 
+           
             public string Descripcion { get; set; }
+
 
             [Required(ErrorMessage = "El tipo es obligatorio")]
             public string Tipo { get; set; }
@@ -285,7 +287,7 @@ namespace GV.Pages.Admin
 
             public int SuperficieTotal { get; set; }
             public int SuperficieCubierta { get; set; }
-            public string Direccion { get; set; }
+            public string? Direccion { get; set; }
             public bool Cochera { get; set; }
             public bool Patio { get; set; }
 

@@ -146,7 +146,7 @@ namespace GV.Pages.Admin
             public bool AireAcondicionado { get; set; }
             public bool Seguridad { get; set; }
             public bool Pileta { get; set; }
-            public string Direccion { get; set; }
+            public string? Direccion { get; set; }
 
             // Nuevas propiedades para archivos
             [Display(Name = "Imágenes")]

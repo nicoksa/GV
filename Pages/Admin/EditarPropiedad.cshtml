@@ -28,13 +28,13 @@
                         <div class="mb-3">
                             <label class="form-label" asp-for="Propiedad.Titulo"></label>
                             <input class="form-control" asp-for="Propiedad.Titulo" required>
-                            <span asp-validation-for="Propiedad.Titulo" class="text-danger"></span>
+                           
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" asp-for="Propiedad.Descripcion"></label>
-                            <textarea class="form-control" asp-for="Propiedad.Descripcion" rows="4"></textarea>
-                            <span asp-validation-for="Propiedad.Descripcion" class="text-danger"></span>
+                            <textarea class="form-control" asp-for="Propiedad.Descripcion" rows="4" required></textarea>
+                           
                         </div>
 
                         <div class="row">
@@ -48,7 +48,7 @@
                                         <option value="Local">Local</option>
                                         <option value="Terreno">Terreno</option>
                                     </select>
-                                    <span asp-validation-for="Propiedad.Tipo" class="text-danger"></span>
+                                   
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -58,7 +58,7 @@
                                         <span class="input-group-text">$</span>
                                         <input class="form-control" asp-for="Propiedad.Precio" required>
                                     </div>
-                                    <span asp-validation-for="Propiedad.Precio" class="text-danger"></span>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -75,21 +75,21 @@
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.Ambientes"></label>
                                     <input class="form-control" asp-for="Propiedad.Ambientes" type="number" min="1">
-                                    <span asp-validation-for="Propiedad.Ambientes" class="text-danger"></span>
+                                   
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.Dormitorios"></label>
                                     <input class="form-control" asp-for="Propiedad.Dormitorios" type="number" min="0">
-                                    <span asp-validation-for="Propiedad.Dormitorios" class="text-danger"></span>
+                                 
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.Banios">Baños</label>
                                     <input class="form-control" asp-for="Propiedad.Banios" type="number" min="1">
-                                    <span asp-validation-for="Propiedad.Banios" class="text-danger"></span>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -98,15 +98,15 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.SuperficieTotal">Superficie Total</label>
-                                    <input class="form-control" asp-for="Propiedad.SuperficieTotal" type="number">
-                                    <span asp-validation-for="Propiedad.SuperficieTotal" class="text-danger"></span>
+                                    <input class="form-control" asp-for="Propiedad.SuperficieTotal" type="number" required>
+                                  
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.SuperficieCubierta">Superficie Cubierta</label>
-                                    <input class="form-control" asp-for="Propiedad.SuperficieCubierta" type="number">
-                                    <span asp-validation-for="Propiedad.SuperficieCubierta" class="text-danger"></span>
+                                    <input class="form-control" asp-for="Propiedad.SuperficieCubierta" type="number" required>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.Direccion">Dirección</label>
                                     <input class="form-control" asp-for="Propiedad.Direccion">
-                                    <span asp-validation-for="Propiedad.Direccion" class="text-danger"></span>
+                                  
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -128,7 +128,7 @@
                                         <option value="Roque Pérez">Roque Pérez</option>
                                         <option value="25 de mayo">25 de mayo</option>
                                     </select>
-                                    <span asp-validation-for="Propiedad.Ubicacion" class="text-danger"></span>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                                     <label class="form-label">Subir imágenes</label>
                                     <input type="file" class="form-control" multiple accept="image/*" asp-for="Propiedad.Imagenes" id="imagenesInput">
                                     <small class="text-muted">Formatos aceptados: .jpg, .jpeg, .png. Máx. 5MB por imagen.</small>
-                                    <span asp-validation-for="Propiedad.Imagenes" class="text-danger"></span>
+                                   
                                 </div>
 
                                 <input type="hidden" asp-for="Propiedad.ImagenPrincipalIndex" id="imagenPrincipalIndex">
@@ -223,7 +223,7 @@
                             <input type="text" class="form-control" asp-for="Propiedad.YoutubeUrl"
                                    placeholder="https://www.youtube.com/watch?v=..." id="youtubeUrlInput">
                             <small class="text-muted">Ejemplo: https://www.youtube.com/watch?v=CODIGO_DEL_VIDEO</small>
-                            <span asp-validation-for="Propiedad.YoutubeUrl" class="text-danger"></span>
+                            
                         </div>
                         <div class="video-preview" id="videoPreview">
                             @if (!string.IsNullOrEmpty(Model.Propiedad.YoutubeUrl))
@@ -252,6 +252,7 @@
 </div>
 
 @section Scripts {
+
 @functions {
     public string ExtractYouTubeId(string url)
     {
@@ -263,6 +264,18 @@
 
 <script src="~/js/adminEditar.js"></script>
 <script>
+            // Deshabilitar la validación automática de ASP.NET Core
+        $.validator.setDefaults({
+            ignore: ":hidden:not(form), .ignore-validation",
+            showErrors: function() {
+                // No hacer nada para evitar que muestre los mensajes de error
+            },
+            errorPlacement: function() {
+                // No colocar mensajes de error
+            }
+        });
+
+
     initAdminEditar(
         @Model.ImagenesExistentes.Count,
         @Model.Propiedad.Id,

@@ -28,13 +28,13 @@
                         <div class="mb-3">
                             <label class="form-label" asp-for="Propiedad.Titulo"></label>
                             <input class="form-control" asp-for="Propiedad.Titulo" required>
-                            <span asp-validation-for="Propiedad.Titulo" class="text-danger"></span>
+                            
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" asp-for="Propiedad.Descripcion">Descripción</label>
-                            <textarea class="form-control" asp-for="Propiedad.Descripcion" rows="4"></textarea>
-                            <span asp-validation-for="Propiedad.Descripcion" class="text-danger"></span>
+                            <textarea class="form-control" asp-for="Propiedad.Descripcion" rows="6" required></textarea>
+                            
                         </div>
 
                         <div class="row">
@@ -46,7 +46,7 @@
                                         <option value="Ganadera">Ganadera</option>
                                         <option value="Mixta">Mixta</option>
                                     </select>
-                                    <span asp-validation-for="Propiedad.Aptitud" class="text-danger"></span>
+                                    
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -56,7 +56,7 @@
                                         <span class="input-group-text">$</span>
                                         <input class="form-control" asp-for="Propiedad.Precio" required>
                                     </div>
-                                    <span asp-validation-for="Propiedad.Precio" class="text-danger"></span>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                                         <input class="form-control" asp-for="Propiedad.Hectareas" required>
                                         <span class="input-group-text">ha</span>
                                     </div>
-                                    <span asp-validation-for="Propiedad.Hectareas" class="text-danger"></span>
+                                   
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -90,7 +90,7 @@
                                         <option value="25 de mayo">25 de mayo</option>
                                         <option value="Otra">Otra</option>
                                     </select>
-                                    <span asp-validation-for="Propiedad.Ubicacion" class="text-danger"></span>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                             <input type="text" class="form-control" asp-for="Propiedad.YoutubeUrl"
                                    placeholder="https://www.youtube.com/watch?v=..." id="youtubeUrlInput">
                             <small class="text-muted">Ejemplo: https://www.youtube.com/watch?v=CODIGO_DEL_VIDEO</small>
-                            <span asp-validation-for="Propiedad.YoutubeUrl" class="text-danger"></span>
+                           
                         </div>
                         <div class="video-preview" id="videoPreview">
                             @if (!string.IsNullOrEmpty(Model.Propiedad.YoutubeUrl))

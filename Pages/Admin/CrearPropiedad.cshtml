@@ -22,20 +22,20 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label" asp-for="Propiedad.Titulo">Título *</label>
+                            <label class="form-label" asp-for="Propiedad.Titulo">Título </label>
                             <input class="form-control" asp-for="Propiedad.Titulo" required>
-                            <span asp-validation-for="Propiedad.Titulo" class="text-danger"></span>
+                           
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" asp-for="Propiedad.Descripcion">Descripción</label>
-                            <textarea class="form-control" asp-for="Propiedad.Descripcion" rows="4" placeholder="Describa las características principales de la propiedad..."></textarea>
+                            <textarea class="form-control" asp-for="Propiedad.Descripcion" rows="4" placeholder="Describa las características principales de la propiedad..." required></textarea>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" asp-for="Propiedad.Tipo">Tipo *</label>
+                                    <label class="form-label" asp-for="Propiedad.Tipo">Tipo </label>
                                     <select class="form-select" asp-for="Propiedad.Tipo" required>
                                         <option value="">Seleccione...</option>
                                         <option value="Casa">Casa</option>
@@ -44,17 +44,17 @@
                                         <option value="Local">Local</option>
                                         <option value="Terreno">Terreno</option>
                                     </select>
-                                    <span asp-validation-for="Propiedad.Tipo" class="text-danger"></span>
+                                    
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" asp-for="Propiedad.Precio">Precio *</label>
+                                    <label class="form-label" asp-for="Propiedad.Precio">Precio </label>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
                                         <input class="form-control" asp-for="Propiedad.Precio" required>
                                     </div>
-                                    <span asp-validation-for="Propiedad.Precio" class="text-danger"></span>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -91,14 +91,14 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.SuperficieTotal">Superficie Total (m²)</label>
-                                    <input class="form-control" asp-for="Propiedad.SuperficieTotal" type="number" min="1">
-                                    <span asp-validation-for="Propiedad.SuperficieTotal" class="text-danger"></span>
+                                    <input class="form-control" asp-for="Propiedad.SuperficieTotal" type="number" min="1" required>
+                                   
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.SuperficieCubierta">Superficie Cubierta (m²)</label>
-                                    <input class="form-control" asp-for="Propiedad.SuperficieCubierta" type="number" min="0">
+                                    <input class="form-control" asp-for="Propiedad.SuperficieCubierta" type="number" min="0" required>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                                         <option value="Roque Pérez">Roque Pérez</option>
                                         <option value="25 de mayo">25 de mayo</option>
                                     </select>
-                                    <span asp-validation-for="Propiedad.Ubicacion" class="text-danger"></span>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -132,7 +132,7 @@
                                     <label class="form-label">Subir imágenes</label>
                                     <input type="file" class="form-control" multiple accept="image/*" asp-for="Propiedad.Imagenes" id="imagenesInput">
                                     <small class="text-muted">Formatos aceptados: .jpg, .jpeg, .png. Máx. 5MB por imagen.</small>
-                                    <span asp-validation-for="Propiedad.Imagenes" class="text-danger"></span>
+                                   
                                 </div>
 
                                 <input type="hidden" asp-for="Propiedad.ImagenPrincipalIndex" id="imagenPrincipalIndex">
@@ -196,7 +196,7 @@
                             <label class="form-label" asp-for="Propiedad.YoutubeUrl">URL de YouTube</label>
                             <input type="text" class="form-control" asp-for="Propiedad.YoutubeUrl" placeholder="https://www.youtube.com/watch?v=..." pattern="^(|(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+)$">
                             <small class="text-muted">Ejemplo: https://www.youtube.com/watch?v=CODIGO_DEL_VIDEO</small>
-                            <span asp-validation-for="Propiedad.YoutubeUrl" class="text-danger"></span>
+                           
                         </div>
                         <div class="video-preview" id="videoPreview"></div>
                     </div>
@@ -218,68 +218,12 @@
 </div>
 
 @section Scripts {
-    
+
+     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/adminCrear.js"></script>
 
     <script>
-        <partial name="_ValidationScriptsPartial" />
-          // Vista previa de imágenes con selección de principal
-                document.getElementById('imagenesInput').addEventListener('change', function(event) {
-            const preview = document.getElementById('imagePreview');
-            preview.innerHTML = '';
 
-            if (this.files.length > 0) {
-                for (let i = 0; i < this.files.length; i++) {
-                    const file = this.files[i];
-                    if (file.type.match('image.*')) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const imgContainer = document.createElement('div');
-                            imgContainer.className = 'image-container';
-
-                            const img = document.createElement('img');
-                            img.src = e.target.result;
-
-                            const radioContainer = document.createElement('div');
-                            radioContainer.className = 'radio-container';
-
-                            const radio = document.createElement('input');
-                            radio.type = 'radio';
-                            radio.name = 'imagenPrincipal';
-                            radio.id = `imagenPrincipal_${i}`;
-                            radio.value = i;
-
-                            // Marcar la primera imagen como principal por defecto
-                            if (i === 0) {
-                                radio.checked = true;
-                                document.getElementById('imagenPrincipalIndex').value = 0;
-                                imgContainer.classList.add('principal-selected');
-                            }
-
-                            radio.addEventListener('change', function() {
-                                // Remover clase de todos los contenedores
-                                document.querySelectorAll('.image-container').forEach(el => {
-                                    el.classList.remove('principal-selected');
-                                });
-                                // Agregar clase al contenedor seleccionado
-                                imgContainer.classList.add('principal-selected');
-                                document.getElementById('imagenPrincipalIndex').value = this.value;
-                            });
-
-                            const label = document.createElement('label');
-                            label.htmlFor = `imagenPrincipal_${i}`;
-                            label.textContent = 'Principal';
-
-                            radioContainer.appendChild(radio);
-                            radioContainer.appendChild(label);
-                            imgContainer.appendChild(img);
-                            imgContainer.appendChild(radioContainer);
-                            preview.appendChild(imgContainer);
-                        }
-                        reader.readAsDataURL(file);
-                    }
-                }
-            }
-        });
 
         // Vista previa de YouTube
         document.getElementById('Propiedad_YoutubeUrl').addEventListener('input', function(event) {
