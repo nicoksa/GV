@@ -1,14 +1,16 @@
+using BCrypt.Net;
 using GV.Data;
 using GV.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
-using BCrypt.Net;
 
 namespace GV.Pages.Admin
 {
+    [Authorize]
     public class ConfiguracionModel : PageModel
     {
         private readonly AppDbContext _context;

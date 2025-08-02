@@ -1,15 +1,17 @@
+using GV.Data;
 using GV.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using GV.Data;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace GV.Pages.Admin
 {
+    [Authorize]
     public class CrearCampoModel : PageModel
     {
         private readonly AppDbContext _context;

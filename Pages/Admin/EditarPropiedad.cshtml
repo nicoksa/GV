@@ -16,6 +16,7 @@
     </div>
 
     <form method="post" enctype="multipart/form-data" id="propiedadForm">
+        @Html.AntiForgeryToken()
         <input type="hidden" asp-for="Propiedad.Id" />
 
         <div class="row">
@@ -264,16 +265,7 @@
 
 <script src="~/js/adminEditar.js"></script>
 <script>
-            // Deshabilitar la validación automática de ASP.NET Core
-        $.validator.setDefaults({
-            ignore: ":hidden:not(form), .ignore-validation",
-            showErrors: function() {
-                // No hacer nada para evitar que muestre los mensajes de error
-            },
-            errorPlacement: function() {
-                // No colocar mensajes de error
-            }
-        });
+
 
 
     initAdminEditar(

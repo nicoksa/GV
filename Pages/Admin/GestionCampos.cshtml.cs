@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using GV.Data;
 using GV.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GV.Pages.Admin
 {
+    [Authorize]
     public class GestionCamposModel : PageModel
     {
         private readonly AppDbContext _context;

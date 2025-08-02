@@ -1,5 +1,6 @@
 using GV.Data;
 using GV.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace GV.Pages.Admin
 {
+    [Authorize]
     public class EditarPropiedadModel : PageModel
     {
         private readonly AppDbContext _context;

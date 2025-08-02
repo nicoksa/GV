@@ -1,5 +1,6 @@
 using GV.Data;
 using GV.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace GV.Pages.Admin
 {
+    [Authorize]
     public class CrearPropiedadModel : PageModel
     {
         private readonly AppDbContext _context;

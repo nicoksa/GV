@@ -16,6 +16,7 @@
     </div>
 
     <form method="post" enctype="multipart/form-data" id="campoForm">
+        @Html.AntiForgeryToken()
         <input type="hidden" asp-for="Propiedad.Id" />
 
         <div class="row">
