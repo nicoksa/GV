@@ -169,23 +169,20 @@ namespace GV.Pages.Admin
             }
 
             // Manejar video
-            if (!string.IsNullOrEmpty(Propiedad.YoutubeUrl))
+            if (propiedadExistente.Videos.Any())
             {
-                // Eliminar videos existentes
-                if (propiedadExistente.Videos.Any())
-                {
-                    _context.Videos.RemoveRange(propiedadExistente.Videos);
-                }
+                _context.Videos.RemoveRange(propiedadExistente.Videos);
+            }
 
-                // Agregar nuevo video solo si es de YouTube
-                if (Propiedad.YoutubeUrl.Contains("youtube.com") || Propiedad.YoutubeUrl.Contains("youtu.be"))
+            // Agregar nuevo video solo si se proporciona una URL de YouTube válida
+            if (!string.IsNullOrEmpty(Propiedad.YoutubeUrl) &&
+                (Propiedad.YoutubeUrl.Contains("youtube.com") || Propiedad.YoutubeUrl.Contains("youtu.be")))
+            {
+                propiedadExistente.Videos.Add(new Video
                 {
-                    propiedadExistente.Videos.Add(new Video
-                    {
-                        Url = Propiedad.YoutubeUrl,
-                        PropiedadId = propiedadExistente.Id
-                    });
-                }
+                    Url = Propiedad.YoutubeUrl,
+                    PropiedadId = propiedadExistente.Id
+                });
             }
 
             try
