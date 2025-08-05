@@ -33,7 +33,7 @@ namespace GV.Pages
         [BindProperty(SupportsGet = true)]
       
         public int CurrentPage { get; set; } = 1;
-        public int PageSize { get; set; } = 9; // 9 cards por página
+        public int PageSize { get; set; } = 12; // 9 cards por página
         public int TotalItems { get; set; }
         public int TotalPages => (int)Math.Ceiling((double)TotalItems / PageSize);
         public bool ShowPrevious => CurrentPage > 1;
