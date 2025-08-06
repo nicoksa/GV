@@ -73,26 +73,124 @@
     }
 
 
+@media (max-width: 1200px) {
+    .admin-table th:nth-child(4),
+    .admin-table td:nth-child(4),
+    .admin-table th:nth-child(5),
+    .admin-table td:nth-child(5) {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    .admin-table th:nth-child(3),
+    .admin-table td:nth-child(3) {
+        display: none;
+    }
+
+    .search-bar {
+        flex-direction: column;
+    }
+
+        .search-bar input {
+            max-width: 100%;
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
+        .search-bar button {
+            width: 100%;
+        }
+}
+
+@media (max-width: 768px) {
+    .admin-table th:nth-child(1),
+    .admin-table td:nth-child(1) {
+        display: none;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+        .admin-header h2 {
+            margin-bottom: 15px;
+        }
+
+        .admin-header .btn {
+            width: 100%;
+        }
+}
+
+@media (max-width: 576px) {
+    .admin-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .action-buttons {
+        white-space: nowrap;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 8px 10px;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* Ajustes específicos para GestionCampos */
+@media (max-width: 1200px) {
+    .gestion-campos .admin-table th:nth-child(5),
+    .gestion-campos .admin-table td:nth-child(5) {
+        display: table-cell;
+    }
+}
+
+@media (max-width: 768px) {
+    .gestion-campos .admin-table th:nth-child(4),
+    .gestion-campos .admin-table td:nth-child(4) {
+        display: none;
+    }
+}
 
 
-/* LOGIN */
 
+
+
+
+
+
+
+
+
+
+
+/* LOGIN - Versión mejorada y responsiva */
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background-color: #f8f9fa;
-    padding: 20px;
+    padding: 1rem;
 }
 
 .login-box {
     background: white;
-    padding: 2.5rem;
+    padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 420px;
+    margin: 0 auto;
+    transition: all 0.3s ease;
 }
 
 .logo-container {
@@ -103,6 +201,7 @@
 .login-logo {
     max-height: 80px;
     max-width: 100%;
+    height: auto;
 }
 
 .login-title {
@@ -110,6 +209,7 @@
     margin-bottom: 1.5rem;
     color: #2c3e50;
     font-weight: 600;
+    font-size: 1.5rem;
 }
 
 .form-group {
@@ -129,7 +229,14 @@
     border: 1px solid #ced4da;
     border-radius: 4px;
     font-size: 1rem;
+    transition: border-color 0.3s;
 }
+
+    .form-control:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    }
 
 .login-button {
     width: 100%;
@@ -141,35 +248,74 @@
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s;
 }
 
     .login-button:hover {
         background-color: #0069d9;
     }
 
-
-
-.login-links {
-    margin-top: 1.5rem;
-    text-align: center;
+.text-danger {
+    color: #dc3545;
+    font-size: 0.875rem;
+    display: block;
+    margin-top: 0.25rem;
 }
 
-    .login-links a {
-        color: #6c757d;
-        text-decoration: none;
-        font-size: 0.875rem;
-    }
-
-        .login-links a:hover {
-            text-decoration: underline;
-        }
-
-.text-danger {
+/* Estilos para mensajes de validación */
+.field-validation-error {
     color: #dc3545;
     font-size: 0.875rem;
 }
 
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    .login-box {
+        padding: 1.5rem;
+    }
+
+    .login-title {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-container {
+        padding: 0.5rem;
+    }
+
+    .login-box {
+        padding: 1.25rem;
+        margin: 0 10px;
+    }
+
+    .login-logo {
+        max-height: 70px;
+    }
+
+    .form-control {
+        padding: 0.65rem;
+    }
+
+    .login-button {
+        padding: 0.65rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .login-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .login-logo {
+        max-height: 60px;
+    }
+}
 
 
 
@@ -196,6 +342,7 @@ body {
     height: 100vh;
     position: fixed;
     padding: 20px 0;
+    transition: none;
 }
 
     .admin-sidebar .logo {
@@ -230,6 +377,7 @@ body {
 .admin-main {
     margin-left: 250px;
     padding: 20px;
+    transition: margin 0.3s ease;
 }
 
 .admin-header {
@@ -269,6 +417,80 @@ body {
         color: var(--accent-color);
     }
 
+/* Media Queries mínimas */
+@media (max-width: 992px) {
+    .admin-sidebar {
+        width: 70px;
+    }
+
+        .admin-sidebar .logo img {
+            max-width: 50px;
+        }
+
+        .admin-sidebar nav li a span {
+            display: none;
+        }
+
+        .admin-sidebar nav li a i {
+            margin-right: 0;
+            font-size: 1.3rem;
+        }
+
+    .admin-main {
+        margin-left: 70px;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .admin-sidebar {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        padding: 5px 0;
+    }
+
+        .admin-sidebar .logo {
+            display: none;
+        }
+
+        .admin-sidebar nav ul {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .admin-sidebar nav li {
+            flex: 1;
+            text-align: center;
+        }
+
+            .admin-sidebar nav li a {
+                padding: 8px 5px;
+                font-size: 0.7rem;
+            }
+
+                .admin-sidebar nav li a i {
+                    display: block;
+                    margin: 0 auto 3px;
+                }
+
+    .admin-main {
+        margin-left: 0;
+        margin-bottom: 60px;
+        padding: 15px;
+    }
+
+    .admin-cards {
+        grid-template-columns: 1fr;
+    }
+}
 
 
 
