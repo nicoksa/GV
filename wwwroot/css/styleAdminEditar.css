@@ -2,6 +2,7 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
+   
 }
 
 .admin-header {
@@ -197,6 +198,7 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
+ 
 }
 
     .btn-delete-image:hover {
@@ -218,6 +220,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 2rem;
 }
 
     .btn i {

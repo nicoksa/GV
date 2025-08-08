@@ -343,6 +343,7 @@ body {
     position: fixed;
     padding: 20px 0;
     transition: none;
+    
 }
 
     .admin-sidebar .logo {
@@ -421,6 +422,7 @@ body {
 @media (max-width: 992px) {
     .admin-sidebar {
         width: 70px;
+        z-index: 9999;
     }
 
         .admin-sidebar .logo img {
@@ -574,6 +576,7 @@ body {
 
 .btn-outline-secondary {
     border-color: #ddd;
+    margin-bottom: 3rem;
 }
 
 
