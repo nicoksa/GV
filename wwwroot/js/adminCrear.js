@@ -1,4 +1,6 @@
-﻿// Vista previa de imágenes con selección de principal
+﻿
+
+// Vista previa de imágenes con selección de principal
 document.getElementById('imagenesInput').addEventListener('change', function (event) {
     const preview = document.getElementById('imagePreview');
     // No limpiar el preview, mantener las imágenes existentes
@@ -79,3 +81,7 @@ document.getElementById('imagenesInput').addEventListener('change', function (ev
     }
 
 });
+
+
+
+

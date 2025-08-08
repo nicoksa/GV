@@ -25,7 +25,6 @@
                         <div class="mb-3">
                             <label class="form-label" asp-for="Propiedad.Titulo">Título </label>
                             <input class="form-control" asp-for="Propiedad.Titulo" required>
-                           
                         </div>
 
                         <div class="mb-3">
@@ -37,7 +36,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.Tipo">Tipo </label>
-                                    <select class="form-select" asp-for="Propiedad.Tipo" required>
+                                    <select class="form-select" asp-for="Propiedad.Tipo" required id="Propiedad_Tipo">
                                         <option value="">Seleccione...</option>
                                         <option value="Casa">Casa</option>
                                         <option value="Departamento">Departamento</option>
@@ -45,7 +44,6 @@
                                         <option value="Local">Local</option>
                                         <option value="Terreno">Terreno</option>
                                     </select>
-                                    
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -55,7 +53,6 @@
                                         <span class="input-group-text">$</span>
                                         <input class="form-control" asp-for="Propiedad.Precio" required>
                                     </div>
-                                   
                                 </div>
                             </div>
                         </div>
@@ -71,19 +68,19 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.Ambientes">Ambientes</label>
-                                    <input class="form-control" asp-for="Propiedad.Ambientes" type="number" min="0">
+                                    <input class="form-control" asp-for="Propiedad.Ambientes" type="number" min="0" id="Propiedad_Ambientes">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.Dormitorios">Dormitorios</label>
-                                    <input class="form-control" asp-for="Propiedad.Dormitorios" type="number" min="0">
+                                    <input class="form-control" asp-for="Propiedad.Dormitorios" type="number" min="0" id="Propiedad_Dormitorios">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.Banios">Baños</label>
-                                    <input class="form-control" asp-for="Propiedad.Banios" type="number" min="0">
+                                    <input class="form-control" asp-for="Propiedad.Banios" type="number" min="0" id="Propiedad_Banios">
                                 </div>
                             </div>
                         </div>
@@ -93,13 +90,12 @@
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.SuperficieTotal">Superficie Total (m²)</label>
                                     <input class="form-control" asp-for="Propiedad.SuperficieTotal" type="number" min="1" required>
-                                   
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" asp-for="Propiedad.SuperficieCubierta">Superficie Cubierta (m²)</label>
-                                    <input class="form-control" asp-for="Propiedad.SuperficieCubierta" type="number" min="0" required>
+                                    <input class="form-control" asp-for="Propiedad.SuperficieCubierta" type="number" min="0" required id="Propiedad_SuperficieCubierta">
                                 </div>
                             </div>
                         </div>
@@ -120,7 +116,6 @@
                                         <option value="Roque Pérez">Roque Pérez</option>
                                         <option value="25 de mayo">25 de mayo</option>
                                     </select>
-                                   
                                 </div>
                             </div>
                         </div>
@@ -133,7 +128,6 @@
                                     <label class="form-label">Subir imágenes</label>
                                     <input type="file" class="form-control" multiple accept="image/*" asp-for="Propiedad.Imagenes" id="imagenesInput">
                                     <small class="text-muted">Formatos aceptados: .jpg, .jpeg, .png. Máx. 5MB por imagen.</small>
-                                   
                                 </div>
 
                                 <input type="hidden" asp-for="Propiedad.ImagenPrincipalIndex" id="imagenPrincipalIndex">
@@ -163,29 +157,27 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Cochera">
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Cochera" id="Propiedad_Cochera">
                             <label class="form-check-label">Cochera</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Patio">
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Patio" id="Propiedad_Patio">
                             <label class="form-check-label">Patio</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.AireAcondicionado">
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.AireAcondicionado" id="Propiedad_AireAcondicionado">
                             <label class="form-check-label">Aire Acondicionado</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Seguridad">
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Seguridad" id="Propiedad_Seguridad">
                             <label class="form-check-label">Seguridad</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Pileta">
+                            <input class="form-check-input" type="checkbox" asp-for="Propiedad.Pileta" id="Propiedad_Pileta">
                             <label class="form-check-label">Pileta</label>
                         </div>
                     </div>
                 </div>
-
-             
 
                 <!-- Nueva sección de video -->
                 <div class="card mb-4">
@@ -197,15 +189,12 @@
                             <label class="form-label" asp-for="Propiedad.YoutubeUrl">URL de YouTube</label>
                             <input type="text" class="form-control" asp-for="Propiedad.YoutubeUrl" placeholder="https://www.youtube.com/watch?v=..." pattern="^(|(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+)$">
                             <small class="text-muted">Ejemplo: https://www.youtube.com/watch?v=CODIGO_DEL_VIDEO</small>
-                           
                         </div>
                         <div class="video-preview" id="videoPreview"></div>
                     </div>
                 </div>
             </div>
         </div>
-
-         
 
         <div class="d-flex justify-content-between">
             <a href="/Admin/GestionPropiedades" class="btn btn-secondary">
@@ -220,11 +209,42 @@
 
 @section Scripts {
 
-     <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
     <script src="~/js/adminCrear.js"></script>
 
     <script>
+        // Deshabilitar campos según tipo de propiedad
+        document.addEventListener('DOMContentLoaded', function () {
+            const tipoSelect = document.getElementById('Propiedad_Tipo');
+            const ambientes = document.getElementById('Propiedad_Ambientes');
+            const dormitorios = document.getElementById('Propiedad_Dormitorios');
+            const banios = document.getElementById('Propiedad_Banios');
+            const superficieCubierta = document.getElementById('Propiedad_SuperficieCubierta');
 
+              // Comodidades
+            const cochera = document.getElementById('Propiedad_Cochera');
+            const patio = document.getElementById('Propiedad_Patio');
+            const aireAcond = document.getElementById('Propiedad_AireAcondicionado');
+            const seguridad = document.getElementById('Propiedad_Seguridad');
+            const pileta = document.getElementById('Propiedad_Pileta');
+
+            function actualizarCampos() {
+                const esTerreno = tipoSelect.value === 'Terreno';
+                ambientes.disabled = esTerreno;
+                dormitorios.disabled = esTerreno;
+                banios.disabled = esTerreno;
+                superficieCubierta.disabled = esTerreno;
+
+                cochera.disabled = esTerreno;
+                patio.disabled = esTerreno;
+                aireAcond.disabled = esTerreno;
+                seguridad.disabled = esTerreno;
+                pileta.disabled = esTerreno;
+            }
+
+            tipoSelect.addEventListener('change', actualizarCampos);
+            actualizarCampos(); // Ejecuta al cargar la página
+        });
 
         // Vista previa de YouTube
         document.getElementById('Propiedad_YoutubeUrl').addEventListener('input', function(event) {
@@ -259,6 +279,5 @@
 @section Styles {
     <style>
         <link rel="stylesheet" href="~/css/stylesAdminEditar.css" / >
-  
     </style>
 }
