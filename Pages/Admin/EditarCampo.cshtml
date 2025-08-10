@@ -103,6 +103,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">Subir imágenes</label>
                                     <input type="file" class="form-control" multiple accept="image/*" asp-for="Propiedad.Imagenes" id="imagenesInput">
+                                  
                                     <small class="text-muted">Formatos aceptados: .jpg, .jpeg, .png. Máx. 5MB por imagen.</small>
                                     <span asp-validation-for="Propiedad.Imagenes" class="text-danger"></span>
                                 </div>
@@ -145,6 +146,7 @@
                     </div>
                 </div>
 
+                <!-- Sección de Videos -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5>Video (YouTube)</h5>
@@ -173,7 +175,7 @@
    
             </div>
 
-                <!-- Sección de Videos -->
+             
             
         </div>
 
@@ -189,6 +191,7 @@
 </div>
 
 @section Scripts {
+
 @functions {
     public string ExtractYouTubeId(string url)
     {
