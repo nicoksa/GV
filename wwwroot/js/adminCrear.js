@@ -1,22 +1,41 @@
 ﻿
-
-// Vista previa de imágenes con selección de principal
-document.getElementById('imagenesInput').addEventListener('change', function (event) {
+// Vista previa de imágenes con selección de principal - Versión mejorada
+document.addEventListener('DOMContentLoaded', function () {
+    const imagenesInput = document.getElementById('imagenesInput');
     const preview = document.getElementById('imagePreview');
-    // No limpiar el preview, mantener las imágenes existentes
+    const imagenPrincipalIndex = document.getElementById('imagenPrincipalIndex');
+    let allFiles = []; // Almacena todos los archivos seleccionados
 
-    if (this.files.length > 0) {
-        // Obtener el número actual de imágenes en el preview
-        const currentImageCount = preview.querySelectorAll('.image-container').length;
+    imagenesInput.addEventListener('change', function (event) {
+        if (this.files && this.files.length > 0) {
+            // Agregar nuevos archivos al array existente
+            const newFiles = Array.from(this.files);
+            allFiles = [...allFiles, ...newFiles];
 
-        for (let i = 0; i < this.files.length; i++) {
-            const file = this.files[i];
+            // Actualizar el input de archivos con todos los seleccionados
+            updateFileInput();
+
+            // Regenerar la vista previa
+            renderPreview();
+        }
+    });
+
+    function updateFileInput() {
+        const dataTransfer = new DataTransfer();
+        allFiles.forEach(file => dataTransfer.items.add(file));
+        imagenesInput.files = dataTransfer.files;
+    }
+
+    function renderPreview() {
+        preview.innerHTML = '';
+
+        allFiles.forEach((file, index) => {
             if (file.type.match('image.*')) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     const imgContainer = document.createElement('div');
                     imgContainer.className = 'image-container';
-                    imgContainer.dataset.fileIndex = currentImageCount + i; // Usar índice único
+                    imgContainer.dataset.fileIndex = index;
 
                     const img = document.createElement('img');
                     img.src = e.target.result;
@@ -27,14 +46,14 @@ document.getElementById('imagenesInput').addEventListener('change', function (ev
                     const radio = document.createElement('input');
                     radio.type = 'radio';
                     radio.name = 'imagenPrincipal';
-                    radio.id = `imagenPrincipal_${currentImageCount + i}`;
-                    radio.value = currentImageCount + i;
+                    radio.id = `imagenPrincipal_${index}`;
+                    radio.value = index;
 
-                    // Si es la primera imagen, marcarla como principal
-                    if (currentImageCount === 0 && i === 0) {
+                    // Marcar como principal si es el índice guardado o la primera imagen
+                    if (index == imagenPrincipalIndex.value || (index === 0 && !imagenPrincipalIndex.value)) {
                         radio.checked = true;
-                        document.getElementById('imagenPrincipalIndex').value = 0;
                         imgContainer.classList.add('principal-selected');
+                        imagenPrincipalIndex.value = index;
                     }
 
                     radio.addEventListener('change', function () {
@@ -42,20 +61,28 @@ document.getElementById('imagenesInput').addEventListener('change', function (ev
                             el.classList.remove('principal-selected');
                         });
                         imgContainer.classList.add('principal-selected');
-                        document.getElementById('imagenPrincipalIndex').value = this.value;
+                        imagenPrincipalIndex.value = this.value;
                     });
 
                     const label = document.createElement('label');
-                    label.htmlFor = `imagenPrincipal_${currentImageCount + i}`;
+                    label.htmlFor = `imagenPrincipal_${index}`;
                     label.textContent = 'Principal';
 
-                    // Botón para eliminar imagen
+                    // Botón para eliminar imagen (manteniendo tus estilos)
                     const deleteBtn = document.createElement('button');
                     deleteBtn.type = 'button';
                     deleteBtn.className = 'btn-delete-image';
                     deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
                     deleteBtn.addEventListener('click', function () {
-                        imgContainer.remove();
+                        // Eliminar el archivo del array
+                        allFiles.splice(index, 1);
+
+                        // Actualizar el input de archivos
+                        updateFileInput();
+
+                        // Regenerar la vista previa
+                        renderPreview();
+
                         // Si eliminamos la imagen principal, seleccionar la primera disponible
                         if (radio.checked) {
                             const firstRadio = preview.querySelector('input[type="radio"]');
@@ -63,7 +90,7 @@ document.getElementById('imagenesInput').addEventListener('change', function (ev
                                 firstRadio.checked = true;
                                 firstRadio.dispatchEvent(new Event('change'));
                             } else {
-                                document.getElementById('imagenPrincipalIndex').value = '';
+                                imagenPrincipalIndex.value = '';
                             }
                         }
                     });
@@ -74,14 +101,12 @@ document.getElementById('imagenesInput').addEventListener('change', function (ev
                     imgContainer.appendChild(radioContainer);
                     imgContainer.appendChild(deleteBtn);
                     preview.appendChild(imgContainer);
-                }
+                };
                 reader.readAsDataURL(file);
             }
-        }
+        });
     }
-
 });
-
 
 
 
