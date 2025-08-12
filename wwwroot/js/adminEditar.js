@@ -164,6 +164,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+
+
+
+
 // Función para extraer ID de YouTube (compartida con creación)
 function extractYouTubeId(url) {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
