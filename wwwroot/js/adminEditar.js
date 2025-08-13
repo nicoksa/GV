@@ -1,5 +1,10 @@
-﻿// Vista previa de imágenes con selección de principal - Versión unificada para crear/editar
+﻿
+
+// Vista previa de imágenes con selección de principal - Versión unificada para crear/editar
 document.addEventListener('DOMContentLoaded', function () {
+
+
+
     const imagenesInput = document.getElementById('imagenesInput');
     const preview = document.getElementById('imagePreview');
     const imagenPrincipalIndex = document.getElementById('imagenPrincipalIndex');
@@ -168,9 +173,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-// Función para extraer ID de YouTube (compartida con creación)
-function extractYouTubeId(url) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
-}
+
+
+
