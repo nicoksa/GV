@@ -516,16 +516,30 @@ body {
 .search-bar {
     display: flex;
     margin-bottom: 20px;
+    gap: 10px;
+    max-width:400px;
 }
 
     .search-bar input {
-        max-width: 300px;
-        margin-right: 10px;
+        
+        min-width: 120px; /* Ancho mínimo para mantener usabilidad */
+        margin-right: 0; 
     }
 
 .btn-search {
     background-color: #3498db;
     color: white;
+    max-width:100px;
+    
+}
+
+/* Ajustes para móviles muy pequeños */
+@media (max-width: 400px) {
+   
+    .btn-search {
+        width: 100%; /* Botón a ancho completo cuando está apilado */
+       
+    }
 }
 
 .action-buttons {
@@ -547,11 +561,17 @@ body {
 
 
 
+
+
+
+
+
+
 /* CONFIGURACIONES */
 
 
 
-.card {
+        .card {
     border: none;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
