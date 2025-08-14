@@ -1,5 +1,7 @@
 ﻿
 
+
+
 // Vista previa de imágenes con selección de principal - Versión unificada para crear/editar
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -168,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
-
 
 
 
