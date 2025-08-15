@@ -207,20 +207,16 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="form-label" asp-for="Propiedad.YoutubeUrl">URL de YouTube</label>
-                            <input type="text" class="form-control" asp-for="Propiedad.YoutubeUrl"
-                                   placeholder="https://www.youtube.com/watch?v=..." id="youtubeUrlInput">
+                            <input type="text"
+                                   class="form-control"
+                                   asp-for="Propiedad.YoutubeUrl"
+                                   placeholder="https://www.youtube.com/watch?v=..."
+                                   id="youtubeUrlInput">
                             <small class="text-muted">Ejemplo: https://www.youtube.com/watch?v=CODIGO_DEL_VIDEO</small>
                         </div>
-                        <div class="video-preview" id="videoPreview">
-                            @if (!string.IsNullOrEmpty(Model.Propiedad.YoutubeUrl))
-                            {
-                                <iframe width="100%" height="200"
-                                        src="@($"https://www.youtube.com/embed/{ExtractYouTubeId(Model.Propiedad.YoutubeUrl)}")"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen></iframe>
-                            }
-                        </div>
+
+                        <!-- Contenedor de la vista previa dinámico -->
+                        <div class="video-preview" id="videoPreview"></div>
                     </div>
                 </div>
             </div>

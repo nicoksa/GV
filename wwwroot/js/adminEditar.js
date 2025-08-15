@@ -10,11 +10,31 @@ document.addEventListener('DOMContentLoaded', function () {
     const imagenesInput = document.getElementById('imagenesInput');
     const preview = document.getElementById('imagePreview');
     const imagenPrincipalIndex = document.getElementById('imagenPrincipalIndex');
+
+    function wireExistingPrincipalRadios() {
+        const radios = document.querySelectorAll('#imagePreview input[name="imagenPrincipalRadio"]');
+        radios.forEach(radio => {
+            radio.addEventListener('change', function () {
+                // Actualiza el hidden
+                imagenPrincipalIndex.value = this.value;
+
+                // Marca visualmente la seleccionada
+                document.querySelectorAll('#imagePreview .image-container').forEach(el => el.classList.remove('principal-selected'));
+                const cont = this.closest('.image-container');
+                if (cont) cont.classList.add('principal-selected');
+            });
+        });
+    }
+
+
+
     let allFiles = [];
 
     // Inicializar con imágenes existentes si las hay
     const existingImages = Array.from(preview.querySelectorAll('.image-container[data-image-id]'));
     const existingCount = existingImages.length;
+
+    wireExistingPrincipalRadios();
 
     imagenesInput.addEventListener('change', function (event) {
         if (this.files && this.files.length > 0) {
@@ -109,7 +129,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     imgContainer.appendChild(radioContainer);
                     imgContainer.appendChild(deleteBtn);
                     preview.appendChild(imgContainer);
+                    wireExistingPrincipalRadios();
                 };
+                
                 reader.readAsDataURL(file);
             }
         });
@@ -169,6 +191,52 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
+
+
+    function setupYouTubePreview() {
+    const youtubeInput = document.getElementById('youtubeUrlInput');
+    const preview = document.getElementById('videoPreview');
+
+    if (!youtubeInput || !preview) {
+        return; // Si no existen en la página, no hace nada
+    }
+
+    // Función que actualiza la vista previa
+    function updatePreview(url) {
+        preview.innerHTML = '';
+        if (url) {
+            const videoId = extractYouTubeId(url);
+            if (videoId) {
+                const iframe = document.createElement('iframe');
+                iframe.width = '100%';
+                iframe.height = '200';
+                iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                iframe.frameBorder = '0';
+                iframe.allow =
+                    'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                iframe.allowFullscreen = true;
+                preview.appendChild(iframe);
+            }
+        }
+    }
+
+    function extractYouTubeId(url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+        return match && match[2].length === 11 ? match[2] : null;
+    }
+
+    // Escuchar cambios mientras escribís
+    youtubeInput.addEventListener('input', function () {
+        updatePreview(this.value.trim());
+    });
+
+    // Mostrar vista previa inicial si ya hay valor
+    if (youtubeInput.value.trim() !== '') {
+        updatePreview(youtubeInput.value.trim());
+    }
+}
+setupYouTubePreview();
 });
 
 
