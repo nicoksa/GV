@@ -10,18 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\fonts\bigmug-line\**" />
-    <Content Remove="wwwroot\fonts\bigmug-line\**" />
-    <EmbeddedResource Remove="wwwroot\fonts\bigmug-line\**" />
-    <None Remove="wwwroot\fonts\bigmug-line\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="nul" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\fonts\flaticon-2\.DS_Store" />
     <None Include="wwwroot\images\.DS_Store" />
     <None Include="wwwroot\scss\.DS_Store" />
   </ItemGroup>
