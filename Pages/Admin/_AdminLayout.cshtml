@@ -25,8 +25,9 @@
         <nav>
             <ul>
                 <li><a asp-page="/Admin/Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a asp-page="/Admin/GestionPropiedades"><i class="fas fa-home"></i> Propiedades</a></li>          
+                <li><a asp-page="/Admin/GestionPropiedades"><i class="fas fa-home"></i> Propiedades</a></li>
                 <li><a asp-page="/Admin/GestionCampos"><i class="fas fa-seedling"></i> Campos</a></li>
+                <li><a asp-page="/Admin/GestionInicio"><i class="fas fa-images"></i> Slider Inicio</a></li>
                 <li><a asp-page="/Admin/Configuracion"><i class="fas fa-cog"></i> Configuración</a></li>
                 <li>
                     <a href="#" class="logout-link">
@@ -35,9 +36,7 @@
                     <form asp-page="/Admin/Logout" method="post" id="logoutForm" style="display: none;">
                         @Html.AntiForgeryToken()
                     </form>
-
                 </li>
-
             </ul>
         </nav>
     </div>

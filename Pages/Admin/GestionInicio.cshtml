@@ -1,0 +1,157 @@
+﻿
+@page
+@model GV.Pages.Admin.GestionInicioModel
+@{
+    ViewData["Title"] = "Gestión de Slider Inicio";
+    ViewData["HideTitle"] = true;
+    Layout = "_AdminLayout";
+}
+
+<link rel="stylesheet" href="~/css/styleAdminEditar.css" />
+
+<div class="admin-container">
+    <div class="admin-header mb-4">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Subir Nuevas Imágenes</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label class="form-label">Seleccionar imágenes</label>
+                    <input type="file" class="form-control" asp-for="NewImages" multiple accept="image/*" required>
+                    <small class="text-muted">Formatos aceptados: .jpg, .jpeg, .png. Máx. 5MB por imagen.</small>
+                </div>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-upload"></i> Subir Imágenes
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Imágenes Actuales del Slider</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.SliderImages.Any())
+            {
+                <div class="row">
+                    @foreach (var image in Model.SliderImages)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="slider-image-card">
+                                <img src="@image.Path" alt="Slider image" class="img-fluid rounded">
+                                <div class="image-actions mt-2">
+                                    <form method="post" asp-page-handler="DeleteImage">
+                                        <input type="hidden" name="imageName" value="@image.FileName">
+                                        <button type="submit" class="btn btn-sm btn-danger" 
+                                                onclick="return confirm('¿Estás seguro de eliminar esta imagen?')">
+                                            <i class="fas fa-trash-alt"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    No hay imágenes en el slider actualmente.
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/Admin/Dashboard" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Volver al Dashboard
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Script para previsualizar imágenes antes de subir
+        document.querySelector('input[type="file"]').addEventListener('change', function(e) {
+            const files = e.target.files;
+            const previewContainer = document.createElement('div');
+            previewContainer.className = 'image-preview-container mt-3';
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (file.type.match('image.*')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'img-thumbnail m-1';
+                        img.style.maxHeight = '100px';
+                        previewContainer.appendChild(img);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+            
+            // Limpiar previews anteriores y agregar nuevos
+            const existingPreview = document.querySelector('.image-preview-container');
+            if (existingPreview) {
+                existingPreview.remove();
+            }
+            e.target.parentNode.appendChild(previewContainer);
+        });
+    </script>
+}
+
+
+
+<style>
+
+    /* Estilos para la gestión del slider */
+    .slider-image-card {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+        .slider-image-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+    .image-preview-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .image-actions {
+        display: flex;
+        justify-content: center;
+    }
+</style>
