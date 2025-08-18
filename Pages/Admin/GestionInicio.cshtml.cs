@@ -1,14 +1,15 @@
 using GV.Data;
 using GV.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;                                  
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
-using System; 
+using System;
+using System.Text.Json; // Añade este using para JsonSerializer
 
 namespace GV.Pages.Admin
 {
@@ -16,11 +17,13 @@ namespace GV.Pages.Admin
     {
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly string _orderConfigPath;
 
         public GestionInicioModel(AppDbContext context, IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
             _hostingEnvironment = hostingEnvironment;
+            _orderConfigPath = Path.Combine(hostingEnvironment.ContentRootPath, "slider-order.json");
         }
 
         [BindProperty]
@@ -32,6 +35,40 @@ namespace GV.Pages.Admin
         public async Task OnGetAsync()
         {
             await LoadSliderImages();
+        }
+
+        // Método para obtener el orden de las imágenes desde un archivo JSON
+        private Dictionary<string, int> GetImageOrder()
+        {
+            if (!System.IO.File.Exists(_orderConfigPath))
+            {
+                return new Dictionary<string, int>();
+            }
+
+            try
+            {
+                var json = System.IO.File.ReadAllText(_orderConfigPath);
+                return JsonSerializer.Deserialize<Dictionary<string, int>>(json) ?? new Dictionary<string, int>();
+            }
+            catch
+            {
+                return new Dictionary<string, int>();
+            }
+        }
+
+        // Método para guardar el orden de las imágenes en un archivo JSON
+        private async Task SaveImageOrder(Dictionary<string, int> orderConfig)
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(orderConfig);
+                await System.IO.File.WriteAllTextAsync(_orderConfigPath, json);
+            }
+            catch (Exception ex)
+            {
+                // Puedes loggear el error si lo necesitas
+                Console.WriteLine($"Error al guardar el orden: {ex.Message}");
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -55,9 +92,6 @@ namespace GV.Pages.Admin
                         {
                             await image.CopyToAsync(fileStream);
                         }
-
-                        // Guardar en base de datos si es necesario
-                        // O simplemente mantener referencia en un archivo de configuración
                     }
                 }
 
@@ -75,6 +109,15 @@ namespace GV.Pages.Admin
             if (System.IO.File.Exists(imagePath))
             {
                 System.IO.File.Delete(imagePath);
+
+                // Eliminar también del orden configurado
+                var orderConfig = GetImageOrder();
+                if (orderConfig.ContainsKey(imageName))
+                {
+                    orderConfig.Remove(imageName);
+                    await SaveImageOrder(orderConfig);
+                }
+
                 TempData["SuccessMessage"] = "Imagen eliminada correctamente";
             }
             else
@@ -91,16 +134,33 @@ namespace GV.Pages.Admin
             var imagesFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images", "fondos", "slider");
             if (Directory.Exists(imagesFolder))
             {
+                var orderConfig = GetImageOrder();
+
                 var imageFiles = Directory.GetFiles(imagesFolder)
                     .Select(f => new SliderImage
                     {
                         FileName = Path.GetFileName(f),
-                        Path = f.Replace(_hostingEnvironment.WebRootPath, "").Replace("\\", "/")
+                        Path = f.Replace(_hostingEnvironment.WebRootPath, "").Replace("\\", "/"),
+                        Order = orderConfig.TryGetValue(Path.GetFileName(f), out var order) ? order : 0
                     })
+                    .OrderBy(x => x.Order)
                     .ToList();
 
                 SliderImages = imageFiles;
             }
+        }
+
+        public async Task<IActionResult> OnPostSaveImageOrderAsync([FromBody] List<ImageOrder> imageOrder)
+        {
+            var orderConfig = imageOrder.ToDictionary(x => x.FileName, x => x.Order);
+            await SaveImageOrder(orderConfig);
+            return new OkResult();
+        }
+
+        public class ImageOrder
+        {
+            public string FileName { get; set; }
+            public int Order { get; set; }
         }
     }
 
@@ -108,5 +168,6 @@ namespace GV.Pages.Admin
     {
         public string FileName { get; set; }
         public string Path { get; set; }
+        public int Order { get; set; }
     }
 }

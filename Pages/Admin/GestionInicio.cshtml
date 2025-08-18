@@ -8,6 +8,7 @@
 }
 
 <link rel="stylesheet" href="~/css/styleAdminEditar.css" />
+<link rel="stylesheet" href="~/css/slide-sort.css" />
 
 <div class="admin-container">
     <div class="admin-header mb-4">
@@ -50,26 +51,40 @@
     </div>
 
     <div class="card">
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h5>Imágenes Actuales del Slider</h5>
+            <div>
+                <button id="save-order-btn" class="btn btn-primary btn-sm">
+                    <i class="fas fa-save"></i> Guardar Orden Actual
+                </button>
+            </div>
         </div>
         <div class="card-body">
             @if (Model.SliderImages.Any())
             {
-                <div class="row">
-                    @foreach (var image in Model.SliderImages)
+                <div class="row" id="sortable-images">
+                    @foreach (var image in Model.SliderImages.OrderBy(x => x.Order))
                     {
-                        <div class="col-md-4 mb-4">
+                        <div class="col-md-4 mb-4" data-image-name="@image.FileName">
                             <div class="slider-image-card">
                                 <img src="@image.Path" alt="Slider image" class="img-fluid rounded">
-                                <div class="image-actions mt-2">
-                                    <form method="post" asp-page-handler="DeleteImage">
-                                        <input type="hidden" name="imageName" value="@image.FileName">
-                                        <button type="submit" class="btn btn-sm btn-danger" 
-                                                onclick="return confirm('¿Estás seguro de eliminar esta imagen?')">
-                                            <i class="fas fa-trash-alt"></i> Eliminar
+                                <div class="d-flex justify-content-between mt-2">
+                                   
+                                    <div class="image-actions">
+                                        <button type="button" class="btn btn-sm btn-info btn-move-up">
+                                            <i class="fas fa-arrow-up"></i>
                                         </button>
-                                    </form>
+                                        <button type="button" class="btn btn-sm btn-info btn-move-down">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </button>
+                                        <form method="post" asp-page-handler="DeleteImage" style="display: inline;">
+                                            <input type="hidden" name="imageName" value="@image.FileName">
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('¿Estás seguro de eliminar esta imagen?')">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -93,65 +108,10 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        // Script para previsualizar imágenes antes de subir
-        document.querySelector('input[type="file"]').addEventListener('change', function(e) {
-            const files = e.target.files;
-            const previewContainer = document.createElement('div');
-            previewContainer.className = 'image-preview-container mt-3';
+        <partial name="_ValidationScriptsPartial" />
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
+        <script src="~/js/slider-sort.js"></script>
             
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                if (file.type.match('image.*')) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.className = 'img-thumbnail m-1';
-                        img.style.maxHeight = '100px';
-                        previewContainer.appendChild(img);
-                    }
-                    reader.readAsDataURL(file);
-                }
-            }
-            
-            // Limpiar previews anteriores y agregar nuevos
-            const existingPreview = document.querySelector('.image-preview-container');
-            if (existingPreview) {
-                existingPreview.remove();
-            }
-            e.target.parentNode.appendChild(previewContainer);
-        });
-    </script>
+        
+        
 }
-
-
-
-<style>
-
-    /* Estilos para la gestión del slider */
-    .slider-image-card {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 10px;
-        background: white;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-    }
-
-        .slider-image-card:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-    .image-preview-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .image-actions {
-        display: flex;
-        justify-content: center;
-    }
-</style>
