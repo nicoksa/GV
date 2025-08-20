@@ -92,7 +92,7 @@ namespace GV.Pages.Admin
             }
 
             await _context.SaveChangesAsync();
-
+            TempData["SuccessMessage"] = "Nueva propiedad agregada con éxito";
             return RedirectToPage("/Admin/GestionPropiedades");
         }
 

@@ -188,6 +188,7 @@ namespace GV.Pages.Admin
             try
             {
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Propiedad editada correctamente";
                 return RedirectToPage("/Admin/GestionPropiedades");
             }
             catch (DbUpdateConcurrencyException)
