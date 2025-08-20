@@ -82,7 +82,7 @@ namespace GV.Pages.Admin
             }
 
             await _context.SaveChangesAsync();
-
+            TempData["SuccessMessage"] = "Nuevo campo agregado con éxito";
             return RedirectToPage("/Admin/GestionCampos");
         }
 

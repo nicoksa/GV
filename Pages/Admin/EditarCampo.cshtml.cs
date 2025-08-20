@@ -163,6 +163,7 @@ namespace GV.Pages.Admin
             try
             {
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Campo editado correctamente";
                 return RedirectToPage("/Admin/GestionCampos");
             }
             catch (DbUpdateConcurrencyException)
