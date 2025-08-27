@@ -188,18 +188,29 @@
                             </div>
                             <strong class="property-price text-primary mb-3 d-block text-success">U$S @p.Precio.ToString("N0")</strong>
                             <ul class="property-specs-wrap mb-3 mb-lg-0">
-                                <li>
-                                    <span class="property-specs">Dormitorios</span>
-                                    <span class="property-specs-number">@p.Dormitorios</span>
-                                </li>
-                                <li>
-                                    <span class="property-specs">Baños</span>
-                                    <span class="property-specs-number">@p.Banios</span>
-                                </li>
-                                <li>
-                                    <span class="property-specs">m²</span>
-                                    <span class="property-specs-number">@p.SuperficieTotal</span>
-                                </li>
+                                @if (p.Dormitorios > 0)
+                                {
+                                    <li>
+                                        <span class="property-specs">Dormitorios</span>
+                                        <span class="property-specs-number">@p.Dormitorios</span>
+                                    </li>
+                                }
+
+                                @if (p.Banios > 0)
+                                {
+                                    <li>
+                                        <span class="property-specs">Baños</span>
+                                        <span class="property-specs-number">@p.Banios</span>
+                                    </li>
+                                }
+
+                                @if (p.SuperficieTotal > 0)
+                                {
+                                    <li>
+                                        <span class="property-specs">m²</span>
+                                        <span class="property-specs-number">@p.SuperficieTotal</span>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
