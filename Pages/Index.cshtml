@@ -8,10 +8,34 @@
 
 
 <div class="slide-one-item home-slider owl-carousel">
-
-    @foreach (var image in Model.SliderImages)
+    @if (Model.SliderImages.Any())
     {
-        <div class="site-blocks-cover overlay" style="background-image: url(@image);"></div>
+        @foreach (var imagePath in Model.SliderImages)
+        {
+            <div class="site-blocks-cover overlay" style="background-image: url('@imagePath');">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-7 text-center">
+                            <!-- Puedes agregar contenido sobre la imagen si lo deseas -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <!-- Imagen por defecto si no hay imágenes -->
+        <div class="site-blocks-cover overlay" style="background-image: url('/images/default-slider.jpg');">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-7 text-center">
+                        <h1>Bienvenido</h1>
+                        <p>No hay imágenes configuradas para el slider</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 </div>
 

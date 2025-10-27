@@ -69,22 +69,48 @@ namespace GV.Pages
                 .ToList();
 
             // Cargar imágenes del slider con ordenamiento
+            SliderImages = LoadSliderImages();
+        }
+
+        private List<string> LoadSliderImages()
+        {
+            var sliderImages = new List<string>();
             var sliderFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images", "fondos", "slider");
+
             if (Directory.Exists(sliderFolder))
             {
                 var orderConfig = GetImageOrder();
 
-                SliderImages = Directory.GetFiles(sliderFolder)
+                // Obtener todas las imágenes válidas
+                var validExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+
+                var images = Directory.GetFiles(sliderFolder)
+                    .Where(file => validExtensions.Contains(Path.GetExtension(file).ToLower()))
                     .Select(file => new {
+                        FileName = Path.GetFileName(file),
                         Path = $"/images/fondos/slider/{Path.GetFileName(file)}",
-                        Order = orderConfig.TryGetValue(Path.GetFileName(file), out var order) ? order : 0,
+                        Order = orderConfig.TryGetValue(Path.GetFileName(file), out var order) ? order : 999,
                         CreationTime = new FileInfo(file).CreationTime
                     })
-                    .OrderBy(x => x.Order) // Ordenar primero por el orden configurado
-                    .ThenByDescending(x => x.CreationTime) // Luego por fecha de creación (nuevas primero)
-                    .Select(x => x.Path)
+                    .OrderBy(x => x.Order)
+                    .ThenByDescending(x => x.CreationTime)
                     .ToList();
+
+                // Log para debugging (opcional)
+                _logger.LogInformation($"Se encontraron {images.Count} imágenes en el slider");
+                foreach (var img in images)
+                {
+                    _logger.LogInformation($"Imagen: {img.FileName}, Orden: {img.Order}, Ruta: {img.Path}");
+                }
+
+                sliderImages = images.Select(x => x.Path).ToList();
             }
+            else
+            {
+                _logger.LogWarning($"No se encontró el directorio: {sliderFolder}");
+            }
+
+            return sliderImages;
         }
     }
 }
