@@ -176,7 +176,7 @@
                             <div class="offer-type-wrap">
                                 <span class="offer-type bg-success">@p.Tipo</span>
                             </div>
-                            <img src="@(p.Imagenes?.FirstOrDefault(i => i.EsPrincipal)?.Url ?? p.Imagenes?.FirstOrDefault()?.Url)" alt="@p.Titulo" class="img-fluid">
+                            <img src="@(p.Imagenes?.FirstOrDefault(i => i.EsPrincipal)?.Url ?? p.Imagenes?.FirstOrDefault()?.Url)" alt="@p.Titulo" class="img-fluid" loading="lazy">
                         </a>
                         <div class="p-4 property-body">
                             <h2 class="property-title">
