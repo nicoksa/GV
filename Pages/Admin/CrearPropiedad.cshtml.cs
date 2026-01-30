@@ -1,5 +1,6 @@
 using GV.Data;
 using GV.Models;
+using GV.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,12 @@ namespace GV.Pages.Admin
     public class CrearPropiedadModel : PageModel
     {
         private readonly AppDbContext _context;
+        private readonly ImageConversionService _imageService;
 
-        public CrearPropiedadModel(AppDbContext context)
+        public CrearPropiedadModel(AppDbContext context, ImageConversionService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
 
         [BindProperty]
@@ -105,13 +108,13 @@ namespace GV.Pages.Admin
                 Directory.CreateDirectory(uploadsFolder);
             }
 
-            var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(archivo.FileName);
+            // Cambiar extensión a .webp
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(archivo.FileName);
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + fileNameWithoutExtension + ".webp";
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await archivo.CopyToAsync(fileStream);
-            }
+            // Convertir a WebP
+            await _imageService.ConvertAndSaveAsync(archivo, filePath, quality: 80);
 
             return $"/uploads/{subdirectorio}/{uniqueFileName}";
         }

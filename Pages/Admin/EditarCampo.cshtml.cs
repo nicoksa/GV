@@ -1,5 +1,6 @@
 using GV.Data;
 using GV.Models;
+using GV.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,12 +23,14 @@ namespace GV.Pages.Admin
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly ILogger<EditarCampoModel> _logger;
+        private readonly ImageConversionService _imageService;
 
-        public EditarCampoModel(AppDbContext context, IWebHostEnvironment hostingEnvironment, ILogger<EditarCampoModel> logger)
+        public EditarCampoModel(AppDbContext context, IWebHostEnvironment hostingEnvironment, ILogger<EditarCampoModel> logger, ImageConversionService imageService)
         {
             _context = context;
             _hostingEnvironment = hostingEnvironment;
             _logger = logger;
+            _imageService = imageService;
         }
 
         [BindProperty]
@@ -218,13 +221,13 @@ namespace GV.Pages.Admin
                 Directory.CreateDirectory(uploadsFolder);
             }
 
-            var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(archivo.FileName);
+            // Cambiar extensión a .webp
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(archivo.FileName);
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + fileNameWithoutExtension + ".webp";
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await archivo.CopyToAsync(fileStream);
-            }
+            // Convertir a WebP
+            await _imageService.ConvertAndSaveAsync(archivo, filePath, quality: 80);
 
             return $"/uploads/{subdirectorio}/{uniqueFileName}";
         }

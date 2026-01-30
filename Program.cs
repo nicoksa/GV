@@ -1,4 +1,5 @@
 using GV.Data;
+using GV.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,7 @@ builder.Services.Configure<FormOptions>(options =>
     options.MultipartBodyLengthLimit = 104857600; // 100MB límite total
 });
 
-
+builder.Services.AddScoped<ImageConversionService>();
 
 var app = builder.Build();
 

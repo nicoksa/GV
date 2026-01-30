@@ -1,15 +1,9 @@
 using GV.Data;
 using GV.Models;
+using GV.Services; // Agregar este using
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using System;
-using System.Text.Json; // Añade este using para JsonSerializer
+using System.Text.Json;
 
 namespace GV.Pages.Admin
 {
@@ -17,12 +11,17 @@ namespace GV.Pages.Admin
     {
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly ImageConversionService _imageService; // Agregar esta línea
         private readonly string _orderConfigPath;
 
-        public GestionInicioModel(AppDbContext context, IWebHostEnvironment hostingEnvironment)
+        public GestionInicioModel(
+            AppDbContext context,
+            IWebHostEnvironment hostingEnvironment,
+            ImageConversionService imageService) // Modificar constructor
         {
             _context = context;
             _hostingEnvironment = hostingEnvironment;
+            _imageService = imageService;
             _orderConfigPath = Path.Combine(hostingEnvironment.ContentRootPath, "slider-order.json");
         }
 
@@ -66,7 +65,6 @@ namespace GV.Pages.Admin
             }
             catch (Exception ex)
             {
-                // Puedes loggear el error si lo necesitas
                 Console.WriteLine($"Error al guardar el orden: {ex.Message}");
             }
         }
@@ -79,28 +77,34 @@ namespace GV.Pages.Admin
                 {
                     if (image.Length > 0)
                     {
-                        var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images", "fondos", "slider");
-                        if (!Directory.Exists(uploadsFolder))
-                        {
-                            Directory.CreateDirectory(uploadsFolder);
-                        }
-
-                        var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(image.FileName);
-                        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await image.CopyToAsync(fileStream);
-                        }
+                        await GuardarArchivoSlider(image);
                     }
                 }
 
-                TempData["SuccessMessage"] = "Imágenes subidas correctamente";
+                TempData["SuccessMessage"] = "Imágenes subidas correctamente (convertidas a WebP)";
                 return RedirectToPage();
             }
 
             TempData["ErrorMessage"] = "Por favor seleccione al menos una imagen";
             return RedirectToPage();
+        }
+
+        // método para guardar imágenes del slider en WebP
+        private async Task GuardarArchivoSlider(IFormFile archivo)
+        {
+            var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images", "fondos", "slider");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            // Cambiar extensión a .webp
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(archivo.FileName);
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + fileNameWithoutExtension + ".webp";
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            // Convertir a WebP
+            await _imageService.ConvertAndSaveAsync(archivo, filePath, quality: 80);
         }
 
         public async Task<IActionResult> OnPostDeleteImageAsync(string imageName)
